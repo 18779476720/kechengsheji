@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by chenglu on 2019-3-9.
+-->
+<mapper namespace="com.example.kechengsheji.dao.StudentinfoDao">
+    <resultMap id="studentinfo" type="com.example.kechengsheji.model.Studentinfo">
+            <id property="id" column="id"/>
+            <result property="accountname" column="accountname"/>
+            <result property="phone" column="phone"/>
+            <result property="email" column="email"/>
+            <result property="schoolId" column="school_id"/>
+            <result property="majorId" column="major_id"/>
+            <result property="sex" column="sex"/>
+            <result property="studentName" column="student_name"/>
+            <result property="enrollmentYear" column="enrollment_year"/>
+            <result property="dateTime" column="date_time"/>
+            <result property="createdBy" column="created_by"/>
+            <result property="createDate" column="create_date"/>
+            <result property="lastUpdateBy" column="last_update_by"/>
+            <result property="lastUpdateDate" column="last_update_date"/>
+    </resultMap>
+
+    <sql id="columns">
+            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`major_id` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+    </sql>
+
+    <insert id="insert">
+        insert into `studentinfo`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="accountname != null">
+                `accountname`,
+            </if>
+            <if test="phone != null">
+                `phone`,
+            </if>
+            <if test="email != null">
+                `email`,
+            </if>
+            <if test="schoolId != null">
+                `school_id`,
+            </if>
+            <if test="majorId != null">
+                `major_id`,
+            </if>
+            <if test="sex != null">
+                `sex`,
+            </if>
+            <if test="studentName != null">
+                `student_name`,
+            </if>
+            <if test="enrollmentYear != null">
+                `enrollment_year`,
+            </if>
+            <if test="dateTime != null">
+                `date_time`,
+            </if>
+            <if test="createdBy != null">
+                `created_by`,
+            </if>
+            <if test="createDate != null">
+                `create_date`,
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by`,
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id} ,
+            </if>
+            <if test="accountname != null">
+            #{accountname} ,
+            </if>
+            <if test="phone != null">
+            #{phone} ,
+            </if>
+            <if test="email != null">
+            #{email} ,
+            </if>
+            <if test="schoolId != null">
+            #{schoolId} ,
+            </if>
+            <if test="majorId != null">
+            #{majorId} ,
+            </if>
+            <if test="sex != null">
+            #{sex} ,
+            </if>
+            <if test="studentName != null">
+            #{studentName} ,
+            </if>
+            <if test="enrollmentYear != null">
+            #{enrollmentYear} ,
+            </if>
+            <if test="dateTime != null">
+            #{dateTime} ,
+            </if>
+            <if test="createdBy != null">
+            #{createdBy} ,
+            </if>
+            <if test="createDate != null">
+            #{createDate} ,
+            </if>
+            <if test="lastUpdateBy != null">
+            #{lastUpdateBy} ,
+            </if>
+            <if test="lastUpdateDate != null">
+            #{lastUpdateDate} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from `studentinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="accountname != null">
+                and `accountname` = #{accountname}
+            </if>
+            <if test="phone != null">
+                and `phone` = #{phone}
+            </if>
+            <if test="email != null">
+                and `email` = #{email}
+            </if>
+            <if test="schoolId != null">
+                and `school_id` = #{schoolId}
+            </if>
+            <if test="majorId != null">
+                and `major_id` = #{majorId}
+            </if>
+            <if test="sex != null">
+                and `sex` = #{sex}
+            </if>
+            <if test="studentName != null">
+                and `student_name` = #{studentName}
+            </if>
+            <if test="enrollmentYear != null">
+                and `enrollment_year` = #{enrollmentYear}
+            </if>
+            <if test="dateTime != null">
+                and `date_time` = #{dateTime}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from `studentinfo`
+        where `id` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update `studentinfo`
+        <set>
+                <if test="accountname != null">
+                    `accountname` = #{accountname},
+                </if>
+                <if test="phone != null">
+                    `phone` = #{phone},
+                </if>
+                <if test="email != null">
+                    `email` = #{email},
+                </if>
+                <if test="schoolId != null">
+                    `school_id` = #{schoolId},
+                </if>
+                <if test="majorId != null">
+                    `major_id` = #{majorId},
+                </if>
+                <if test="sex != null">
+                    `sex` = #{sex},
+                </if>
+                <if test="studentName != null">
+                    `student_name` = #{studentName},
+                </if>
+                <if test="enrollmentYear != null">
+                    `enrollment_year` = #{enrollmentYear},
+                </if>
+                <if test="dateTime != null">
+                    `date_time` = #{dateTime},
+                </if>
+                <if test="createdBy != null">
+                    `created_by` = #{createdBy},
+                </if>
+                <if test="createDate != null">
+                    `create_date` = #{createDate},
+                </if>
+                <if test="lastUpdateBy != null">
+                    `last_update_by` = #{lastUpdateBy},
+                </if>
+                <if test="lastUpdateDate != null">
+                    `last_update_date` = #{lastUpdateDate},
+                </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultMap="studentinfo">
+        select
+        <include refid="columns" />
+        from `studentinfo`
+        where `id` = #{id}
+    </select>
+
+    <select id="list" resultMap="studentinfo">
+        select
+        <include refid="columns" />
+        from `studentinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="accountname != null">
+                and `accountname` = #{accountname}
+            </if>
+            <if test="phone != null">
+                and `phone` = #{phone}
+            </if>
+            <if test="email != null">
+                and `email` = #{email}
+            </if>
+            <if test="schoolId != null">
+                and `school_id` = #{schoolId}
+            </if>
+            <if test="majorId != null">
+                and `major_id` = #{majorId}
+            </if>
+            <if test="sex != null">
+                and `sex` = #{sex}
+            </if>
+            <if test="studentName != null">
+                and `student_name` = #{studentName}
+            </if>
+            <if test="enrollmentYear != null">
+                and `enrollment_year` = #{enrollmentYear}
+            </if>
+            <if test="dateTime != null">
+                and `date_time` = #{dateTime}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </select>
+</mapper>

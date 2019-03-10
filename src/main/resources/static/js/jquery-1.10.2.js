@@ -7799,7 +7799,7 @@ jQuery.extend({
 		timeout: 0,
 		data: null,
 		dataType: null,
-		username: null,
+		accountname: null,
 		password: null,
 		cache: null,
 		throws: false,
@@ -8665,9 +8665,9 @@ if ( xhrSupported ) {
 						xhr = s.xhr();
 
 					// Open the socket
-					// Passing null username, generates a login popup on Opera (#2865)
-					if ( s.username ) {
-						xhr.open( s.type, s.url, s.async, s.username, s.password );
+					// Passing null accountname, generates a login popup on Opera (#2865)
+					if ( s.accountname ) {
+						xhr.open( s.type, s.url, s.async, s.accountname, s.password );
 					} else {
 						xhr.open( s.type, s.url, s.async );
 					}

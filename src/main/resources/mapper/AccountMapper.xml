@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by chenglu on 2019-3-9.
+-->
+<mapper namespace="com.example.kechengsheji.dao.AccountDao">
+    <resultMap id="account" type="com.example.kechengsheji.model.Account">
+            <id property="id" column="id"/>
+            <result property="accountname" column="accountname"/>
+            <result property="password" column="password"/>
+            <result property="role" column="role"/>
+            <result property="createdBy" column="created_by"/>
+            <result property="createDate" column="create_date"/>
+            <result property="lastUpdateBy" column="last_update_by"/>
+            <result property="lastUpdateDate" column="last_update_date"/>
+    </resultMap>
+
+    <sql id="columns">
+            `id` ,`accountname` ,`password` ,`role` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+    </sql>
+
+    <insert id="insert">
+        insert into `account`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="accountname != null">
+                `accountname`,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="role != null">
+                `role`,
+            </if>
+            <if test="createdBy != null">
+                `created_by`,
+            </if>
+            <if test="createDate != null">
+                `create_date`,
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by`,
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id} ,
+            </if>
+            <if test="accountname != null">
+            #{accountname} ,
+            </if>
+            <if test="password != null">
+            #{password} ,
+            </if>
+            <if test="role != null">
+            #{role} ,
+            </if>
+            <if test="createdBy != null">
+            #{createdBy} ,
+            </if>
+            <if test="createDate != null">
+            #{createDate} ,
+            </if>
+            <if test="lastUpdateBy != null">
+            #{lastUpdateBy} ,
+            </if>
+            <if test="lastUpdateDate != null">
+            #{lastUpdateDate} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from `account`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="accountname != null">
+                and `accountname` = #{accountname}
+            </if>
+            <if test="password != null">
+                and `password` = #{password}
+            </if>
+            <if test="role != null">
+                and `role` = #{role}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from `account`
+        where `id` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update `account`
+        <set>
+                <if test="accountname != null">
+                    `accountname` = #{accountname},
+                </if>
+                <if test="password != null">
+                    `password` = #{password},
+                </if>
+                <if test="role != null">
+                    `role` = #{role},
+                </if>
+                <if test="createdBy != null">
+                    `created_by` = #{createdBy},
+                </if>
+                <if test="createDate != null">
+                    `create_date` = #{createDate},
+                </if>
+                <if test="lastUpdateBy != null">
+                    `last_update_by` = #{lastUpdateBy},
+                </if>
+                <if test="lastUpdateDate != null">
+                    `last_update_date` = #{lastUpdateDate},
+                </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultMap="account">
+        select
+        <include refid="columns" />
+        from `account`
+        where `id` = #{id}
+    </select>
+
+    <select id="list" resultMap="account">
+        select
+        <include refid="columns" />
+        from `account`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="accountname != null">
+                and `accountname` = #{accountname}
+            </if>
+            <if test="password != null">
+                and `password` = #{password}
+            </if>
+            <if test="role != null">
+                and `role` = #{role}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getByAccountname" resultMap="account">
+        select
+        <include refid="columns" />
+        from `account`
+        where `accountname` = #{accountname}
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer">
+		select count(1) from account
+		where accountname = #{accountname}
+
+	</select>
+</mapper>
