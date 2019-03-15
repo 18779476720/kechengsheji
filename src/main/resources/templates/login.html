@@ -3,13 +3,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>系统登录</title>
-<link href="css/login.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/demo.css" rel="stylesheet" type="text/css" media="all" />
-<link href="css/bootstrapValidator.css" type="text/css" media="all" />
-<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.SuperSlide.js"></script>
-<script type="text/javascript" src="js/bootstrap/bootstrapValidator.js"></script>
+<link href="static/css/login.css" rel="stylesheet" type="text/css" media="all" />
+<link href="static/css/demo.css" rel="stylesheet" type="text/css" media="all" />
+<link href="static/css/bootstrapValidator.css" type="text/css" media="all" />
+<script type="text/javascript" src="static/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="static/js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/jquery.SuperSlide.js"></script>
+<script type="text/javascript" src="static/js/bootstrap/bootstrapValidator.js"></script>
 
 <script>
 	
@@ -19,7 +19,7 @@
 	<div class="header">
 		<h1 class="headerLogo">
 			<a title="后台管理系统" target="_blank" href=""><img alt="logo"
-				src="images/logo.gif"></a>
+				src="static/images/logo.gif"/></a>
 		</h1>
 		<div class="headerNav">
 			<a target="_blank" href="#">企业官网</a> <a target="_blank" href="#">关于我们</a>
@@ -73,10 +73,10 @@
 			<div class="bd">
 				<ul>
 					<li
-						style="background: url(themes/theme-pic1.jpg) #CCE1F3 center 0 no-repeat;"><a
+						style="background: url(static/themes/theme-pic1.jpg) #CCE1F3 center 0 no-repeat;"><a
 						target="_blank" href=""></a></li>
 					<li
-						style="background: url(themes/theme-pic2.jpg) #BCE0FF center 0 no-repeat;"><a
+						style="background: url(static/tthemes/theme-pic2.jpg) #BCE0FF center 0 no-repeat;"><a
 						target="_blank" href=""></a></li>
 				</ul>
 			</div>
@@ -137,7 +137,7 @@
 					url : "account/login",
 					data : JSON.stringify(arr),
 					success : function(data){
-						window.location.href = '/login/success';
+						window.location.href = "/account/login/jump?html_url=index/index";
 					},
 					error : function(data) {
 						$('#errormsg_dv').css('display', 'block');

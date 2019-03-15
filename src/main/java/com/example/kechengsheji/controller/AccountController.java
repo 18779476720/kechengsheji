@@ -2,8 +2,13 @@ package com.example.kechengsheji.controller;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import javax.jws.WebResult;
 import javax.servlet.http.HttpSession;
 /**
 * Created by chenglu on 2019-3-9.
@@ -30,17 +35,22 @@ public class AccountController{
         String password = account.getPassword();
         if (name != null && !name.equals("")) {
             account = accountService.getByAccountname(account.getAccountname());
-            System.out.print(account);
         }
         if (account.getPassword() != null && account.getPassword().equals(password)) {
             httpSession.setAttribute("id", account.getId());
-            object =  (Object)account;
+            object =  account;
         }
         return object;
     }
-    @RequestMapping("/login/success")
-    public String LoginSuccess(){
-        return "ok";
+
+    /**
+     * 跳转页面的通用方法
+     * @param html_url 跳转页面的页面路径名称
+     * @return
+     */
+    @RequestMapping("/login/jump")
+    public String LoginSuccess(@RequestParam("html_url") String html_url){
+        return html_url;
     }
     @RequestMapping("/register")
     public String Index() {
@@ -88,5 +98,16 @@ public class AccountController{
     public Object checkName(@RequestParam("accountname") String name) {
         return accountService.selectCount(name);
 
+    }
+
+    /**
+     * 加载静态资源
+     */
+    @Configuration
+    public class UsingStaticController extends WebMvcConfigurationSupport {
+
+        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        }
     }
 }
