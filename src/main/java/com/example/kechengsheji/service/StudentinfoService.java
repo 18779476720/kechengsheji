@@ -17,5 +17,9 @@ public interface StudentinfoService {
 
     Studentinfo getById(Integer id);
 
+    Studentinfo getByName(String accountname);
+
+    Studentinfo updateByAccountName(Studentinfo studentinfo);
+
     List<Studentinfo> list(Studentinfo studentinfo);
 }

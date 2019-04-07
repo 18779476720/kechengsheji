@@ -4,6 +4,7 @@ import com.example.kechengsheji.service.StudentinfoService;
 import com.example.kechengsheji.dao.StudentinfoDao;
 import com.example.kechengsheji.model.Studentinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
 * Created by chenglu on 2019-3-9.
 */
+@Component
 @Service
 public class StudentinfoServiceImpl implements StudentinfoService {
 
@@ -50,8 +52,19 @@ public class StudentinfoServiceImpl implements StudentinfoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Studentinfo getByName(String accountname){
+        return studentinfoDao.getByName(accountname);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Studentinfo updateByAccountName(Studentinfo studentinfo){
+        return studentinfoDao.updateByAccountName(studentinfo);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public List<Studentinfo> list(Studentinfo studentinfo){
         return studentinfoDao.list(studentinfo);
     }
-
 }

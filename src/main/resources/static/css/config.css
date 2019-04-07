@@ -74,7 +74,7 @@
   line-height: 16px;
 }
 
-#page1_jEdit1{
+.page1_jEdit1{
   left: 125px;
   top: 10px;
   width:242px;
@@ -89,7 +89,7 @@
   line-height: 16px;
 }
 
-#page1_jEdit2{
+.page1_jEdit2{
   left: 125px;
   top: 11px;
   width:242px;
@@ -143,8 +143,8 @@
 }
 
 #page1_jLabel4{
-  left: 345px;
-  top: 19px;
+  left: 355px;
+  top: 21px;
   font-size: 20px;
   font-weight: bold;
   color: #3f3f3f;

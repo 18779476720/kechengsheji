@@ -1,164 +1,136 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>系统登录</title>
-<link href="static/css/login.css" rel="stylesheet" type="text/css" media="all" />
-<link href="static/css/demo.css" rel="stylesheet" type="text/css" media="all" />
-<link href="static/css/bootstrapValidator.css" type="text/css" media="all" />
-<script type="text/javascript" src="static/js/jquery-1.10.2.js"></script>
-<script type="text/javascript" src="static/js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="static/js/jquery.SuperSlide.js"></script>
-<script type="text/javascript" src="static/js/bootstrap/bootstrapValidator.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>登录界面</title>
+	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/js/public.js"></script>
+	<script type="text/javascript" src="../static/js/checkbox.js"></script>
+	<script type="text/javascript" src="../static/page1.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.SuperSlide.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap-3.3.7-dist/bootstrapValidator.js"></script>
+	<script type="text/javascript" src="../static/js/jquery-form-v3.51.0.min.js"></script>
+	<script type="text/javascript" src="../static/js/toastr.min.js"></script>
+	<link href="../static/css/jqueryui.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/vjpublic.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/vjpage.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/config.css" rel="stylesheet" type="text/css" />
+	<link href="../static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/toastr.css" rel="stylesheet" type="text/css" />
 
-<script>
-	
-</script>
 </head>
-<body>
-	<div class="header">
-		<h1 class="headerLogo">
-			<a title="后台管理系统" target="_blank" href=""><img alt="logo"
-				src="static/images/logo.gif"/></a>
-		</h1>
-		<div class="headerNav">
-			<a target="_blank" href="#">企业官网</a> <a target="_blank" href="#">关于我们</a>
-			<a target="_blank" href="#">开发团队</a> <a target="_blank" href="#">意见反馈</a>
-			<a target="_blank" href="#">帮助</a>
-		</div>
+<body data-curpagename="page1" class="body_style1" style="background-image: url(static/images/jloginbg04.jpg); background-repeat: repeat-y; background-size: cover;">
+<div id="page1_jPanel1" class="Panel Panel_Null">
+	<div id="page1_jHtmlForm1_form">
+		<form id="page1_jHtmlForm1" name="page1_jHtmlForm1" method="post" action="">
+			<div id="page1_jButton1" class="vjbutton border_radius_3 vjbutton_c_style4" tabindex="4" ><div class="vjbutton_txtR" id="login" style="width:30px;height:28px">登录</div></div>
+			<div id="page1_jButton2" class="vjbutton vjbutton_c_style1 btn_font2 border_radius_3" tabindex="5"><div class="vjbutton_txtR" id="register" style="width:30px;height:28px">注册</div></div>
+			<div id="page1_jPanel2" class="Panel Panel_Null border_radius_5">
+				<div id="page1_jLabel2" class="text">用户名：</div>
+				<input type="text" class="Edit Edit_style1 page1_jEdit1" value="" id="accountname" tabindex="1" style="width:250px;height:28px"/></div>
+			<div id="page1_jPanel3" class="Panel Panel_Null border_radius_5">
+				<div id="page1_jLabel7" class="text">密　码：</div>
+				<input type="password" class="Edit Edit_style4 page1_jEdit2" value="" id="password" tabindex="2" style="width:250px;height:28px"/></div>
+		</form>
 	</div>
 
-	<div class="banner">
-		<div class="container">
-			<div class="login-aside">
-				<div id="o-box-up"></div>
-				<div id="o-box-down" style="table-layout: fixed;">
-					<div class="error-box"></div>
-					<form id="login" class="registerform">
-						<div class="form-group fm-item">
-							<label for="logonId" class="form-label">MISS系统登陆：</label>
-							<div id="errormsg_dv" style="color: red; display: none;">账号或密码错误！</div>
-							<input type="text" maxlength="100" id="accountname" name="accountname"
-								class="i-text form-control required" />
-							<div class="ui-form-explain"></div>
-						</div>
-						<div class="form-group fm-item">
-							<label for="logonId" class="form-label">登陆密码：</label> <input
-								type="password" value="" maxlength="100" id="password"
-								name="password" class="i-text form-control">
-								<div class="ui-form-explain"></div>
-						</div>
-						<!-- <div class="fm-item pos-r">
-                        <label for="logonId" class="form-label">验证码</label> <input
-                            type="text" value="输入验证码" maxlength="100" id="yzm"
-                            class="i-text yzm" nullmsg="请输入验证码！">
-                        <div class="ui-form-explain">
-                            <img src="images/yzm.jpg" class="yzm-img" />
-                        </div>
-                    </div> -->
-
-						<div class="fm-item">
-							<label for="logonId" class="form-label"></label> <input
-								type="button" value="" tabindex="4" id="send-btn"
-								class="btn-login">
-								<div class="ui-form-explain"></div>
-						</div>
-						<div class="fm-item">
-							<a href="#" style="color: red; margin-left: 20px">忘记密码</a> <a
-								href="register.html" style="color: red; margin-left: 100px">注册</a>
-						</div>
-					</form>
+	<div id="page1_jLabel5" class="text">用户登录</div>
+	<div id="page1_jLabel6" class="text">LOGIN IN</div></div>
+    <div id="page1_jPanel5" class="Panel Panel_Null">
+	<div id="page1_jLabel3" class="text">大学生兼职网</div>
+	<div id="page1_jImages1" class="Timage Timage_style1 Timage_auto"><img src="static/images/jlogosmall.png" alt="static/images/jlogosmall.png" title=""/></div>
+	<map name="page1_jImages1_map" id="page1_jImages1_map">
+	</map>
+	<div id="page1_jLabel4" class="text">你的未来不是梦</div></div>
+</div>
+<!-- 注册选择弹窗   longhua.wang -->
+<div class="modal fade" id="couponList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">请选择注册类型</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<input type="radio" name="registerType" value = "1" checked>
+					<label style="font-size:17px">学生注册</label>
+				</div>
+				<div class="form-group">
+					<input type="radio" name="registerType" value = "2">
+					<label style="font-size:17px">商家注册</label>
 				</div>
 			</div>
-			<div class="bd">
-				<ul>
-					<li
-						style="background: url(static/themes/theme-pic1.jpg) #CCE1F3 center 0 no-repeat;"><a
-						target="_blank" href=""></a></li>
-					<li
-						style="background: url(static/tthemes/theme-pic2.jpg) #BCE0FF center 0 no-repeat;"><a
-						target="_blank" href=""></a></li>
-				</ul>
-			</div>
-
-			<div class="hd">
-				<ul></ul>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>取消</button>
+				<button type="button" id="btn_ok" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>确认</button>
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		jQuery(".banner").slide({
-			titCell : ".hd ul",
-			mainCell : ".bd ul",
-			effect : "fold",
-			autoPlay : true,
-			autoPage : true,
-			trigger : "click"
-		});
-		$('#login').bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {/*输入框不同状态，显示图片的样式*/
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields : {/*验证*/
-                accountname : {/*键名accountname和input name值对应*/
-					message : 'The accountname is not valid',
-					validators : {
-						notEmpty : {/*非空提示*/
-							message : '用户名不能为空'
-						}
-					/*最后一个没有逗号*/
+</div>
+
+<script>
+	$(function() {
+        $('#register').click(function () {
+            $("#couponList").modal({
+                show: true
+            })
+        });
+        //根据选择跳转相应注册界面
+        $('#btn_ok').click(function () {
+            var registerType = $("input[name='registerType']:checked").val();
+            //var registerType = $("#registerType").val();
+            if (registerType == 1) {
+                window.location.href = "/public/util/jump?html_url=register&registerType=1";
+            } else {
+                window.location.href = "/public/util/jump?html_url=ok&registerType=2";
+            }
+
+        })
+        $('#login').click(function () {
+            var accountname = $('#accountname').val();
+            var password = $('#password').val();
+            if(accountname == '' || accountname == undefined) {
+                toastr.warning('请输入用户名');
+                return false;
+            }else if(password == '' || password == undefined){
+                toastr.warning('请输入密码');
+                return false;
+            }
+            var arr = {
+                "accountname": accountname,
+                "password": password
+            };
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                dataType: "json",
+                url: "account/login",
+                data: JSON.stringify(arr),
+                success: function (data){
+                    debugger
+                    if(data.code != "000001" ){
+                        toastr.error(data.message);
+                        return false;
 					}
-				},
-				password : {
-					message : '密码无效',
-					validators : {
-						notEmpty : {
-							message : '密码不能为空'
-						}
+					//学生
+					if(data.datas.role == "1"){
+                        window.location.href = "/public/util/jump?html_url=index/studentIndex";
 					}
-				}
-			}
-		});
-		$('#send-btn').click(function() {
-			var bootstrapValidator = $('#login').data('bootstrapValidator');
-			bootstrapValidator.validate();
-			var arr = {
-				"accountname" : $('#accountname').val(),
-				"password" : $('#password').val()
-			};
-			if (bootstrapValidator.isValid()) {
-				$.ajax({
-					type : "POST",
-					contentType : 'application/json',
-					dataType : "json",
-					url : "account/login",
-					data : JSON.stringify(arr),
-					success : function(data){
-						window.location.href = "/account/login/jump?html_url=index/index";
-					},
-					error : function(data) {
-						$('#errormsg_dv').css('display', 'block');
-						//服务器连接失败
-					},
-					beforeSend : function() {//在success之前就进行了
-					},
-					complete : function() {//在success之后就进行
-						//操作
-					}
+                    //商家
+                    if(data.datas.role == "2"){
+                        window.location.href = "/public/util/jump?html_url=index/businessIndex";
+                    }
+                    //管理员
+                    if(data.datas.role == "3"){
+                        window.location.href = "/public/util/jump?html_url=index/accountIndex";
+                    }
+                },
+            });
+        });
+    });
 
-				});
-			}
-
-		});
-	</script>
-
-	<div class="banner-shadow"></div>
-
-	<div class="footer">
-	</div>
+</script>
 
 </body>
 </html>

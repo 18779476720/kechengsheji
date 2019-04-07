@@ -4,6 +4,7 @@ import com.example.kechengsheji.service.SchoolinfoService;
 import com.example.kechengsheji.dao.SchoolinfoDao;
 import com.example.kechengsheji.model.Schoolinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
 * Created by chenglu on 2019-3-9.
 */
+@Component
 @Service
 public class SchoolinfoServiceImpl implements SchoolinfoService {
 

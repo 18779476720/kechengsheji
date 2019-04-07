@@ -1,5 +1,10 @@
 package com.example.kechengsheji.service.impl;
 
+import com.example.kechengsheji.dao.SchoolinfoDao;
+import com.example.kechengsheji.dao.StudentinfoDao;
+import com.example.kechengsheji.model.AccountParams;
+import com.example.kechengsheji.model.Schoolinfo;
+import com.example.kechengsheji.model.Studentinfo;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.dao.AccountDao;
 import com.example.kechengsheji.model.Account;
@@ -9,8 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
+import com.alibaba.fastjson.*;
 /**
 * Created by chenglu on 2019-3-9.
 */
@@ -22,6 +30,11 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountDao accountDao;
 
+    @Autowired
+    SchoolinfoDao schoolinfoDao;
+
+    @Autowired
+    StudentinfoDao studentinfoDao;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -70,5 +83,67 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.selectCount(accountname);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public boolean saveOrUpdateAccount(AccountParams params) {
+        Account accountVo = new Account();
+        accountVo.setAccountname(params.getAccountname());
+        accountVo.setPassword(params.getPassword());
+        accountVo.setRole(params.getRole());
 
+        JSONObject studentInfo = JSONObject.parseObject(params.getStudentInfo());
+        Studentinfo studentVo = new Studentinfo();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        if(studentInfo != null){
+            studentVo.setAccountname(params.getAccountname());
+            studentVo.setPhone(studentInfo.getString("phone"));
+            studentVo.setEmail(studentInfo.getString("email"));
+            String dateTimeString = studentInfo.getString("dateTime");
+            String format1 = "yyyy-MM-dd";
+            Date date = null;
+            try {
+                date = new SimpleDateFormat(format1).parse(dateTimeString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            studentVo.setDateTime(date);
+            studentVo.setMajorName(studentInfo.getString("majorName"));
+            studentVo.setSex(studentInfo.getString("sex"));
+            studentVo.setStudentName(studentInfo.getString("studentName"));
+            String enrollmentYearString = studentInfo.getString("enrollmentYear");
+            Date date1 = null;
+            try {
+                date1 = new SimpleDateFormat(format1).parse(enrollmentYearString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            studentVo.setEnrollmentYear(date1);
+        }
+        JSONObject schoolInfo = JSONObject.parseObject(params.getSchoolInfo());
+        Schoolinfo schoolVo = new Schoolinfo();
+        if(schoolInfo != null){
+            schoolVo.setSchoolAddress(schoolInfo.getString("schoolAddress"));
+            schoolVo.setSchoolCode(null);
+            schoolVo.setSchoolName(schoolInfo.getString("schoolName"));
+        }
+        //判断新增还是更新
+        Account account = accountDao.getByAccountname(params.getAccountname());
+        //新增
+        if(account == null){
+            accountDao.insert(accountVo);
+            schoolinfoDao.insert(schoolVo);
+            studentVo.setSchoolId(schoolVo.getId());
+            studentinfoDao.insert(studentVo);
+        }
+        //修改
+        if(account != null){
+            accountDao.update(accountVo);
+            Studentinfo newStudentVo = studentinfoDao.getByName(accountVo.getAccountname());
+            schoolVo.setId(newStudentVo.getSchoolId());
+            schoolinfoDao.update(schoolVo);
+            studentVo.setSchoolId(schoolVo.getId());
+            studentinfoDao.updateByAccountName(studentVo);
+        }
+        return true;
+    }
 }

@@ -29,7 +29,7 @@ public class Studentinfo implements Serializable{
         /**
          *专业id
          */
-        private Integer majorId;
+        private String majorName;
         /**
          *
          */
@@ -103,12 +103,12 @@ public class Studentinfo implements Serializable{
             this.schoolId = schoolId;
             return this;
         }
-        public Integer getMajorId() {
-            return majorId;
+        public String getMajorName() {
+            return majorName;
         }
 
-        public Studentinfo setMajorId(Integer majorId) {
-            this.majorId = majorId;
+        public Studentinfo setMajorName(String majorName) {
+            this.majorName = majorName;
             return this;
         }
         public String getSex() {

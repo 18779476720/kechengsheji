@@ -11,7 +11,7 @@
             <result property="phone" column="phone"/>
             <result property="email" column="email"/>
             <result property="schoolId" column="school_id"/>
-            <result property="majorId" column="major_id"/>
+            <result property="majorName" column="major_namme"/>
             <result property="sex" column="sex"/>
             <result property="studentName" column="student_name"/>
             <result property="enrollmentYear" column="enrollment_year"/>
@@ -23,7 +23,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`major_id` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`major_Name` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -44,8 +44,8 @@
             <if test="schoolId != null">
                 `school_id`,
             </if>
-            <if test="majorId != null">
-                `major_id`,
+            <if test="majorName != null">
+                `major_Name`,
             </if>
             <if test="sex != null">
                 `sex`,
@@ -88,8 +88,8 @@
             <if test="schoolId != null">
             #{schoolId} ,
             </if>
-            <if test="majorId != null">
-            #{majorId} ,
+            <if test="majorName != null">
+            #{majorName} ,
             </if>
             <if test="sex != null">
             #{sex} ,
@@ -136,8 +136,8 @@
             <if test="schoolId != null">
                 and `school_id` = #{schoolId}
             </if>
-            <if test="majorId != null">
-                and `major_id` = #{majorId}
+            <if test="majorName != null">
+                and `major_Name` = #{majorName}
             </if>
             <if test="sex != null">
                 and `sex` = #{sex}
@@ -189,8 +189,8 @@
                 <if test="schoolId != null">
                     `school_id` = #{schoolId},
                 </if>
-                <if test="majorId != null">
-                    `major_id` = #{majorId},
+                <if test="majorName != null">
+                    `major_Name` = #{majorName},
                 </if>
                 <if test="sex != null">
                     `sex` = #{sex},
@@ -220,11 +220,57 @@
         where id = #{id}
     </update>
 
-    <select id="getById" resultMap="studentinfo">
+    <update id="updateByAccountName">
+        update `studentinfo`
+        <set>
+            <if test="accountname != null">
+                `accountname` = #{accountname},
+            </if>
+            <if test="phone != null">
+                `phone` = #{phone},
+            </if>
+            <if test="email != null">
+                `email` = #{email},
+            </if>
+            <if test="schoolId != null">
+                `school_id` = #{schoolId},
+            </if>
+            <if test="majorName != null">
+                `major_Name` = #{majorName},
+            </if>
+            <if test="sex != null">
+                `sex` = #{sex},
+            </if>
+            <if test="studentName != null">
+                `student_name` = #{studentName},
+            </if>
+            <if test="enrollmentYear != null">
+                `enrollment_year` = #{enrollmentYear},
+            </if>
+            <if test="dateTime != null">
+                `date_time` = #{dateTime},
+            </if>
+            <if test="createdBy != null">
+                `created_by` = #{createdBy},
+            </if>
+            <if test="createDate != null">
+                `create_date` = #{createDate},
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by` = #{lastUpdateBy},
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date` = #{lastUpdateDate},
+            </if>
+        </set>
+        where accountname = #{accountname}
+    </update>
+
+    <select id="getByName" resultMap="studentinfo">
         select
         <include refid="columns" />
         from `studentinfo`
-        where `id` = #{id}
+        where `accountname` = #{accountname}
     </select>
 
     <select id="list" resultMap="studentinfo">
@@ -247,8 +293,8 @@
             <if test="schoolId != null">
                 and `school_id` = #{schoolId}
             </if>
-            <if test="majorId != null">
-                and `major_id` = #{majorId}
+            <if test="majorName != null">
+                and `major_Name` = #{majorName}
             </if>
             <if test="sex != null">
                 and `sex` = #{sex}

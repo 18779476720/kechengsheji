@@ -1,4 +1,7 @@
 package com.example.kechengsheji.controller;
+import com.example.kechengsheji.dao.dto.ApiResult;
+import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
+import com.example.kechengsheji.model.AccountParams;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import javax.jws.WebResult;
 import javax.servlet.http.HttpSession;
 /**
 * Created by chenglu on 2019-3-9.
@@ -26,32 +28,38 @@ public class AccountController{
         Account account=new Account();
         return accountService.list(account);
     }
-
+    //用户登录
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Object listUser(@RequestBody Account account, HttpSession httpSession) {
-        Object object = null;
+    public ApiResult<?> login(@RequestBody Account account, HttpSession httpSession) {
+        ApiResult<?> apiResult = null;
         String name = account.getAccountname();
         String password = account.getPassword();
-        if (name != null && !name.equals("")) {
-            account = accountService.getByAccountname(account.getAccountname());
+        account = accountService.getByAccountname(account.getAccountname());
+        if(account == null){
+            //该用户不存在
+            return  ApiResult.build(XKHResponseCodeEnum.NOUSER);
         }
-        if (account.getPassword() != null && account.getPassword().equals(password)) {
-            httpSession.setAttribute("id", account.getId());
-            object =  account;
+        if ("" != account.getPassword() && !account.getPassword().equals(password)) {
+            //密码错误
+            return  ApiResult.build(XKHResponseCodeEnum.PASS_ERROR);
         }
-        return object;
+        httpSession.setAttribute("id", account.getId());
+        return ApiResult.buildSuccess(account);
+    }
+    //用户注册
+    @RequestMapping(value = "/registerIn", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult<?> register(@RequestBody AccountParams params) {
+        //查询该用户名是否存在
+        int num = accountService.selectCount(params.getAccountname());
+        if(num > 0){
+            return ApiResult.build(XKHResponseCodeEnum.ACCOUNT_HAS);
+        }
+        return ApiResult.buildSuccess(accountService.saveOrUpdateAccount(params));
     }
 
-    /**
-     * 跳转页面的通用方法
-     * @param html_url 跳转页面的页面路径名称
-     * @return
-     */
-    @RequestMapping("/login/jump")
-    public String LoginSuccess(@RequestParam("html_url") String html_url){
-        return html_url;
-    }
+
     @RequestMapping("/register")
     public String Index() {
         return "register";
@@ -62,16 +70,6 @@ public class AccountController{
     @ResponseBody
     public Object getByIdAccount(Integer id){
         return accountService.getById(id);
-    }
-
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseBody
-    public Object insertAccount(@RequestBody Account account) {
-        if (accountService.selectCount(account.getAccountname()) == 0) {
-            return accountService.insert(account);
-        }
-        return "用户已经被注册";
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)

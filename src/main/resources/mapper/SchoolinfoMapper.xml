@@ -7,7 +7,7 @@
 <mapper namespace="com.example.kechengsheji.dao.SchoolinfoDao">
     <resultMap id="schoolinfo" type="com.example.kechengsheji.model.Schoolinfo">
             <id property="id" column="id"/>
-            <result property="studentId" column="student_id"/>
+            <!--<result property="studentId" column="student_id"/>-->
             <result property="schoolCode" column="school_code"/>
             <result property="schoolName" column="school_name"/>
             <result property="schoolAddress" column="school_address"/>
@@ -18,18 +18,18 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`student_id` ,`school_code` ,`school_name` ,`school_address` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`school_code` ,`school_name` ,`school_address` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into `schoolinfo`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 `id`,
             </if>
-            <if test="studentId != null">
-                `student_id`,
-            </if>
+            <!--<if test="studentId != null">-->
+                <!--`student_id`,-->
+            <!--</if>-->
             <if test="schoolCode != null">
                 `school_code`,
             </if>
@@ -56,9 +56,9 @@
             <if test="id != null">
             #{id} ,
             </if>
-            <if test="studentId != null">
-            #{studentId} ,
-            </if>
+            <!--<if test="studentId != null">-->
+            <!--#{studentId} ,-->
+            <!--</if>-->
             <if test="schoolCode != null">
             #{schoolCode} ,
             </if>
@@ -89,9 +89,9 @@
             <if test="id != null">
                 and `id` = #{id}
             </if>
-            <if test="studentId != null">
-                and `student_id` = #{studentId}
-            </if>
+            <!--<if test="studentId != null">-->
+                <!--and `student_id` = #{studentId}-->
+            <!--</if>-->
             <if test="schoolCode != null">
                 and `school_code` = #{schoolCode}
             </if>
@@ -127,9 +127,9 @@
     <update id="update">
         update `schoolinfo`
         <set>
-                <if test="studentId != null">
-                    `student_id` = #{studentId},
-                </if>
+                <!--<if test="studentId != null">-->
+                    <!--`student_id` = #{studentId},-->
+                <!--</if>-->
                 <if test="schoolCode != null">
                     `school_code` = #{schoolCode},
                 </if>
@@ -162,6 +162,13 @@
         where `id` = #{id}
     </select>
 
+    <select id="getByName" resultMap="schoolinfo">
+        select
+        <include refid="columns" />
+        from `schoolinfo`
+        where `accountname` = #{accountname}
+    </select>
+
     <select id="list" resultMap="schoolinfo">
         select
         <include refid="columns" />
@@ -170,9 +177,9 @@
             <if test="id != null">
                 and `id` = #{id}
             </if>
-            <if test="studentId != null">
-                and `student_id` = #{studentId}
-            </if>
+            <!--<if test="studentId != null">-->
+                <!--and `student_id` = #{studentId}-->
+            <!--</if>-->
             <if test="schoolCode != null">
                 and `school_code` = #{schoolCode}
             </if>

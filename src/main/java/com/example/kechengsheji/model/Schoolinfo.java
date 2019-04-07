@@ -12,10 +12,10 @@ public class Schoolinfo implements Serializable{
          *
          */
         private Integer id;
-        /**
-         *
-         */
-        private Integer studentId;
+//        /**
+//         *
+//         */
+//        private Integer studentId;
         /**
          *学校编码
          */
@@ -53,14 +53,14 @@ public class Schoolinfo implements Serializable{
             this.id = id;
             return this;
         }
-        public Integer getStudentId() {
-            return studentId;
-        }
-
-        public Schoolinfo setStudentId(Integer studentId) {
-            this.studentId = studentId;
-            return this;
-        }
+//        public Integer getStudentId() {
+//            return studentId;
+//        }
+//
+//        public Schoolinfo setStudentId(Integer studentId) {
+//            this.studentId = studentId;
+//            return this;
+//        }
         public String getSchoolCode() {
             return schoolCode;
         }

@@ -9,12 +9,10 @@ package com.example.kechengsheji;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 //解决数据库驱动未明确指定问题
 @SpringBootApplication
 @MapperScan(basePackages = "com.example.kechengsheji.**.dao")
-class KechengshejiApplication {
-
+public class KechengshejiApplication {
     public static void main(String[] args) {
         SpringApplication.run(KechengshejiApplication.class, args);
     }
