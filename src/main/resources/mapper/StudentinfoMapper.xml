@@ -11,6 +11,7 @@
             <result property="phone" column="phone"/>
             <result property="email" column="email"/>
             <result property="schoolId" column="school_id"/>
+            <result property="hopeJob" column="hope_job"/>
             <result property="majorName" column="major_namme"/>
             <result property="sex" column="sex"/>
             <result property="studentName" column="student_name"/>
@@ -43,6 +44,9 @@
             </if>
             <if test="schoolId != null">
                 `school_id`,
+            </if>
+            <if test="hopeJob != null">
+                `hope_job`,
             </if>
             <if test="majorName != null">
                 `major_Name`,
@@ -87,6 +91,9 @@
             </if>
             <if test="schoolId != null">
             #{schoolId} ,
+            </if>
+            <if test="hopeJob != null">
+                #{hopeJob} ,
             </if>
             <if test="majorName != null">
             #{majorName} ,
@@ -135,6 +142,9 @@
             </if>
             <if test="schoolId != null">
                 and `school_id` = #{schoolId}
+            </if>
+            <if test="hopeJob != null">
+                and `hope_job` = #{hopeJob}
             </if>
             <if test="majorName != null">
                 and `major_Name` = #{majorName}
@@ -189,6 +199,9 @@
                 <if test="schoolId != null">
                     `school_id` = #{schoolId},
                 </if>
+            <if test="hopeJob != null">
+                `hope_job` = #{hopeJob},
+            </if>
                 <if test="majorName != null">
                     `major_Name` = #{majorName},
                 </if>
@@ -234,6 +247,9 @@
             </if>
             <if test="schoolId != null">
                 `school_id` = #{schoolId},
+            </if>
+            <if test="hopeJob != null">
+                `hope_job` = #{hopeJob},
             </if>
             <if test="majorName != null">
                 `major_Name` = #{majorName},
@@ -292,6 +308,9 @@
             </if>
             <if test="schoolId != null">
                 and `school_id` = #{schoolId}
+            </if>
+            <if test="hopeJob != null">
+                and `hope_job` = #{hopeJob}
             </if>
             <if test="majorName != null">
                 and `major_Name` = #{majorName}
