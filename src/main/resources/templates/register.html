@@ -77,6 +77,13 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="hopeJob" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>期望工作类型：</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" name="hopeJob" id="hopeJob"
+									   placeholder="请输入期望工作类型">
+							</div>
+						</div>
+						<div class="form-group">
 							<label for="email" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>姓名：</label>
 							<div class="col-sm-6">
 								<input type="text" class="form-control" name="studentName" id="studentName"
@@ -161,7 +168,7 @@
         var schoolName = $("#schoolName").val();
         var schoolAddress = $("#schoolAddress").val();
         var majorName = $("#majorName").val();
-
+        var hopeJob = $("#hopeJob").val();
         if(accountname == "" || accountname == undefined){
             toastr.error('用户名不能为空');
             return false;
@@ -182,6 +189,9 @@
         }
         else if(email == "" || email == undefined){
             toastr.error('email不能为空');
+            return false;
+        }else if(hopeJob == "" || hopeJob == undefined){
+            toastr.error('期望工作类型不能为空');
             return false;
         } else if(studentName == "" || studentName == undefined){
             toastr.error('学生姓名不能为空');
@@ -212,6 +222,7 @@
         var student = {
             phone: phone,
             email: email,
+			hopeJob: hopeJob,
             majorName: majorName,
             sex: sex,
             studentName: studentName,

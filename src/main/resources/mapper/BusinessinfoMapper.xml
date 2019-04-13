@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by chenglu on 2019-3-25.
+-->
+<mapper namespace="com.example.kechengsheji.dao.BusinessinfoDao">
+    <resultMap id="businessinfo" type="com.example.kechengsheji.model.Businessinfo">
+            <id property="id" column="id"/>
+            <result property="businessName" column="business_name"/>
+            <result property="businessDescription" column="business_description"/>
+            <result property="createdBy" column="created_by"/>
+            <result property="createDate" column="create_date"/>
+            <result property="lastUpdateBy" column="last_update_by"/>
+            <result property="lastUpdateDate" column="last_update_date"/>
+    </resultMap>
+
+    <sql id="columns">
+            `id` ,`business_name` ,`business_description` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+    </sql>
+
+    <insert id="insert">
+        insert into `businessinfo`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="businessName != null">
+                `business_name`,
+            </if>
+            <if test="businessDescription != null">
+                `business_description`,
+            </if>
+            <if test="businessName != null">
+                `business_name`,
+            </if>
+            <if test="createdBy != null">
+                `created_by`,
+            </if>
+            <if test="createDate != null">
+                `create_date`,
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by`,
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id} ,
+            </if>
+            <if test="businessName != null">
+                #{businessName} ,
+            </if>
+            <if test="businessDescription != null">
+            #{businessDescription} ,
+            </if>
+            <if test="createdBy != null">
+            #{createdBy} ,
+            </if>
+            <if test="createDate != null">
+            #{createDate} ,
+            </if>
+            <if test="lastUpdateBy != null">
+            #{lastUpdateBy} ,
+            </if>
+            <if test="lastUpdateDate != null">
+            #{lastUpdateDate} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from `businessinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="businessName != null">
+                and `business_name` = #{businessName}
+            </if>
+            <if test="businessDescription != null">
+                and `business_description` = #{businessDescription}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from `businessinfo`
+        where `id` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update `businessinfo`
+        <set>
+                <if test="businessName != null">
+                    `business_name` = #{businessName},
+                </if>
+                <if test="businessDescription != null">
+                    `business_description` = #{businessDescription},
+                </if>
+                <if test="createdBy != null">
+                    `created_by` = #{createdBy},
+                </if>
+                <if test="createDate != null">
+                    `create_date` = #{createDate},
+                </if>
+                <if test="lastUpdateBy != null">
+                    `last_update_by` = #{lastUpdateBy},
+                </if>
+                <if test="lastUpdateDate != null">
+                    `last_update_date` = #{lastUpdateDate},
+                </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultMap="businessinfo">
+        select
+        <include refid="columns" />
+        from `businessinfo`
+        where `id` = #{id}
+    </select>
+
+    <select id="list" resultMap="businessinfo">
+        select
+        <include refid="columns" />
+        from `businessinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="businessName != null">
+                and `business_name` = #{businessName}
+            </if>
+            <if test="businessDescription != null">
+                and `business_description` = #{businessDescription}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </select>
+</mapper>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by chenglu on 2019-3-25.
+-->
+<mapper namespace="com.example.kechengsheji.dao.RecruitinfoDao">
+    <resultMap id="recruitinfo" type="com.example.kechengsheji.model.Recruitinfo">
+            <id property="id" column="id"/>
+            <result property="recruitType" column="recruit_type"/>
+            <result property="recruitNum" column="recruit_num"/>
+            <result property="salaryDescription" column="salary_description"/>
+            <result property="taskDescription" column="task_description"/>
+            <result property="taskPlace" column="task_place"/>
+            <result property="contactNumber" column="contact_number"/>
+            <result property="studentId" column="student_id"/>
+            <result property="city" column="city"/>
+            <result property="businessId" column="business_id"/>
+            <result property="recruitStatus" column="recruit_status"/>
+            <result property="usingStatus" column="using_status"/>
+            <result property="createdBy" column="created_by"/>
+            <result property="createDate" column="create_date"/>
+            <result property="lastUpdateBy" column="last_update_by"/>
+            <result property="lastUpdateDate" column="last_update_date"/>
+    </resultMap>
+
+    <sql id="columns">
+            `id` ,`recruit_type` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`student_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+    </sql>
+
+    <insert id="insert">
+        insert into `recruitinfo`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="recruitType != null">
+                `recruit_type`,
+            </if>
+            <if test="recruitNum != null">
+                `recruit_num`,
+            </if>
+            <if test="salaryDescription != null">
+                `salary_description`,
+            </if>
+            <if test="taskDescription != null">
+                `task_description`,
+            </if>
+            <if test="taskPlace != null">
+                `task_place`,
+            </if>
+            <if test="contactNumber != null">
+                `contact_number`,
+            </if>
+            <if test="studentId != null">
+                `student_id`,
+            </if>
+            <if test="city != null">
+                `city`,
+            </if>
+            <if test="businessId != null">
+                `business_id`,
+            </if>
+            <if test="recruitStatus != null">
+                `recruit_status`,
+            </if>
+            <if test="usingStatus != null">
+                `using_status`,
+            </if>
+            <if test="createdBy != null">
+                `created_by`,
+            </if>
+            <if test="createDate != null">
+                `create_date`,
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by`,
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id} ,
+            </if>
+            <if test="recruitType != null">
+                #{recruitType} ,
+            </if>
+            <if test="recruitNum != null">
+            #{recruitNum} ,
+            </if>
+            <if test="salaryDescription != null">
+            #{salaryDescription} ,
+            </if>
+            <if test="taskDescription != null">
+            #{taskDescription} ,
+            </if>
+            <if test="taskPlace != null">
+            #{taskPlace} ,
+            </if>
+            <if test="contactNumber != null">
+            #{contactNumber} ,
+            </if>
+            <if test="studentId != null">
+            #{studentId} ,
+            </if>
+            <if test="city != null">
+            #{city} ,
+            </if>
+            <if test="businessId != null">
+            #{businessId} ,
+            </if>
+            <if test="recruitStatus != null">
+            #{recruitStatus} ,
+            </if>
+            <if test="usingStatus != null">
+            #{usingStatus} ,
+            </if>
+            <if test="createdBy != null">
+            #{createdBy} ,
+            </if>
+            <if test="createDate != null">
+            #{createDate} ,
+            </if>
+            <if test="lastUpdateBy != null">
+            #{lastUpdateBy} ,
+            </if>
+            <if test="lastUpdateDate != null">
+            #{lastUpdateDate} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from `recruitinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="recruitType != null">
+                and `recruit_type` = #{recruitType}
+            </if>
+            <if test="recruitNum != null">
+                and `recruit_num` = #{recruitNum}
+            </if>
+            <if test="salaryDescription != null">
+                and `salary_description` = #{salaryDescription}
+            </if>
+            <if test="taskDescription != null">
+                and `task_description` = #{taskDescription}
+            </if>
+            <if test="taskPlace != null">
+                and `task_place` = #{taskPlace}
+            </if>
+            <if test="contactNumber != null">
+                and `contact_number` = #{contactNumber}
+            </if>
+            <if test="studentId != null">
+                and `student_id` = #{studentId}
+            </if>
+            <if test="city != null">
+                and `city` = #{city}
+            </if>
+            <if test="businessId != null">
+                and `business_id` = #{businessId}
+            </if>
+            <if test="recruitStatus != null">
+                and `recruit_status` = #{recruitStatus}
+            </if>
+            <if test="usingStatus != null">
+                and `using_status` = #{usingStatus}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from `recruitinfo`
+        where `id` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update `recruitinfo`
+        <set>
+                <if test="recruitType != null">
+                    `recruit_type` = #{recruitType},
+                </if>
+                <if test="recruitNum != null">
+                    `recruit_num` = #{recruitNum},
+                </if>
+                <if test="salaryDescription != null">
+                    `salary_description` = #{salaryDescription},
+                </if>
+                <if test="taskDescription != null">
+                    `task_description` = #{taskDescription},
+                </if>
+                <if test="taskPlace != null">
+                    `task_place` = #{taskPlace},
+                </if>
+                <if test="contactNumber != null">
+                    `contact_number` = #{contactNumber},
+                </if>
+                <if test="studentId != null">
+                    `student_id` = #{studentId},
+                </if>
+                <if test="city != null">
+                    `city` = #{city},
+                </if>
+                <if test="businessId != null">
+                    `business_id` = #{businessId},
+                </if>
+                <if test="recruitStatus != null">
+                    `recruit_status` = #{recruitStatus},
+                </if>
+                <if test="usingStatus != null">
+                    `using_status` = #{usingStatus},
+                </if>
+                <if test="createdBy != null">
+                    `created_by` = #{createdBy},
+                </if>
+                <if test="createDate != null">
+                    `create_date` = #{createDate},
+                </if>
+                <if test="lastUpdateBy != null">
+                    `last_update_by` = #{lastUpdateBy},
+                </if>
+                <if test="lastUpdateDate != null">
+                    `last_update_date` = #{lastUpdateDate},
+                </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultMap="recruitinfo">
+        select
+        <include refid="columns" />
+        from `recruitinfo`
+        where `id` = #{id}
+    </select>
+
+    <select id="list" resultMap="recruitinfo">
+        select
+        <include refid="columns" />
+        from `recruitinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="recruitType != null">
+                and `recruit_type` = #{recruitType}
+            </if>
+            <if test="recruitNum != null">
+                and `recruit_num` = #{recruitNum}
+            </if>
+            <if test="salaryDescription != null">
+                and `salary_description` = #{salaryDescription}
+            </if>
+            <if test="taskDescription != null">
+                and `task_description` = #{taskDescription}
+            </if>
+            <if test="taskPlace != null">
+                and `task_place` = #{taskPlace}
+            </if>
+            <if test="contactNumber != null">
+                and `contact_number` = #{contactNumber}
+            </if>
+            <if test="studentId != null">
+                and `student_id` = #{studentId}
+            </if>
+            <if test="city != null">
+                and `city` = #{city}
+            </if>
+            <if test="businessId != null">
+                and `business_id` = #{businessId}
+            </if>
+            <if test="recruitStatus != null">
+                and `recruit_status` = #{recruitStatus}
+            </if>
+            <if test="usingStatus != null">
+                and `using_status` = #{usingStatus}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </select>
+</mapper>

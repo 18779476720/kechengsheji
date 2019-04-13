@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by chenglu on 2019-3-25.
+-->
+<mapper namespace="com.example.kechengsheji.dao.ScoreinfoDao">
+    <resultMap id="scoreinfo" type="com.example.kechengsheji.model.Scoreinfo">
+            <id property="id" column="id"/>
+            <result property="studentId" column="student_id"/>
+            <result property="recruitId" column="recruit_id"/>
+            <result property="scoreNum" column="score_num"/>
+            <result property="scoreDescription" column="score_description"/>
+            <result property="createdBy" column="created_by"/>
+            <result property="createDate" column="create_date"/>
+            <result property="lastUpdateBy" column="last_update_by"/>
+            <result property="lastUpdateDate" column="last_update_date"/>
+    </resultMap>
+
+    <sql id="columns">
+            `id` ,`student_id` ,`recruit_id` ,`score_num` ,`score_description` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+    </sql>
+
+    <insert id="insert">
+        insert into `scoreinfo`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="studentId != null">
+                `student_id`,
+            </if>
+            <if test="recruitId != null">
+                `recruit_id`,
+            </if>
+            <if test="scoreNum != null">
+                `score_num`,
+            </if>
+            <if test="scoreDescription != null">
+                `score_description`,
+            </if>
+            <if test="createdBy != null">
+                `created_by`,
+            </if>
+            <if test="createDate != null">
+                `create_date`,
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by`,
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            #{id} ,
+            </if>
+            <if test="studentId != null">
+            #{studentId} ,
+            </if>
+            <if test="recruitId != null">
+            #{recruitId} ,
+            </if>
+            <if test="scoreNum != null">
+            #{scoreNum} ,
+            </if>
+            <if test="scoreDescription != null">
+            #{scoreDescription} ,
+            </if>
+            <if test="createdBy != null">
+            #{createdBy} ,
+            </if>
+            <if test="createDate != null">
+            #{createDate} ,
+            </if>
+            <if test="lastUpdateBy != null">
+            #{lastUpdateBy} ,
+            </if>
+            <if test="lastUpdateDate != null">
+            #{lastUpdateDate} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from `scoreinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="studentId != null">
+                and `student_id` = #{studentId}
+            </if>
+            <if test="recruitId != null">
+                and `recruit_id` = #{recruitId}
+            </if>
+            <if test="scoreNum != null">
+                and `score_num` = #{scoreNum}
+            </if>
+            <if test="scoreDescription != null">
+                and `score_description` = #{scoreDescription}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from `scoreinfo`
+        where `id` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+        #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update `scoreinfo`
+        <set>
+                <if test="studentId != null">
+                    `student_id` = #{studentId},
+                </if>
+                <if test="recruitId != null">
+                    `recruit_id` = #{recruitId},
+                </if>
+                <if test="scoreNum != null">
+                    `score_num` = #{scoreNum},
+                </if>
+                <if test="scoreDescription != null">
+                    `score_description` = #{scoreDescription},
+                </if>
+                <if test="createdBy != null">
+                    `created_by` = #{createdBy},
+                </if>
+                <if test="createDate != null">
+                    `create_date` = #{createDate},
+                </if>
+                <if test="lastUpdateBy != null">
+                    `last_update_by` = #{lastUpdateBy},
+                </if>
+                <if test="lastUpdateDate != null">
+                    `last_update_date` = #{lastUpdateDate},
+                </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultMap="scoreinfo">
+        select
+        <include refid="columns" />
+        from `scoreinfo`
+        where `id` = #{id}
+    </select>
+
+    <select id="list" resultMap="scoreinfo">
+        select
+        <include refid="columns" />
+        from `scoreinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="studentId != null">
+                and `student_id` = #{studentId}
+            </if>
+            <if test="recruitId != null">
+                and `recruit_id` = #{recruitId}
+            </if>
+            <if test="scoreNum != null">
+                and `score_num` = #{scoreNum}
+            </if>
+            <if test="scoreDescription != null">
+                and `score_description` = #{scoreDescription}
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+    </select>
+</mapper>

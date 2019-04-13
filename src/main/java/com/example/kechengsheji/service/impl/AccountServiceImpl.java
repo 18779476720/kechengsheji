@@ -98,6 +98,7 @@ public class AccountServiceImpl implements AccountService {
             studentVo.setAccountname(params.getAccountname());
             studentVo.setPhone(studentInfo.getString("phone"));
             studentVo.setEmail(studentInfo.getString("email"));
+            studentVo.setHopeJob(studentInfo.getString("hopeJob"));
             String dateTimeString = studentInfo.getString("dateTime");
             String format1 = "yyyy-MM-dd";
             Date date = null;

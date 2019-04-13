@@ -24,7 +24,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`major_Name` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,'hope_job',`major_Name` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
