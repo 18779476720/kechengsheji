@@ -1,5 +1,7 @@
 package com.example.kechengsheji.service;
 import com.example.kechengsheji.model.Studentinfo;
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -22,4 +24,6 @@ public interface StudentinfoService {
     Studentinfo updateByAccountName(Studentinfo studentinfo);
 
     List<Studentinfo> list(Studentinfo studentinfo);
+
+    PageInfo<Studentinfo> getAll(Studentinfo studentinfo, Integer pageNum, Integer pageSize);
 }

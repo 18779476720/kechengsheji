@@ -193,4 +193,9 @@
 		where accountname = #{accountname}
 
 	</select>
+    <select id="getAll" resultMap="account">
+        select
+        <include refid="columns" />
+        from `account`
+    </select>
 </mapper>

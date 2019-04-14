@@ -4,6 +4,7 @@ import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
 import com.example.kechengsheji.model.AccountParams;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.model.Account;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 /**
 * Created by chenglu on 2019-3-9.
 */
@@ -98,6 +101,13 @@ public class AccountController{
 
     }
 
+    @RequestMapping(value = "/getall")
+    @ResponseBody
+    public PageInfo<Account> getAll(){
+
+        return accountService.getAll();
+    }
+
     /**
      * 加载静态资源
      */
@@ -108,4 +118,5 @@ public class AccountController{
             registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         }
     }
+
 }

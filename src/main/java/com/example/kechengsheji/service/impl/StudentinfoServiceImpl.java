@@ -3,6 +3,8 @@ package com.example.kechengsheji.service.impl;
 import com.example.kechengsheji.service.StudentinfoService;
 import com.example.kechengsheji.dao.StudentinfoDao;
 import com.example.kechengsheji.model.Studentinfo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -66,5 +68,14 @@ public class StudentinfoServiceImpl implements StudentinfoService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public List<Studentinfo> list(Studentinfo studentinfo){
         return studentinfoDao.list(studentinfo);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public PageInfo<Studentinfo> getAll(Studentinfo studentinfo,Integer pageNum,Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Studentinfo> list = studentinfoDao.list(studentinfo);
+        PageInfo<Studentinfo> pageInfo = new PageInfo<>(list);
+
+        return pageInfo;
     }
 }
