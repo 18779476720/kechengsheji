@@ -1,6 +1,8 @@
 package com.example.kechengsheji.service;
 
 import com.example.kechengsheji.model.Recruitinfo;
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -19,4 +21,6 @@ public interface RecruitinfoService {
     Recruitinfo getById(Integer id);
 
     List<Recruitinfo> list(Recruitinfo recruitinfo);
+    //分页参数查询
+    PageInfo<Recruitinfo> getAll(Recruitinfo recruitinfo, Integer pageNum, Integer pageSize);
 }

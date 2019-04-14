@@ -3,6 +3,8 @@ package com.example.kechengsheji.service.impl;
 import com.example.kechengsheji.service.RecruitinfoService;
 import com.example.kechengsheji.dao.RecruitinfoDao;
 import com.example.kechengsheji.model.Recruitinfo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -54,4 +56,13 @@ public class RecruitinfoServiceImpl implements RecruitinfoService {
         return recruitinfoDao.list(recruitinfo);
     }
 
+    //分页查询
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public PageInfo<Recruitinfo> getAll(Recruitinfo recruitinfo, Integer pageNum, Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Recruitinfo> list = recruitinfoDao.list(recruitinfo);
+        PageInfo<Recruitinfo> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
 }

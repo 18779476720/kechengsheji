@@ -177,11 +177,11 @@
                       <div id="toolbar" style="padding-left: 50px">
                         <form class="form-inline">
                           <div class="form-group">
-                            <label for="accountname" class="col-sm-3 control-label" style="display: inline-block;font-size:15px">&nbsp;&nbsp;&nbsp;兼职类型：</label>
+                            <label for="searchJonType" class="col-sm-3 control-label" style="display: inline-block;font-size:15px">&nbsp;&nbsp;&nbsp;兼职类型：</label>
                             <div class="col-sm-6" style="display: inline-block">
                               <input type="text" class="form-control input-lg" name="searchJonType" id="searchJonType"
                                      placeholder="请输入兼职类型">&nbsp;&nbsp;&nbsp;
-                              <button type="button" class="btn btn-primary queryButton">查询</button>
+                              <button type="button" class="btn btn-primary queryButton" onclick="loadData(0,10)">查询</button>
                             </div>
                           </div>
                         </form>
@@ -196,9 +196,9 @@
                   <table class="table table-condensed table-striped table-hover no-margin">
                     <thead>
                     <tr>
-                      <th style="width:3%">
-                        <input type="checkbox" class="no-margin">
-                      </th>
+                      <!--<th style="width:3%">-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</th>-->
                       <th style="width:20%">
                         兼职类型
                       </th>
@@ -216,175 +216,175 @@
                       </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          01小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label label-info">
-                                中评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-06
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          02小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label label-success">
-                                好评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-06
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          03小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label">
-                                差评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-06
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          04小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label label-info">
-                                中评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-05
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          05小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label label-success">
-                                好评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-05
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          06小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label">
-                                差评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-05
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input type="checkbox" class="no-margin">
-                      </td>
-                      <td>
-                        商店零售
-                      </td>
-                      <td class="hidden-phone">
-                        <strong>
-                          07小超市
-                        </strong>
-                      </td>
-                      <td>
-                        4
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                              <span class="label label label-info">
-                                中评
-                              </span>
-                      </td>
-                      <td class="right-align-text hidden-phone">
-                        2019-04-05
-                      </td>
-                    </tr>
+                    <tbody id = "counpBody">
+                    <!--<tr>-->
+                        <!--<td hidden>-->
+                            <!--id-->
+                        <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--01小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label label-info">-->
+                                <!--中评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-06-->
+                      <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                      <!--<td>-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--02小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label label-success">-->
+                                <!--好评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-06-->
+                      <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                      <!--<td>-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--03小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label">-->
+                                <!--差评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-06-->
+                      <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                      <!--<td>-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--04小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label label-info">-->
+                                <!--中评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-05-->
+                      <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                      <!--<td>-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--05小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label label-success">-->
+                                <!--好评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-05-->
+                      <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                      <!--<td>-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--06小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label">-->
+                                <!--差评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-05-->
+                      <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                      <!--<td>-->
+                        <!--<input type="checkbox" class="no-margin">-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--商店零售-->
+                      <!--</td>-->
+                      <!--<td class="hidden-phone">-->
+                        <!--<strong>-->
+                          <!--07小超市-->
+                        <!--</strong>-->
+                      <!--</td>-->
+                      <!--<td>-->
+                        <!--4-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                              <!--<span class="label label label-info">-->
+                                <!--中评-->
+                              <!--</span>-->
+                      <!--</td>-->
+                      <!--<td class="right-align-text hidden-phone">-->
+                        <!--2019-04-05-->
+                      <!--</td>-->
+                    <!--</tr>-->
                     </tbody>
                   </table>
                 </div>
@@ -487,51 +487,40 @@
   </p>
 </footer>
 
-<script src="js/wysiwyg/wysihtml5-0.3.0.js">
-</script>
-<script src="js/jquery.min.js">
-</script>
-<script src="js/bootstrap.js">
-</script>
-<script src="js/wysiwyg/bootstrap-wysihtml5.js">
-</script>
-<script src="js/jquery.scrollUp.js">
-</script>
+<!--<script src="js/wysiwyg/wysihtml5-0.3.0.js">-->
+<!--</script>-->
+<!--<script src="js/jquery.min.js">-->
+<!--</script>-->
+<!--<script src="js/bootstrap.js">-->
+<!--</script>-->
+<!--<script src="js/wysiwyg/bootstrap-wysihtml5.js">-->
+<!--</script>-->
+<!--<script src="js/jquery.scrollUp.js">-->
+<!--</script>-->
 
 
-<!-- Google Visualization JS -->
+<!--&lt;!&ndash; Google Visualization JS &ndash;&gt;-->
 
 
-<!-- Easy Pie Chart JS -->
-<script src="js/jquery.easy-pie-chart.js">
-</script>
+<!--&lt;!&ndash; Easy Pie Chart JS &ndash;&gt;-->
+<!--<script src="js/jquery.easy-pie-chart.js">-->
+<!--</script>-->
 
-<!-- Sparkline JS -->
-<script src="js/jquery.sparkline.js">
-</script>
+<!--&lt;!&ndash; Sparkline JS &ndash;&gt;-->
+<!--<script src="js/jquery.sparkline.js">-->
+<!--</script>-->
 
-<!-- Tiny Scrollbar JS -->
-<script src="js/tiny-scrollbar.js">
-</script>
+<!--&lt;!&ndash; Tiny Scrollbar JS &ndash;&gt;-->
+<!--<script src="js/tiny-scrollbar.js">-->
+<!--</script>-->
 
 
 
 <script type="text/javascript">
-    //ScrollUp
-    $(function () {
-        $.scrollUp({
-            scrollName: 'scrollUp', // Element ID
-            topDistance: '300', // Distance from top before showing element (px)
-            topSpeed: 300, // Speed back to top (ms)
-            animation: 'fade', // Fade, slide, none
-            animationInSpeed: 400, // Animation in speed (ms)
-            animationOutSpeed: 400, // Animation out speed (ms)
-            scrollText: 'Scroll to top', // Text for element
-            activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-        });
+    $(function() {
+        loadData(0, 10, 0);
     });
-
-   //分页
+   //分页初始化
     $("#pagination").whjPaging({
         //可选，css设置，可设置值：css-1，css-2，css-3，css-4，css-5，默认css-1，可自定义样式
         css: 'css-1',
@@ -568,7 +557,7 @@
         //可选，是否展示首页与尾页，默认true
         isShowFL: true,
         //可选，是否展示每页条数下拉框，默认true，如果设置显示，总条数必须设置
-        isShowPageSizeOpt: true,
+        isShowPageSizeOpt: false,
         //可选，是否展示跳到指定页数，默认true
         isShowSkip: false,
         //可选，是否展示刷新，默认true
@@ -581,130 +570,66 @@
         isResetPage: false,
         //必选，回掉函数，返回参数：第一个参数为页码，第二个参数为每页显示N条
         callBack: function (currPage, pageSize) {
-            console.log('currPage:' + currPage + ' pageSize:' + pageSize);
+            loadData(currPage, pageSize,1);
         }
     });
 
-    function loadData(currPage, pageSize) {
+    function loadData(currPage, pageSize, flag) {
+        var searchJonType = $("#searchJonType").val();
+        var pageNum = 0;
+        if(flag == 0){
+            pageNum = 0;
+            pageSize = 10;
+        }else {
+            pageSize = 10;
+            pageNum = currPage;
+        }
         //处理数据
-    }
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            dataType: "json",
+            url: "http://localhost:8088/recruitinfo/getall?recruitinfo=" + searchJonType + "&pageNum="+ pageNum +"&pageSize=" + pageSize,
+            success: function (data){
+                debugger
+                if(data.list.length > 0) {
+                    $("#counpBody").html("");
+                    for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
+                        var id = data.list[i].id == null ? "" : data.list[i].id;
+                        var recruitType = data.list[i].recruitType == null ? "" : data.list[i].recruitType;
+                        var recruitNum = data.list[i].recruitNum == null ? "" : data.list[i].recruitNum;
+                        var salaryDescription = data.list[i].salaryDescription == null ? "" : data.list[i].salaryDescription;
+                        var createDate = data.list[i].createDate == null ? "" : data.list[i].createDate;
+                        var taskPlace = data.list[i].taskPlace == null ? "" : data.list[i].taskPlace;
 
-    loadData(1, 5);
-    //分页
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Week', 'Visitors', 'Orders'],
-            ['Sun', 9709, 761],
-            ['Mon', 1367, 8631],
-            ['Tue', 6792, 971],
-            ['Wed', 1267, 7491],
-            ['Thu', 9539, 1792],
-            ['Fri', 670, 9367],
-            ['Sat', 9761, 709]
-        ]);
-
-        var options = {
-            width: 'auto',
-            height: '160',
-            backgroundColor: 'transparent',
-            colors: ['#ed6d49', '#0daed3'],
-            tooltip: {
-                textStyle: {
-                    color: '#666666',
-                    fontSize: 11
-                },
-                showColorCode: true
-            },
-            legend: {
-                textStyle: {
-                    color: 'black',
-                    fontSize: 12
+                        var html = $("#counpBody").html();
+                        html = '<tr> <td style="display:none">@id</td>' +
+                            '<td>@recruitType</td>' +
+                            '<td class="hidden-phone"><strong>@recruitNum</strong></td>' +
+                            '<td>@salaryDescription</td>' +
+                            '<td class="right-align-text hidden-phone">@taskPlace</td>' +
+                            '<td class="right-align-text hidden-phone">@createDate</td></tr>'
+                        html = html.replace(/@id/g, id);
+                        html = html.replace(/@recruitType/g, recruitType);
+                        html = html.replace(/@recruitNum/g, recruitNum);
+                        html = html.replace(/@salaryDescription/g, salaryDescription);
+                        html = html.replace(/@taskPlace/g, taskPlace);
+                        html = html.replace(/@createDate/g, createDate);
+                        $("#counpBody").append(html);
+                    }
+                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                }else{
+                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#counpBody").html("");
+                    var html = "<h5 style='text-align: center'>没有更多数据了！</h5>";
+                    $("#counpBody").append(html);
                 }
             },
-            chartArea: {
-                left: 100,
-                top: 10
-            },
-            focusTarget: 'category',
-            hAxis: {
-                textStyle: {
-                    color: 'black',
-                    fontSize: 12
-                }
-            },
-            vAxis: {
-                textStyle: {
-                    color: 'black',
-                    fontSize: 12
-                }
-            },
-            pointSize: 6,
-            chartArea: {
-                left: 60,
-                top: 10,
-                height: '80%'
-            },
-            lineWidth: 1,
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('area_chart'));
-        chart.draw(data, options);
+        });
     }
 
 
-    //Tooltip
-    $('a').tooltip('hide');
-    $('i').tooltip('hide');
-
-
-    //Tiny Scrollbar
-    $('#scrollbar').tinyscrollbar();
-    $('#scrollbar-one').tinyscrollbar();
-    $('#scrollbar-two').tinyscrollbar();
-    $('#scrollbar-three').tinyscrollbar();
-
-
-
-    //Tabs
-    $('#myTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-
-    // SparkLine Graphs-Charts
-    $(function () {
-        $('#unique-visitors').sparkline('html', {
-            type: 'bar',
-            barColor: '#ed6d49',
-            barWidth: 6,
-            height: 30,
-        });
-        $('#monthly-sales').sparkline('html', {
-            type: 'bar',
-            barColor: '#74b749',
-            barWidth: 6,
-            height: 30,
-        });
-        $('#current-balance').sparkline('html', {
-            type: 'bar',
-            barColor: '#ffb400',
-            barWidth: 6,
-            height: 30,
-        });
-        $('#registrations').sparkline('html', {
-            type: 'bar',
-            barColor: '#0daed3',
-            barWidth: 6,
-            height: 30,
-        });
-        $('#site-visits').sparkline('html', {
-            type: 'bar',
-            barColor: '#f63131',
-            barWidth: 6,
-            height: 30,
-        });
-    });
-    $('#wysiwyg').wysihtml5();
+    // $('#wysiwyg').wysihtml5();
 </script>
 </body>
 </html>

@@ -3,10 +3,8 @@ package com.example.kechengsheji.controller;
 
 import com.example.kechengsheji.service.StudentinfoService;
 import com.example.kechengsheji.model.Studentinfo;
-import java.util.List;
 
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

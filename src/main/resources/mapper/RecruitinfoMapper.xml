@@ -262,7 +262,7 @@
                 and `id` = #{id}
             </if>
             <if test="recruitType != null">
-                and `recruit_type` = #{recruitType}
+                and `recruit_type` like '%'#{recruitType}'%'
             </if>
             <if test="recruitNum != null">
                 and `recruit_num` = #{recruitNum}

@@ -3,7 +3,7 @@ package com.example.kechengsheji.controller;
 
 import com.example.kechengsheji.service.RecruitinfoService;
 import com.example.kechengsheji.model.Recruitinfo;
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +56,17 @@ public class RecruitinfoController{
     @ResponseBody
     public Object deleteRecruitinfoByIds(@RequestBody Integer[] ids){
         return recruitinfoService.deleteByIds(ids);
+    }
+
+    @RequestMapping(value = "getall",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<?> getRecruitinfo(@RequestParam("recruitinfo") String recruitinfo, @RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize){
+        Recruitinfo recruitinfoVo = new Recruitinfo();
+        if("".equals(recruitinfo)){
+            recruitinfoVo.setRecruitType(null);
+        }else{
+            recruitinfoVo.setRecruitType(recruitinfo);
+        }
+        return recruitinfoService.getAll(recruitinfoVo,pageNum,pageSize);
     }
 }
