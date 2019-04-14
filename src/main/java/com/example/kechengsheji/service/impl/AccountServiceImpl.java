@@ -8,6 +8,8 @@ import com.example.kechengsheji.model.Studentinfo;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.dao.AccountDao;
 import com.example.kechengsheji.model.Account;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -146,5 +148,13 @@ public class AccountServiceImpl implements AccountService {
             studentinfoDao.updateByAccountName(studentVo);
         }
         return true;
+    }
+
+    @Override
+    public PageInfo<Account> getAll() {
+        PageHelper.startPage(1,7);
+        List<Account> list = accountDao.getAll();
+        PageInfo<Account> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

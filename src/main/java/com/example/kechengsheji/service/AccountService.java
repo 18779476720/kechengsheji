@@ -2,6 +2,7 @@ package com.example.kechengsheji.service;
 
 import com.example.kechengsheji.model.Account;
 import com.example.kechengsheji.model.AccountParams;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface AccountService {
     int selectCount(@Param("accountname") String name);
 
     boolean saveOrUpdateAccount(AccountParams params);
+
+    PageInfo<Account> getAll();
 }

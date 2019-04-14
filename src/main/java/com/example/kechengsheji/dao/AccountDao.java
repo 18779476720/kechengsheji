@@ -29,4 +29,6 @@ public interface AccountDao {
     Account getByAccountname(@Param("accountname") String accountname);
 
     int selectCount(@Param("accountname") String name);
+
+    List<Account> getAll();
 }

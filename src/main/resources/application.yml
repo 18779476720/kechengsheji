@@ -20,3 +20,17 @@ spring:
     username: root
     password: chenglu
     driver-class-name: com.mysql.jdbc.Driver
+
+
+mybatis:
+# spring boot集成mybatis的方式打印sql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    returnPageInfo: check

@@ -4,6 +4,9 @@ package com.example.kechengsheji.controller;
 import com.example.kechengsheji.service.StudentinfoService;
 import com.example.kechengsheji.model.Studentinfo;
 import java.util.List;
+
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +59,10 @@ public class StudentinfoController{
     @ResponseBody
     public Object deleteStudentinfoByIds(@RequestBody Integer[] ids){
         return studentinfoService.deleteByIds(ids);
+    }
+    @RequestMapping(value = "getall")
+    @ResponseBody
+    public PageInfo<?> getStudentInfo(@RequestBody Studentinfo studentinfo, @RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize){
+        return studentinfoService.getAll(studentinfo,pageNum,pageSize);
     }
 }
