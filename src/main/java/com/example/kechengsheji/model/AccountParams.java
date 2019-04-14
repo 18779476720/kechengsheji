@@ -45,6 +45,11 @@ public class AccountParams implements Serializable {
      */
     private String studentInfo;
 
+    /**
+     *
+     * @return
+     */
+    private String businessInfo;
     public String getSchoolInfo() {
         return schoolInfo;
     }
@@ -137,4 +142,11 @@ public class AccountParams implements Serializable {
         this.studentInfo = studentInfo;
     }
 
+    public String getBusinessInfo() {
+        return businessInfo;
+    }
+
+    public void setBusinessInfo(String businessInfo) {
+        this.businessInfo = businessInfo;
+    }
 }

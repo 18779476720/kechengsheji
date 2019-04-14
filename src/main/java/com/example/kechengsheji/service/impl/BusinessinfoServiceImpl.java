@@ -50,6 +50,11 @@ public class BusinessinfoServiceImpl implements BusinessinfoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Businessinfo updateBusinessInfoByAccountName(Businessinfo businessinfo){
+        return businessinfoDao.updateBusinessInfoByAccountName(businessinfo);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public List<Businessinfo> list(Businessinfo businessinfo){
         return businessinfoDao.list(businessinfo);
     }

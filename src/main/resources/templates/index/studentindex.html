@@ -32,8 +32,11 @@
   <!-- bootstrap css -->
   <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
   <script type="text/javascript" src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="../../static/js/pagination.min.js"></script>
   <link href="../../static/css/jqueryui.css" rel="stylesheet" type="text/css" />
   <!--<link href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />-->
+  <link href="../../static/css/pagination.css" rel="stylesheet">
   <link href="../../static/icomoon/style.css" rel="stylesheet">
   <!--[if lte IE 7]>
   <script src="../../static/css/icomoon-font/lte-ie7.js">
@@ -93,6 +96,12 @@
             找兼职
           </a>
         </li>
+        <li hidden>
+          <a href="icons.html">
+            <div class="fs1" aria-hidden="true" data-icon="&#xe0a9;"></div>
+            推荐我的
+          </a>
+        </li>
         <li>
           <a href="graphs.html">
             <div class="fs1" aria-hidden="true" data-icon="&#xe096;"></div>
@@ -115,30 +124,6 @@
       <div class="clearfix">
       </div>
     </div>
-    <div class="sub-nav">
-      <ul>
-        <li><a href="" class="heading">我的应用</a></li>
-        <li>
-          <a href="#mailbox">
-            找兼职
-          </a>
-        </li>
-        <li>
-          <a href="#todo">
-            看投递
-          </a>
-        </li>
-        <li>
-          <a href="#chats">
-            评价
-          </a>
-        </li>
-        <li>
-          <a href="#notifications">
-            个人信息
-          </a>
-        </li>
-      </ul>
       <div class="btn-group pull-right">
         <button class="btn btn-primary">
           Main Menu
@@ -194,7 +179,7 @@
                           <div class="form-group">
                             <label for="accountname" class="col-sm-3 control-label" style="display: inline-block;font-size:15px">&nbsp;&nbsp;&nbsp;兼职类型：</label>
                             <div class="col-sm-6" style="display: inline-block">
-                              <input type="text" class="form-control input-lg" name="accountname" id="accountname"
+                              <input type="text" class="form-control input-lg" name="searchJonType" id="searchJonType"
                                      placeholder="请输入兼职类型">&nbsp;&nbsp;&nbsp;
                               <button type="button" class="btn btn-primary queryButton">查询</button>
                             </div>
@@ -203,33 +188,6 @@
                       </div>
                       <table id="table" ></table>
                     </div>
-                  </div>
-                </div>
-
-                <div class="tools pull-right">
-                  <div class="btn-group">
-                    <a class="btn btn-small">
-                      <i class="icon-trash" data-original-title="Delete">
-                      </i>
-                    </a>
-                  </div>
-                  <div class="btn-group">
-                    <a class="btn btn-small">最新
-                      <!--<i class="icon-folder-close"  data-original-title="Move to">-->
-                      <!--</i>-->
-                    </a>
-                    <a class="btn btn-small">最热
-                    </a>
-                  </div>
-                  <div class="btn-group">
-                    <a class="btn btn-small">
-                      <i class="icon-chevron-left" data-original-title="Prev">
-                      </i>
-                    </a>
-                    <a class="btn btn-small btn-info" >
-                      <i class="icon-chevron-right icon-white" data-original-title="Next">
-                      </i>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -430,6 +388,9 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="pagination" id="pagination" style="float: left">
+
+                </div>
               </div>
             </div>
           </div>
@@ -505,216 +466,6 @@
                           </span>
                       06商家刚刚发布招聘信息广泛好评
                     </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      07商家
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      B2B plug and play
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Need some interesting
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      B2B plug and play
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Need some interesting
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Need some interesting
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      B2B plug and play
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Need some interesting
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      B2B plug and play
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Need some interesting
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Portals technologies
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Collaborative innovate
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
-                    <a href="#">
-                          <span class="label-bullet">
-                            &nbsp;
-                          </span>
-                      Mashups experiences plug
-                    </a>
                   </div>
 
                 </div>
@@ -725,8 +476,6 @@
         </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
@@ -782,12 +531,66 @@
         });
     });
 
-    //Google Visualiations
-    google.load("visualization", "1", {
-        packages: ["corechart"]
+   //分页
+    $("#pagination").whjPaging({
+        //可选，css设置，可设置值：css-1，css-2，css-3，css-4，css-5，默认css-1，可自定义样式
+        css: 'css-1',
+        //可选，每页条数下拉框，5条/页(默认)、10条/页、15条/页
+        pageSizeOpt: [
+            {value: 5, text: '5条/页', selected: true},
+            {value: 10, text: '10条/页'},
+            {value: 15, text: '15条/页'}
+        ],
+        //可选，总条数
+        totalSize: 10,
+        //可选，总页数
+        totalPage: 2,
+        //可选，展示页码数量，默认5个页码数量
+        showPageNum: 5,
+        //可选，首页按钮展示文本，默认显示文本为首页
+        firstPage: "首页",
+        //可选，上一页按钮展示文本，默认显示文本为上一页
+        previousPage: "上一页",
+        //可选，下一页按钮展示文本，默认显示文本为下一页
+        nextPage: "下一页",
+        //可选，尾页按钮展示文本，默认显示文本为尾页
+        lastPage: "尾页",
+        //可选，跳至展示文本，默认显示文本为跳至
+        skip: "跳至",
+        //可选，确认按钮展示文本，默认显示文本为确认
+        confirm: "确认",
+        //可选，刷新按钮展示文本，默认显示文本为刷新
+        refresh: "刷新",
+        //可选，共{}页展示文本，默认显示文本为共{}页，其中{}会在js具体转化为数字
+        totalPageText: "共{}页",
+        //可选，共{}条记录展示文本，默认显示文本为共{}条记录，其中{}会在js具体转化为数字
+        totalSizeText: "共{}条记录",
+        //可选，是否展示首页与尾页，默认true
+        isShowFL: true,
+        //可选，是否展示每页条数下拉框，默认true，如果设置显示，总条数必须设置
+        isShowPageSizeOpt: true,
+        //可选，是否展示跳到指定页数，默认true
+        isShowSkip: false,
+        //可选，是否展示刷新，默认true
+        isShowRefresh: true,
+        //可选，是否展示共{}页，默认true
+        isShowTotalPage: true,
+        //可选，是否展示共{}条记录，默认true
+        isShowTotalSize: true,
+        //可选，是否需要重新设置当前页码、总页数及总条数，默认false，如果设为true，那么在请求服务器返回数据时，需要调用setPage方法
+        isResetPage: false,
+        //必选，回掉函数，返回参数：第一个参数为页码，第二个参数为每页显示N条
+        callBack: function (currPage, pageSize) {
+            console.log('currPage:' + currPage + ' pageSize:' + pageSize);
+        }
     });
-    google.setOnLoadCallback(drawChart);
 
+    function loadData(currPage, pageSize) {
+        //处理数据
+    }
+
+    loadData(1, 5);
+    //分页
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Week', 'Visitors', 'Orders'],

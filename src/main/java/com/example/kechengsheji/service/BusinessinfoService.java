@@ -19,4 +19,7 @@ public interface BusinessinfoService {
     Businessinfo getById(Integer id);
 
     List<Businessinfo> list(Businessinfo businessinfo);
+
+    //通过用户名修改商家信息
+    Businessinfo updateBusinessInfoByAccountName(Businessinfo businessinfo);
 }

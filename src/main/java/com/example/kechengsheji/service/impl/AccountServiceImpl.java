@@ -1,13 +1,11 @@
 package com.example.kechengsheji.service.impl;
 
+import com.example.kechengsheji.dao.BusinessinfoDao;
 import com.example.kechengsheji.dao.SchoolinfoDao;
 import com.example.kechengsheji.dao.StudentinfoDao;
-import com.example.kechengsheji.model.AccountParams;
-import com.example.kechengsheji.model.Schoolinfo;
-import com.example.kechengsheji.model.Studentinfo;
+import com.example.kechengsheji.model.*;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.dao.AccountDao;
-import com.example.kechengsheji.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -35,6 +33,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     StudentinfoDao studentinfoDao;
+
+    @Autowired
+    BusinessinfoDao businessinfoDao;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -90,60 +91,81 @@ public class AccountServiceImpl implements AccountService {
         accountVo.setAccountname(params.getAccountname());
         accountVo.setPassword(params.getPassword());
         accountVo.setRole(params.getRole());
-
-        JSONObject studentInfo = JSONObject.parseObject(params.getStudentInfo());
-        Studentinfo studentVo = new Studentinfo();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        if(studentInfo != null){
-            studentVo.setAccountname(params.getAccountname());
-            studentVo.setPhone(studentInfo.getString("phone"));
-            studentVo.setEmail(studentInfo.getString("email"));
-            studentVo.setHopeJob(studentInfo.getString("hopeJob"));
-            String dateTimeString = studentInfo.getString("dateTime");
-            String format1 = "yyyy-MM-dd";
-            Date date = null;
-            try {
-                date = new SimpleDateFormat(format1).parse(dateTimeString);
-            } catch (ParseException e) {
-                e.printStackTrace();
+        if("1".equals(params.getRole())){
+            JSONObject studentInfo = JSONObject.parseObject(params.getStudentInfo());
+            Studentinfo studentVo = new Studentinfo();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            if(studentInfo != null){
+                studentVo.setAccountname(params.getAccountname());
+                studentVo.setPhone(studentInfo.getString("phone"));
+                studentVo.setEmail(studentInfo.getString("email"));
+                studentVo.setHopeJob(studentInfo.getString("hopeJob"));
+                String dateTimeString = studentInfo.getString("dateTime");
+                String format1 = "yyyy-MM-dd";
+                Date date = null;
+                try {
+                    date = new SimpleDateFormat(format1).parse(dateTimeString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                studentVo.setDateTime(date);
+                studentVo.setMajorName(studentInfo.getString("majorName"));
+                studentVo.setSex(studentInfo.getString("sex"));
+                studentVo.setStudentName(studentInfo.getString("studentName"));
+                String enrollmentYearString = studentInfo.getString("enrollmentYear");
+                Date date1 = null;
+                try {
+                    date1 = new SimpleDateFormat(format1).parse(enrollmentYearString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                studentVo.setEnrollmentYear(date1);
             }
-            studentVo.setDateTime(date);
-            studentVo.setMajorName(studentInfo.getString("majorName"));
-            studentVo.setSex(studentInfo.getString("sex"));
-            studentVo.setStudentName(studentInfo.getString("studentName"));
-            String enrollmentYearString = studentInfo.getString("enrollmentYear");
-            Date date1 = null;
-            try {
-                date1 = new SimpleDateFormat(format1).parse(enrollmentYearString);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            JSONObject schoolInfo = JSONObject.parseObject(params.getSchoolInfo());
+            Schoolinfo schoolVo = new Schoolinfo();
+            if(schoolInfo != null){
+                schoolVo.setSchoolAddress(schoolInfo.getString("schoolAddress"));
+                schoolVo.setSchoolCode(null);
+                schoolVo.setSchoolName(schoolInfo.getString("schoolName"));
             }
-            studentVo.setEnrollmentYear(date1);
-        }
-        JSONObject schoolInfo = JSONObject.parseObject(params.getSchoolInfo());
-        Schoolinfo schoolVo = new Schoolinfo();
-        if(schoolInfo != null){
-            schoolVo.setSchoolAddress(schoolInfo.getString("schoolAddress"));
-            schoolVo.setSchoolCode(null);
-            schoolVo.setSchoolName(schoolInfo.getString("schoolName"));
-        }
-        //判断新增还是更新
-        Account account = accountDao.getByAccountname(params.getAccountname());
-        //新增
-        if(account == null){
-            accountDao.insert(accountVo);
-            schoolinfoDao.insert(schoolVo);
-            studentVo.setSchoolId(schoolVo.getId());
-            studentinfoDao.insert(studentVo);
-        }
-        //修改
-        if(account != null){
-            accountDao.update(accountVo);
-            Studentinfo newStudentVo = studentinfoDao.getByName(accountVo.getAccountname());
-            schoolVo.setId(newStudentVo.getSchoolId());
-            schoolinfoDao.update(schoolVo);
-            studentVo.setSchoolId(schoolVo.getId());
-            studentinfoDao.updateByAccountName(studentVo);
+            //判断新增还是更新
+            Account account = accountDao.getByAccountname(params.getAccountname());
+            //新增
+            if(account == null){
+                accountDao.insert(accountVo);
+                schoolinfoDao.insert(schoolVo);
+                studentVo.setSchoolId(schoolVo.getId());
+                studentinfoDao.insert(studentVo);
+            }
+            //修改
+            if(account != null){
+                accountDao.update(accountVo);
+                Studentinfo newStudentVo = studentinfoDao.getByName(accountVo.getAccountname());
+                schoolVo.setId(newStudentVo.getSchoolId());
+                schoolinfoDao.update(schoolVo);
+                studentVo.setSchoolId(schoolVo.getId());
+                studentinfoDao.updateByAccountName(studentVo);
+            }
+        }else if("2".equals(params.getRole())){
+            JSONObject businessInfo = JSONObject.parseObject(params.getBusinessInfo());
+            Businessinfo businessVo = new Businessinfo();
+            if(businessInfo != null){
+                businessVo.setBusinessName(businessInfo.getString("businessName"));
+                businessVo.setBusinessDescription(businessInfo.getString("businessDescription"));
+                businessVo.setAccountname(params.getAccountname());
+            }
+            //判断新增还是更新
+            Account account = accountDao.getByAccountname(params.getAccountname());
+            //新增
+            if(account == null){
+                accountDao.insert(accountVo);
+                businessinfoDao.insert(businessVo);
+            }
+            //修改
+            if(account != null){
+                accountDao.update(accountVo);
+                businessinfoDao.updateBusinessInfoByAccountName(businessVo);
+            }
         }
         return true;
     }

@@ -24,5 +24,8 @@ public interface BusinessinfoDao {
 
     Businessinfo getById(@Param("id") Integer id);
 
+    //通过用户名修改商家信息
+    Businessinfo updateBusinessInfoByAccountName(Businessinfo businessinfo);
+
     List<Businessinfo> list(Businessinfo businessinfo);
 }

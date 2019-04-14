@@ -8,6 +8,7 @@
     <resultMap id="announcementinfo" type="com.example.kechengsheji.model.Announcementinfo">
             <id property="id" column="id"/>
             <result property="announcementInfo" column="announcement_info"/>
+            <result property="announcementName" column="announcement_name"/>
             <result property="createdBy" column="created_by"/>
             <result property="createDate" column="create_date"/>
             <result property="lastUpdateBy" column="last_update_by"/>
@@ -15,7 +16,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`announcement_info` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`announcement_info` ,'announcement_name', `created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -26,6 +27,9 @@
             </if>
             <if test="announcementInfo != null">
                 `announcement_info`,
+            </if>
+            <if test="announcementName != null">
+                `announcement_name`,
             </if>
             <if test="createdBy != null">
                 `created_by`,
@@ -46,6 +50,9 @@
             </if>
             <if test="announcementInfo != null">
             #{announcementInfo} ,
+            </if>
+            <if test="announcementName != null">
+                #{announcementName} ,
             </if>
             <if test="createdBy != null">
             #{createdBy} ,
@@ -70,6 +77,9 @@
             </if>
             <if test="announcementInfo != null">
                 and `announcement_info` = #{announcementInfo}
+            </if>
+            <if test="announcementName != null">
+                and `announcement_name` = #{announcementName}
             </if>
             <if test="createdBy != null">
                 and `created_by` = #{createdBy}
@@ -100,6 +110,9 @@
                 <if test="announcementInfo != null">
                     `announcement_info` = #{announcementInfo},
                 </if>
+            <if test="announcementName != null">
+                `announcement_name` = #{announcementName},
+            </if>
                 <if test="createdBy != null">
                     `created_by` = #{createdBy},
                 </if>
@@ -133,6 +146,9 @@
             </if>
             <if test="announcementInfo != null">
                 and `announcement_info` = #{announcementInfo}
+            </if>
+            <if test="announcementName != null">
+                and `announcement_name` = #{announcementName}
             </if>
             <if test="createdBy != null">
                 and `created_by` = #{createdBy}
