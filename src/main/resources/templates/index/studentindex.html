@@ -196,23 +196,23 @@
                   <table class="table table-condensed table-striped table-hover no-margin">
                     <thead>
                     <tr>
-                      <!--<th style="width:3%">-->
-                        <!--<input type="checkbox" class="no-margin">-->
-                      <!--</th>-->
-                      <th style="width:20%">
+                      <th hidden>
+                        id
+                      </th>
+                      <th style="width:10% text-align:center">
                         兼职类型
                       </th>
-                      <th style="width:20%" class="hidden-phone">
-                        商家名称
-                      </th>
-                      <th style="width:10%" class="hidden-phone">
+                      <th style="width:20% text-align:center" class="hidden-phone">
                         招聘人数
                       </th>
-                      <th style="width:20%" class="right-align-text hidden-phone">
-                        评价
+                      <th style="width:25% text-align:center">
+                        工作地点
                       </th>
-                      <th style="width:30%" class="right-align-text hidden-phone">
+                      <th style="width:30% text-align:center" class="hidden-phone">
                         发布时间
+                      </th>
+                      <th style="width:15% text-align:center" class="hidden-phone">
+                        操作
                       </th>
                     </tr>
                     </thead>
@@ -423,21 +423,20 @@
                         var id = data.list[i].id == null ? "" : data.list[i].id;
                         var recruitType = data.list[i].recruitType == null ? "" : data.list[i].recruitType;
                         var recruitNum = data.list[i].recruitNum == null ? "" : data.list[i].recruitNum;
-                        var salaryDescription = data.list[i].salaryDescription == null ? "" : data.list[i].salaryDescription;
-                        var createDate = data.list[i].createDate == null ? "" : data.list[i].createDate;
+                        var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
                         var taskPlace = data.list[i].taskPlace == null ? "" : data.list[i].taskPlace;
-
                         var html = $("#counpBody").html();
                         html = '<tr> <td style="display:none">@id</td>' +
                             '<td>@recruitType</td>' +
                             '<td class="hidden-phone"><strong>@recruitNum</strong></td>' +
-                            '<td>@salaryDescription</td>' +
-                            '<td class="right-align-text hidden-phone">@taskPlace</td>' +
-                            '<td class="right-align-text hidden-phone">@createDate</td></tr>'
+                            '<td class="hidden-phone">@taskPlace</td>' +
+                            '<td class="hidden-phone">@createDate</td>' +
+                            '<td class="hidden-phone"><span class = "lookInfo"'+
+                            'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="lookInfo(@id)">查看详情</span></td></tr>'
+
                         html = html.replace(/@id/g, id);
                         html = html.replace(/@recruitType/g, recruitType);
                         html = html.replace(/@recruitNum/g, recruitNum);
-                        html = html.replace(/@salaryDescription/g, salaryDescription);
                         html = html.replace(/@taskPlace/g, taskPlace);
                         html = html.replace(/@createDate/g, createDate);
                         $("#counpBody").append(html);
@@ -451,6 +450,15 @@
                 }
             },
         });
+    }
+
+    //格式化日期
+    function formatTime(date){
+        var millis = new Date().getTime();
+        var date1 = new Date(date);
+        return date1.getFullYear() + '.' +
+            ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
+            ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
     }
 
     //加载公告
