@@ -1,9 +1,15 @@
 package com.example.kechengsheji.controller;
+import com.example.kechengsheji.dao.AccountDao;
+import com.example.kechengsheji.dao.StudentinfoDao;
 import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
 import com.example.kechengsheji.model.AccountParams;
+import com.example.kechengsheji.model.Schoolinfo;
+import com.example.kechengsheji.model.Studentinfo;
 import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.model.Account;
+import com.example.kechengsheji.service.SchoolinfoService;
+import com.example.kechengsheji.service.StudentinfoService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-
+import com.alibaba.fastjson.*;
 /**
 * Created by chenglu on 2019-3-9.
 */
@@ -24,6 +30,10 @@ public class AccountController{
 
     @Autowired
     AccountService accountService;
+    @Autowired
+    StudentinfoService studentinfoService;
+    @Autowired
+    SchoolinfoService schoolinfoService;
 
     @RequestMapping(value="",method = RequestMethod.GET)
     @ResponseBody
@@ -54,14 +64,53 @@ public class AccountController{
     @RequestMapping(value = "/registerIn", method = RequestMethod.POST)
     @ResponseBody
     public ApiResult<?> register(@RequestBody AccountParams params) {
+        Integer id = params.getId();
         //查询该用户名是否存在
-        int num = accountService.selectCount(params.getAccountname());
-        if(num > 0){
-            return ApiResult.build(XKHResponseCodeEnum.ACCOUNT_HAS);
+        if(id == null){
+            int num = accountService.selectCount(params.getAccountname());
+            if(num > 0){
+                return ApiResult.build(XKHResponseCodeEnum.ACCOUNT_HAS);
+            }
+        }else {
+            int num = accountService.selectCount(params.getAccountname());
+            if(num > 0){
+                Account account = accountService.getByAccountname(params.getAccountname());
+                if(account.getId() != params.getId()){
+                    return ApiResult.build(XKHResponseCodeEnum.ACCOUNT_HAS);
+                }
+            }
         }
         return ApiResult.buildSuccess(accountService.saveOrUpdateAccount(params));
     }
 
+    //加载学生个人信息
+    @RequestMapping(value = "/loadPersonInfo")
+    @ResponseBody
+    public ApiResult<?> loadPersonInfo(HttpSession httpSession) {
+        //查询该用户名是否存在
+        Object a = httpSession.getAttribute("id");
+        Account account = accountService.getById((Integer) a);
+        Studentinfo studentinfo = studentinfoService.getByName(account.getAccountname());
+        Schoolinfo schoolinfo = schoolinfoService.getById(studentinfo.getSchoolId());
+        AccountParams params = new AccountParams();
+        params.setId(account.getId());
+        params.setAccountname(account.getAccountname());
+        params.setPassword(account.getPassword());
+        //对象转化为json字符串
+        JSONObject json = (JSONObject) JSONObject.toJSON(schoolinfo);
+        params.setSchoolInfo(json.toJSONString());
+        json = (JSONObject) JSONObject.toJSON(studentinfo);
+        params.setStudentInfo(json.toJSONString());
+        return ApiResult.buildSuccess(params);
+    }
+
+    //用户登录欢迎
+    @RequestMapping(value = "/welcomeLogin", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<?> loginWelcome(HttpSession session) {
+        Object a = session.getAttribute("id");
+        return ApiResult.buildSuccess(accountService.getById((Integer) a));
+    }
 
     @RequestMapping("/register")
     public String Index() {

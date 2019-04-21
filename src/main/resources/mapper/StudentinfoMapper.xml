@@ -12,7 +12,7 @@
             <result property="email" column="email"/>
             <result property="schoolId" column="school_id"/>
             <result property="hopeJob" column="hope_job"/>
-            <result property="majorName" column="major_namme"/>
+            <result property="majorName" column="major_name"/>
             <result property="sex" column="sex"/>
             <result property="studentName" column="student_name"/>
             <result property="enrollmentYear" column="enrollment_year"/>
@@ -24,7 +24,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,'hope_job',`major_Name` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`hope_job` ,`major_name` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -49,7 +49,7 @@
                 `hope_job`,
             </if>
             <if test="majorName != null">
-                `major_Name`,
+                `major_name`,
             </if>
             <if test="sex != null">
                 `sex`,
@@ -147,7 +147,7 @@
                 and `hope_job` = #{hopeJob}
             </if>
             <if test="majorName != null">
-                and `major_Name` = #{majorName}
+                and `major_name` = #{majorName}
             </if>
             <if test="sex != null">
                 and `sex` = #{sex}
@@ -203,7 +203,7 @@
                 `hope_job` = #{hopeJob},
             </if>
                 <if test="majorName != null">
-                    `major_Name` = #{majorName},
+                    `major_name` = #{majorName},
                 </if>
                 <if test="sex != null">
                     `sex` = #{sex},
@@ -252,7 +252,7 @@
                 `hope_job` = #{hopeJob},
             </if>
             <if test="majorName != null">
-                `major_Name` = #{majorName},
+                `major_name` = #{majorName},
             </if>
             <if test="sex != null">
                 `sex` = #{sex},
@@ -313,7 +313,7 @@
                 and `hope_job` = #{hopeJob}
             </if>
             <if test="majorName != null">
-                and `major_Name` = #{majorName}
+                and `major_name` = #{majorName}
             </if>
             <if test="sex != null">
                 and `sex` = #{sex}

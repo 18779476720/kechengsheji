@@ -115,7 +115,7 @@ public class Studentinfo implements Serializable {
     }
 
     public String getMajorName() {
-        return majorName;
+        return this.majorName;
     }
 
     public Studentinfo setMajorName(String majorName) {

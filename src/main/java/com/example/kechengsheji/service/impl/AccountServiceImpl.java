@@ -91,10 +91,17 @@ public class AccountServiceImpl implements AccountService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean saveOrUpdateAccount(AccountParams params) {
         Account accountVo = new Account();
-        accountVo.setAccountname(params.getAccountname());
-        accountVo.setPassword(params.getPassword());
-        accountVo.setRole(params.getRole());
-        if("1".equals(params.getRole())){
+        if(params.getId() == null){
+            accountVo.setAccountname(params.getAccountname());
+            accountVo.setPassword(params.getPassword());
+            accountVo.setRole(params.getRole());
+        }else{
+            Account account = accountDao.getById(params.getId());
+            accountVo.setAccountname(params.getAccountname());
+            accountVo.setPassword(params.getPassword());
+            accountVo.setRole(account.getRole());
+        }
+        if("1".equals(accountVo.getRole())){
             JSONObject studentInfo = JSONObject.parseObject(params.getStudentInfo());
             Studentinfo studentVo = new Studentinfo();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -149,7 +156,7 @@ public class AccountServiceImpl implements AccountService {
                 studentVo.setSchoolId(schoolVo.getId());
                 studentinfoDao.updateByAccountName(studentVo);
             }
-        }else if("2".equals(params.getRole())){
+        }else if("2".equals(accountVo.getRole())){
             JSONObject businessInfo = JSONObject.parseObject(params.getBusinessInfo());
             Businessinfo businessVo = new Businessinfo();
             if(businessInfo != null){

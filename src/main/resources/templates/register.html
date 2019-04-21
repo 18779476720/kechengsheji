@@ -128,11 +128,20 @@
 							</div>
 						</div>
 
+
+						<div class="form-group">
+							<label for="majorName" class="col-sm-3 control-label"></label>
+							<div class="col-sm-6">
+								<input type="hidden" class="form-control" name="id" id="id">
+							</div>
+						</div>
+
+
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" onclick="cancle()">取消</button>
-					<button type="button" class="btn btn-primary" onclick="save()">注册</button>
+					<button type="button" class="btn btn-default" onclick="javascript:history.back(-1);">取消</button>
+					<button type="button" class="btn btn-primary" onclick="save()">保存</button>
 				</div>
 			</div>
 		</div>
@@ -141,21 +150,74 @@
 </body>
 
 <script type="text/javascript">
-    $('.form_date').datetimepicker({
-        language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
+	//全局变量
+    var FLAG = false;
+    $(function(){
+        $('.form_date').datetimepicker({
+            language:  'fr',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+        debugger
+        $('#datetimepicker').datetimepicker();
+        var loadData = "";
+        var loadDataurl=GetQueryString("loadData");
+        if(loadDataurl != null){
+            //修改个人信息
+            //处理数据
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json',
+                dataType: "json",
+                url: "http://localhost:8088/account/loadPersonInfo",
+                success: function (data){
+                    debugger
+					FLAG = true;
+                    if(data.datas != null) {
+                        var schoolInfoObj = JSON.parse(data.datas.schoolInfo);
+                        var studentInfoObj = JSON.parse(data.datas.studentInfo);
+                        $("#id").val(data.datas.id);
+						$("#accountname").val(data.datas.accountname);
+						$("#password").val(data.datas.password);
+                        $("#conpassword").val(data.datas.password);
+                        $("#sex").val(studentInfoObj.sex);
+                        $("#phone").val(studentInfoObj.phone);
+                        $("#email").val(studentInfoObj.email);
+                        $("#hopeJob").val(studentInfoObj.hopeJob);
+                        $("#studentName").val(studentInfoObj.studentName);
+                        $("#enrollmentYear").val(formatTime(studentInfoObj.enrollmentYear));
+                        $("#dateTime").val(formatTime(studentInfoObj.dateTime));
+                        $("#majorName").val(studentInfoObj.majorName);
+                        $("#schoolName").val(schoolInfoObj.schoolName);
+                        $("#schoolAddress").val(schoolInfoObj.schoolAddress);
+                    }
+                },
+            });
+        }
     });
-    $('#datetimepicker').datetimepicker();
-	function cancle() {
-        window.location.href = "/welcome";
-	}
+    //获取url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+        if(r!=null)return  unescape(r[2]); return null;
+    };
+    //格式化日期
+    function formatTime(date){
+        var millis = new Date().getTime();
+        var date1 = new Date(date);
+        return date1.getFullYear() + '-' +
+            ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '-' +
+            ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
+    };
+
 	function save() {
+	    var id = $("#id").val();
 	    var accountname = $("#accountname").val();
 	    var conpassword = $("#conpassword").val();
 	    var password = $("#password").val();
@@ -232,7 +294,7 @@
         var studentInfo = JSON.stringify(student);
 
         var params = {
-            id: null,
+            id: id,
             accountname: accountname,
             password: password,
             role: role,
@@ -256,21 +318,20 @@
                     toastr.error(data.message);
                     return false;
                 }
-                toastr.success("注册成功,界面即将跳转！");
-                setTimeout(function () {
-                    window.location.href = "/welcome";
-				}, 3000);
-
+                if(FLAG == true){
+                    toastr.success("保存成功,请重新登录！");
+                    setTimeout(function () {
+                        window.location.href = "/welcome";
+                    }, 3000);
+				}else{
+                    toastr.success("注册成功,界面即将跳转！");
+                    setTimeout(function () {
+                        window.location.href = "/welcome";
+                    }, 3000);
+				}
+                FLAG = false;
             },
         });
-        //获取url参数
-        function GetQueryString(name)
-        {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
-            if(r!=null)return  unescape(r[2]); return null;
-        }
-
 	}
 </script>
 </html>

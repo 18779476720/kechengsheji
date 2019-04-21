@@ -34,10 +34,14 @@
   <script type="text/javascript" src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="../../static/js/pagination.min.js"></script>
+  <script type="text/javascript" src="../../static/js/toastr.min.js"></script>
+
   <link href="../../static/css/jqueryui.css" rel="stylesheet" type="text/css" />
   <!--<link href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />-->
   <link href="../../static/css/pagination.css" rel="stylesheet">
   <link href="../../static/icomoon/style.css" rel="stylesheet">
+  <link href="../../static/css/toastr.css" rel="stylesheet" type="text/css"/>
+
   <!--[if lte IE 7]>
   <script src="../../static/css/icomoon-font/lte-ie7.js">
   </script>
@@ -50,35 +54,11 @@
 <body style="background-image: url(../../static/images/jloginbg04.jpg);">
 <header style="background-image: url(../../static/images/jloginbg04.jpg);background-size:10000px 10000px">
   <a href="#" class="logo">
-    <img src="../../static/images/jlogosmall.png" width="70" height="90" alt="logo" />
+    <img src="../../static/images/jlogosmall.png" width="70" height="90" alt="logo"/>
     <span class="mini-title" style="display: inline-block;"><a id="mailbox" style="font-size:30px; line-height:70px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎登陆大学生兼职网</a></span>
   </a>
-  <div class="btn-group">
-    <button class="btn btn-primary">
-      欢迎程路
-    </button>
-    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
-          <span class="caret">
-          </span>
-    </button>
-    <ul class="dropdown-menu pull-right">
-      <li>
-        <a href="#">
-          修改个人信息
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          切换账号
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          退出
-        </a>
-      </li>
-    </ul>
-  </div>
+  <div class="btn-group" id = "welcomeLogin"></div>
+  <script type="text/javascript" src="../../static/myJs/welcomeLogin.js"></script>
 </header>
 <div class="container-fluid">
   <div class="dashboard-container">
@@ -342,10 +322,14 @@
 
 
 <script type="text/javascript">
-    $(function() {
+    $("#welcomeLogin").load("jump?html_url=index/welcomeLogin")
+    <!--$("#welcomeLogin").load("../../templates/index/welcomeLogin.html")-->
+    $(function(){
         loadData(0, 10, 0);
+        welcomeLogin();
     });
-   //分页初始化
+
+    //分页初始化
     $("#pagination").whjPaging({
         //可选，css设置，可设置值：css-1，css-2，css-3，css-4，css-5，默认css-1，可自定义样式
         css: 'css-1',
@@ -468,7 +452,6 @@
     }
 
 
-    // $('#wysiwyg').wysihtml5();
 </script>
 </body>
 </html>
