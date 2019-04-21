@@ -1,13 +1,18 @@
 package com.example.kechengsheji.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.kechengsheji.dao.dto.ApiResult;
+import com.example.kechengsheji.model.Businessinfo;
+import com.example.kechengsheji.model.RecruitinfoParams;
+import com.example.kechengsheji.service.BusinessinfoService;
 import com.example.kechengsheji.service.RecruitinfoService;
 import com.example.kechengsheji.model.Recruitinfo;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 
 /**
 * Created by chenglu on 2019-3-25.
@@ -19,6 +24,9 @@ public class RecruitinfoController{
     @Autowired
     RecruitinfoService recruitinfoService;
 
+    @Autowired
+    BusinessinfoService businessinfoService;
+
     @RequestMapping(value="",method = RequestMethod.GET)
     @ResponseBody
     public Object listRecruitinfo(){
@@ -26,10 +34,17 @@ public class RecruitinfoController{
         return recruitinfoService.list(recruitinfo);
     }
 
+    //通过id查询详细
     @RequestMapping(value="/getByIdRecruitinfo",method = RequestMethod.GET)
     @ResponseBody
-    public Object getByIdRecruitinfo(Integer id){
-        return recruitinfoService.getById(id);
+    public ApiResult<?> getByIdRecruitinfo(@RequestParam("id")Integer id){
+        Recruitinfo recruitinfo = recruitinfoService.getById(id);
+        RecruitinfoParams params = new RecruitinfoParams();
+        BeanUtils.copyProperties(recruitinfo,params);
+        Businessinfo businessinfo = businessinfoService.getById(recruitinfo.getBusinessId());
+        String json = JSONObject.toJSON(businessinfo).toString();
+        params.setBusinessinfoString(json);
+        return ApiResult.buildSuccess(params);
     }
 
     @RequestMapping(value="",method = RequestMethod.POST)

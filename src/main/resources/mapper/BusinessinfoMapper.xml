@@ -17,7 +17,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,'accountname', `business_name` ,`business_description` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`accountname` , `business_name` ,`business_description` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
