@@ -22,7 +22,7 @@ public class Announcementinfo implements Serializable {
     /**
      *
      */
-    private Integer createdBy;
+    private String createdBy;
     /**
      *
      */
@@ -62,11 +62,11 @@ public class Announcementinfo implements Serializable {
         return this;
     }
 
-    public Integer getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public Announcementinfo setCreatedBy(Integer createdBy) {
+    public Announcementinfo setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
         return this;
     }

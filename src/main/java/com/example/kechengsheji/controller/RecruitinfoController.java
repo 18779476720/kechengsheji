@@ -15,8 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
-* Created by chenglu on 2019-3-25.
-*/
+ * Created by chenglu on 2019-3-25.
+ */
 @Controller
 @RequestMapping("/recruitinfo")
 public class RecruitinfoController{
@@ -73,6 +73,7 @@ public class RecruitinfoController{
         return recruitinfoService.deleteByIds(ids);
     }
 
+    //查找所有公告
     @RequestMapping(value = "getall",method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<?> getRecruitinfo(@RequestParam("recruitinfo") String recruitinfo, @RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize){

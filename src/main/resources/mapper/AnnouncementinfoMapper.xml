@@ -6,17 +6,17 @@
 -->
 <mapper namespace="com.example.kechengsheji.dao.AnnouncementinfoDao">
     <resultMap id="announcementinfo" type="com.example.kechengsheji.model.Announcementinfo">
-            <id property="id" column="id"/>
-            <result property="announcementInfo" column="announcement_info"/>
-            <result property="announcementName" column="announcement_name"/>
-            <result property="createdBy" column="created_by"/>
-            <result property="createDate" column="create_date"/>
-            <result property="lastUpdateBy" column="last_update_by"/>
-            <result property="lastUpdateDate" column="last_update_date"/>
+        <id property="id" column="id"/>
+        <result property="announcementInfo" column="announcement_info"/>
+        <result property="announcementName" column="announcement_name"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="lastUpdateBy" column="last_update_by"/>
+        <result property="lastUpdateDate" column="last_update_date"/>
     </resultMap>
 
     <sql id="columns">
-            `id` ,`announcement_info` ,'announcement_name', `created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`announcement_info` ,`announcement_name`, `created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -46,25 +46,25 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
-            #{id} ,
+                #{id} ,
             </if>
             <if test="announcementInfo != null">
-            #{announcementInfo} ,
+                #{announcementInfo} ,
             </if>
             <if test="announcementName != null">
                 #{announcementName} ,
             </if>
             <if test="createdBy != null">
-            #{createdBy} ,
+                #{createdBy} ,
             </if>
             <if test="createDate != null">
-            #{createDate} ,
+                #{createDate} ,
             </if>
             <if test="lastUpdateBy != null">
-            #{lastUpdateBy} ,
+                #{lastUpdateBy} ,
             </if>
             <if test="lastUpdateDate != null">
-            #{lastUpdateDate} ,
+                #{lastUpdateDate} ,
             </if>
         </trim>
     </insert>
@@ -100,31 +100,31 @@
         delete from `announcementinfo`
         where `id` in
         <foreach collection="ids" open="(" item="id" separator="," close=")">
-        #{id}
+            #{id}
         </foreach>
     </delete>
 
     <update id="update">
         update `announcementinfo`
         <set>
-                <if test="announcementInfo != null">
-                    `announcement_info` = #{announcementInfo},
-                </if>
+            <if test="announcementInfo != null">
+                `announcement_info` = #{announcementInfo},
+            </if>
             <if test="announcementName != null">
                 `announcement_name` = #{announcementName},
             </if>
-                <if test="createdBy != null">
-                    `created_by` = #{createdBy},
-                </if>
-                <if test="createDate != null">
-                    `create_date` = #{createDate},
-                </if>
-                <if test="lastUpdateBy != null">
-                    `last_update_by` = #{lastUpdateBy},
-                </if>
-                <if test="lastUpdateDate != null">
-                    `last_update_date` = #{lastUpdateDate},
-                </if>
+            <if test="createdBy != null">
+                `created_by` = #{createdBy},
+            </if>
+            <if test="createDate != null">
+                `create_date` = #{createDate},
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by` = #{lastUpdateBy},
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date` = #{lastUpdateDate},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -163,5 +163,6 @@
                 and `last_update_date` = #{lastUpdateDate}
             </if>
         </trim>
+        order by create_date asc
     </select>
 </mapper>
