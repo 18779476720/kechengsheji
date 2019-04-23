@@ -73,7 +73,7 @@ public class RecruitinfoController{
         return recruitinfoService.deleteByIds(ids);
     }
 
-    //查找所有公告
+    //查找所有
     @RequestMapping(value = "getall",method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<?> getRecruitinfo(@RequestParam("recruitinfo") String recruitinfo, @RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize){
