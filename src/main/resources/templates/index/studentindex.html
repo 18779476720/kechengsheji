@@ -162,7 +162,7 @@
                                                     <div class="col-sm-6" style="display: inline-block">
                                                         <input type="text" class="input-medium search-query" name="searchJonType" id="searchJonType"
                                                                placeholder="请输入兼职类型">&nbsp;&nbsp;&nbsp;
-                                                        <button type="button" class="btn" onclick="loadData(0,10)"><span class="glyphicon glyphicon-zoom-out" style="color: rgb(36, 218, 255); font-size: 9px;"> 查询</span></button>
+                                                        <button type="button" class="btn" onclick="loadData(0,10)"><span class="glyphicon glyphicon-zoom-out" style="color: rgb(36, 218, 255); font-size: 13px;"> 查询</span></button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -251,16 +251,21 @@
 </div>
 </div>
 <!--点击某条公告弹框-->
-<div id="couponList"></div>
-<script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
+<div id="couponList" style="display: none"></div>
+
 <!--/.fluid-container-->
 </div>
 
+<!--点击企业弹框-->
+<div id="bussinessDetailList" style="display: none"></div>
 
-
+</div>
+<script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
+<script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
 <script type="text/javascript">
     $("#welcomeLogin").load("jump?html_url=index/welcomeLogin");
     $("#couponList").load("jump?html_url=dialog/announcementDialog");
+    $("#bussinessDetailList").load("jump?html_url=dialog/bussinessDetail");
     <!--$("#welcomeLogin").load("../../templates/index/welcomeLogin.html")-->
     $(function(){
         loadData(0, 10, 0);
@@ -324,7 +329,6 @@
 
     function loadData(currPage, pageSize, flag) {
         var searchJonType = $("#searchJonType").val();
-        debugger
         var pageNum = 0;
         if(flag == 0){
             pageNum = 0;
@@ -349,6 +353,7 @@
                         var salaryDescription = data.list[i].salaryDescription == null ? "" : data.list[i].salaryDescription;
                         var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
                         var businessName = data.list[i].businessName == null ? "" : data.list[i].businessName;
+                        var businessId = data.list[i].businessId == null ? "" : data.list[i].businessId;
                         var classStyle = (i + 1) % 4;
                         var classValue = '';
                         if(classStyle == 0){
@@ -369,16 +374,16 @@
                             classValue = status;
                         }
                         var html = $("#counpBody").html();
-                        html = '<tr class = "@classValue" onclick="lookInfo(@id)">'+
-                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;">@recruitType</strong></p>'+
-                            '<p>&nbsp;</p><p style="font-size: 15px;">@salaryDescription</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);">@businessName</strong></p>'+
+                        html = '<tr class = "@classValue">'+
+                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitType</strong></p>'+
+                            '<p>&nbsp;</p><p style="font-size: 15px;">@salaryDescription</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
                             '<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>'+
                             '<p style="font-size:13px;">@createDate</p></td><td><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp;<button type="button" class="btn" onclick="lookInfo(@id)">投递</button> </p>'+
                             '</td></tr>';
                         html = html.replace(/@classValue/g, classValue);
                         html = html.replace(/@id/g, id);
                         html = html.replace(/@recruitType/g, recruitType);
-
+                        html = html.replace(/@businessId/g, businessId);
                         html = html.replace(/@salaryDescription/g, salaryDescription);
                         html = html.replace(/@createDate/g, createDate);
                         html = html.replace(/@businessName/g, businessName);

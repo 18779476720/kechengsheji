@@ -28,7 +28,7 @@ public class BusinessinfoController{
 
     @RequestMapping(value="/getByIdBusinessinfo",method = RequestMethod.GET)
     @ResponseBody
-    public Object getByIdBusinessinfo(Integer id){
+    public Object getByIdBusinessinfo(@RequestParam("id")Integer id){
         return businessinfoService.getById(id);
     }
 
