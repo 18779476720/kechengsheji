@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+
+<html class="lt-ie9 lt-ie8 lt-ie7" lang="en">
+
+<![endif]-->
+<!--[if IE 7]>
+
+<html class="lt-ie9 lt-ie8" lang="en">
+
+<![endif]-->
+<!--[if IE 8]>
+
+<html class="lt-ie9" lang="en">
+
+<![endif]-->
+<!--[if gt IE 8]>
+<!-->
+
+<html lang="en">
+
+<!--
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>
+        Blue Moon - Responsive Admin Dashboard
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../../static/js/pagination.min.js"></script>
+    <script type="text/javascript" src="../../static/js/toastr.min.js"></script>
+
+    <link href="../../static/css/jqueryui.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />-->
+    <link href="../../static/css/pagination.css" rel="stylesheet">
+    <link href="../../static/icomoon/style.css" rel="stylesheet">
+    <link href="../../static/css/toastr.css" rel="stylesheet" type="text/css"/>
+
+    <!--[if lte IE 7]>
+    <script src="../../static/css/icomoon-font/lte-ie7.js">
+    </script>
+    <![endif]-->
+    <link href="../../static/css/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet">
+    <link href="../../static/css/wysiwyg/wysiwyg-color.css" rel="stylesheet">
+    <link href="../../static/css/main.css" rel="stylesheet">
+    <!-- Important. For Theming change primary-color variable in main.css  -->
+    <link href="../../static/css/charts-graphs.css" rel="stylesheet">
+</head>
+<header style="background-image: url(../../static/images/jloginbg04.jpg);background-size:10000px 10000px">
+    <a href="#" class="logo">
+        <img src="../../static/images/jlogosmall.png" width="70" height="90" alt="logo"/>
+        <span class="mini-title" style="display: inline-block;"><a id="mailbox"
+                                                                   style="font-size:30px; line-height:70px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎登陆大学生兼职网</a></span>
+    </a>
+    <div class="btn-group" id="welcomeLogin"></div>
+    <script type="text/javascript" src="../../static/myJs/welcomeLogin.js"></script>
+</header>
+<body style="background-image: url(../../static/images/jloginbg04.jpg);">
+
+<div class="container" style="margin-top: 70px">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12" id="spanDetail">
+            </div>
+
+        </div>
+        <div align="center">
+            <button class="btn btn-large btn-success" type="button" onclick="save()">投递</button>
+            <button class="btn btn-large" type="button" onclick="javascript:history.back(-1);">取消</button>
+            <br><br><br><br>
+
+        </div>
+    </div>
+</div>
+<div id="bussinessDetailList" style="display: none"></div>
+<script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
+<script type="text/javascript">
+
+    $("#welcomeLogin").load("jump?html_url=index/welcomeLogin")
+    //加载企业信息弹框
+    $("#bussinessDetailList").load("jump?html_url=dialog/bussinessDetail");
+    $(function(){
+        loadData();
+        welcomeLogin();
+    });
+    function loadData() {
+        var detailId = '';
+        var myurl=GetQueryString("html_url");
+        if(myurl !=null && myurl.toString().length>1){
+            detailId = GetQueryString("id");
+        }
+        //处理数据
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            dataType: "json",
+            url: "http://localhost:8088/recruitinfo/getByIdRecruitinfo?id=" + detailId,
+            success: function (data){
+                var business = JSON.parse(data.datas.businessinfoString);
+                debugger
+                if(data.code != 000001) {
+                    toastr.error(data.message);
+                    return false;
+                }
+                if(data.datas != null){
+                    $("#spanDetail").html("");
+                    var html = $("#spanDetail").html();
+                    html = '<dl><dt><strong style="font-size:18px">兼职类型</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@recruitType</dd></br>'+
+                        '<dt><strong style="font-size:18px">招聘人数</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@recruitNum</dd></br>'+
+                        '<dt><strong style="font-size:18px">薪资描述</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@salaryDescription</dd></br>'+
+                        '<dt><strong style="font-size:18px">工作描述</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@taskDescription</dd></br>'+
+                        '<dt><strong style="font-size:18px">工作地点</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@taskPlace</dd></br>'+
+                        '<dt><strong style="font-size:18px">联系电话</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@contactNumber</dd></br>'+
+                        '<dt><strong style="font-size:18px">工作城市</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@city</dd></br>'+
+                        '<dt><strong style="font-size:18px">发布商家</strong></dt><dd style="color:#00F;text-decoration:underline;cursor:pointer;font-size:15px" onclick="businessDetailInfo(@businessId)">&nbsp;&nbsp;@businessName</dd></br>'+
+                        '<dt><strong style="font-size:18px">发布时间</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@createDate</dd></br></dl>'
+                    html = html.replace(/@recruitType/g, data.datas.recruitType);
+                    html = html.replace(/@recruitNum/g, data.datas.recruitNum);
+                    html = html.replace(/@salaryDescription/g, data.datas.salaryDescription);
+                    html = html.replace(/@taskDescription/g, data.datas.taskDescription);
+                    html = html.replace(/@taskPlace/g, data.datas.taskPlace);
+                    html = html.replace(/@contactNumber/g, data.datas.contactNumber);
+                    html = html.replace(/@city/g, data.datas.city);
+                    html = html.replace(/@businessName/g, business.businessName);
+                    html = html.replace(/@createDate/g, formatTime(data.datas.createDate));
+                    html = html.replace(/@businessId/g, business.id);
+                    $("#spanDetail").append(html);
+                }
+            },
+        });
+    };
+
+    //格式化日期
+    function formatTime(date){
+        var millis = new Date().getTime();
+        var date1 = new Date(date);
+        return date1.getFullYear() + '.' +
+            ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
+            ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
+    };
+    //获取url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+        if(r!=null)return  unescape(r[2]); return null;
+    };
+
+</script>
+<script type="text/javascript" src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
