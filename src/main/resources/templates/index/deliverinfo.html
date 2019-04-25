@@ -1,3 +1,4 @@
+<!--我的投递界面-->
 <!DOCTYPE html>
 <!--[if lt IE 7]>
 
@@ -24,15 +25,16 @@
 <head>
     <meta charset="utf-8">
     <title>
-        公告信息
+        我的投递
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- bootstrap css -->
-    <script type="text/javascript" src="../../static/js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../../static/js/jquery.min.js"></script>-->
 
-    <script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../static/starJs/vendor/jquery-1.11.2.min.js"></script>
+    <!--<script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js"></script>-->
     <script type="text/javascript" src="../../static/js/pagination.min.js"></script>
     <script type="text/javascript" src="../../static/js/toastr.min.js"></script>
 
@@ -41,7 +43,8 @@
     <link href="../../static/css/pagination.css" rel="stylesheet">
     <link href="../../static/icomoon/style.css" rel="stylesheet">
     <link href="../../static/css/toastr.css" rel="stylesheet" type="text/css"/>
-
+    <link href="../../static/starCss/main.css" rel="stylesheet">
+    <link href="../../static/starCss/examples.css" rel="stylesheet">
     <!--[if lte IE 7]>
     <script src="../../static/css/icomoon-font/lte-ie7.js">
     </script>
@@ -65,44 +68,42 @@
     <div class="dashboard-container" id="navigation">
     </div>
     <div class="dashboard-wrapper">
-
         <div class="left-sidebar" style="width:90%">
             <div class="row-fluid">
                 <div class="span12">
                     <div class="widget">
                         <div class="widget-header">
                             <div class="title pull-left">
-                                公告列表</div>
+                                投递列表</div>
                         </div>
                         <div class="widget-body">
                             <div class="mail">
                                 <table class="table table-condensed table-striped table-hover no-margin" >
                                     <thead>
                                     <tr>
-                                        <th style="font-size:16px">
+                                        <th style="font-size:15px">
                                             编号
                                         </th>
-                                        <th style="width:10% text-align:center; font-size:16px">
-                                            公告标题
+                                        <th style="width:10% text-align:center; font-size:15px">
+                                            投递职位
                                         </th>
-                                        <th style="width:20% text-align:center; font-size:16px" class="hidden-phone">
-                                            发布人
+                                        <th style="width:25% text-align:center; font-size:15px">
+                                            当前状态
                                         </th>
-                                        <th style="width:25% text-align:center; font-size:16px">
-                                            发布时间
+                                        <th style="width:15% text-align:center; font-size:15px" class="hidden-phone">
+                                            投递时间
                                         </th>
-                                        <th style="width:15% text-align:center; font-size:16px" class="hidden-phone">
+                                        <th style="width:15% text-align:center; font-size:15px" class="hidden-phone">
                                             操作
                                         </th>
                                     </tr>
                                     </thead>
-                                    <!--公告信息-->
+                                    <!--投递信息-->
                                     <tbody id = "counpBody" style="cursor: pointer;">
                                     </tbody>
                                 </table>
                             </div>
                             <div class="pagination" id="pagination" style="float: left">
-
                             </div>
                         </div>
                     </div>
@@ -119,20 +120,22 @@
 </div>
 </div>
 </div>
-<!--点击某条公告弹框-->
-<div id="couponList" style="display: none"></div>
-</div>
-
 
 </div>
-<script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
+
+<!--点击投递弹框-->
+<div id="deliverDialogList" style="display: none"></div>
+
+
+
 <script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
+<script type="text/javascript" src="../../static/myJs/scoreDialog.js"></script>
 <script type="text/javascript">
     //加载导航栏
     $("#navigation").load("jump?html_url=navigation/studentNavigation");
     $("#welcomeLogin").load("jump?html_url=index/welcomeLogin");
-    $("#couponList").load("jump?html_url=dialog/announcementDialog");
-    <!--$("#welcomeLogin").load("../../templates/index/welcomeLogin.html")-->
+    //加载投递弹框
+    $("#deliverDialogList").load("jump?html_url=dialog/scoreDialog");
     $(function(){
         loadData(0, 0, 0);
         welcomeLogin();
@@ -179,7 +182,7 @@
         //可选，是否展示跳到指定页数，默认true
         isShowSkip: false,
         //可选，是否展示刷新，默认true
-        isShowRefresh: true,
+        isShowRefresh: false,
         //可选，是否展示共{}页，默认true
         isShowTotalPage: true,
         //可选，是否展示共{}条记录，默认true
@@ -206,36 +209,53 @@
             type: "GET",
             contentType: 'application/json',
             dataType: "json",
-            url: "http://localhost:8088/announcementinfo/getall?flag=true&pageNum="+ pageNum +"&pageSize=" + pageSize,
+            url: "http://localhost:8088/deliverinfo/getMyDeliverinfo?pageNum="+ pageNum +"&pageSize=" + pageSize,
             success: function (data){
                 debugger
-                if(data.list.length > 0) {
+                if(data.datas.list.length > 0) {
                     $("#counpBody").html("");
-                    for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
-                        var id = data.list[i].id == null ? "" : data.list[i].id;
-                        var announcementName = data.list[i].announcementName == null ? "" : data.list[i].announcementName;
-                        var announcementInfo = data.list[i].announcementInfo == null ? "" : data.list[i].announcementInfo;
-                        var createdBy = data.list[i].createdBy == null ? "" : data.list[i].createdBy;
-                        var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
+                    for (var i = 0; i < data.datas.list.length; i++) {//默认显示第一页10个记录
+                        var id = data.datas.list[i].id == null ? "" : data.datas.list[i].id;
+                        var recruitinfoType = data.datas.list[i].recruitinfoType == null ? "" : data.datas.list[i].recruitinfoType;
+                        var deliverStatus = data.datas.list[i].deliverStatus == null ? "" : data.datas.list[i].deliverStatus;
+                        var createDate = data.datas.list[i].createDate == null ? "" : formatTime(data.datas.list[i].createDate);
+                        var recruitId = data.datas.list[i].recruitId == null ? "" : data.datas.list[i].recruitId;
+                        var accountId = data.datas.list[i].accountId == null ? "" : data.datas.list[i].accountId;
+                        var deliverStatusLabel = '';
+
+                        var html2 = '';
+                        if(deliverStatus == '已投递' || deliverStatus == '已评价'){
+                            html2 = '<td class="hidden-phone"><button class="btn btn-small btn-success disabled" type="button">评价</button></td></tr>'
+                            if(deliverStatus == '已投递'){deliverStatusLabel = "label-primary";
+                            }else{deliverStatusLabel = "label-info";}
+                        }else{
+                            html2 = '<td class="hidden-phone"><button class="btn btn-small btn-success" type="button" onclick="judge(@recruitId,@accountId)">评价</button></td></tr>'
+                            if(deliverStatus == '通过'){deliverStatusLabel = "label-success";
+                            }else{deliverStatusLabel = "label-warning";}
+                        }
+
                         var html = $("#counpBody").html();
                         html = '<tr> <td style="font-size:15px">@id</td>' +
-                            '<td style="font-size:15px">@announcementName</td>' +
-                            '<td class="hidden-phone" style="font-size:15px">@createdBy</td>' +
-                            '<td class="hidden-phone" style="font-size:15px">@createDate</td>' +
-                            '<td class="hidden-phone" style="font-size:15px"><span class = "lookInfo"'+
-                            'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="announceInfoClick(@id)">查看详细</span></td></tr>'
+                            '<td style="font-size:15px"><strong style="color: rgb(36, 218, 255); font-size: 17px;" onclick="lookInfo(@recruitId)">@recruitinfoType</strong></td>' +
+                            '<td class="hidden-phone" style="font-size:15px"><span class="label @deliverStatusLabel">@deliverStatus</span></td>' +
+                            '<td class="hidden-phone" style="font-size:15px">@createDate</td>'
+
+                        html = html + html2;
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@announcementName/g, announcementName);
-                        html = html.replace(/@announcementInfo/g, announcementInfo);
+                        html = html.replace(/@recruitinfoType/g, recruitinfoType);
+                        html = html.replace(/@deliverStatusLabel/g, deliverStatusLabel);
+                        html = html.replace(/@deliverStatus/g, deliverStatus);
                         html = html.replace(/@createDate/g, createDate);
-                        html = html.replace(/@createdBy/g, createdBy);
+                        html = html.replace(/@recruitId/g, recruitId);
+                        html = html.replace(/@accountId/g, accountId);
+
                         $("#counpBody").append(html);
                     }
-                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
                 }else{
-                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
                     $("#counpBody").html("");
-                    var html = "<h5 style='text-align: center'>没有更多数据了！</h5>";
+                    var html = "<h5 style='text-align: center'>暂时还没有投递！</h5>";
                     $("#counpBody").append(html);
                 }
             },
@@ -249,10 +269,15 @@
         return date1.getFullYear() + '.' +
             ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
             ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
-    }
-
+    };
+    //进入招聘信息详情页
+    function lookInfo(id) {
+        window.location.href="/public/util/jump?html_url=index/recruitDetailInfo&id=" +id + "&flag=false";
+    };
 
 </script>
+
 </body>
 <script type="text/javascript" src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
 </html>

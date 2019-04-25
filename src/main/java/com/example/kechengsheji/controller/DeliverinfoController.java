@@ -1,6 +1,7 @@
 package com.example.kechengsheji.controller;
 
 
+import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.service.DeliverinfoService;
 import com.example.kechengsheji.model.Deliverinfo;
 import java.util.List;
@@ -8,23 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 
 /**
-* Created by chenglu on 2019-3-25.
-*/
+ * Created by chenglu on 2019-3-25.
+ */
 @Controller
 @RequestMapping("/deliverinfo")
 public class DeliverinfoController{
 
     @Autowired
     DeliverinfoService deliverinfoService;
-
-    @RequestMapping(value="",method = RequestMethod.GET)
-    @ResponseBody
-    public Object listDeliverinfo(){
-        Deliverinfo deliverinfo=new Deliverinfo();
-        return deliverinfoService.list(deliverinfo);
-    }
 
     @RequestMapping(value="/getByIdBusinessinfo",method = RequestMethod.GET)
     @ResponseBody
@@ -56,5 +52,13 @@ public class DeliverinfoController{
     @ResponseBody
     public Object deleteDeliverinfoByIds(@RequestBody Integer[] ids){
         return deliverinfoService.deleteByIds(ids);
+    }
+
+    @RequestMapping(value="/getMyDeliverinfo",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<?> getMyDeliverinfo(@RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize,HttpSession httpSession){
+        Deliverinfo deliverinfo = new Deliverinfo();
+        deliverinfo.setAccountId((Integer) httpSession.getAttribute("id"));
+        return ApiResult.buildSuccess(deliverinfoService.getAll(deliverinfo,pageNum,pageSize));
     }
 }

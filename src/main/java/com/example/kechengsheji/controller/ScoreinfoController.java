@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
-* Created by chenglu on 2019-3-25.
-*/
+ * Created by chenglu on 2019-3-25.
+ */
 @Controller
 @RequestMapping("/scoreinfo")
 public class ScoreinfoController{
@@ -32,7 +32,7 @@ public class ScoreinfoController{
         return scoreinfoService.getById(id);
     }
 
-    @RequestMapping(value="",method = RequestMethod.POST)
+    @RequestMapping(value="saveScore",method = RequestMethod.POST)
     @ResponseBody
     public Object insertScoreinfo(@RequestBody Scoreinfo scoreinfo){
         return scoreinfoService.insert(scoreinfo);

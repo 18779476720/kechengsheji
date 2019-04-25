@@ -6,18 +6,30 @@
 -->
 <mapper namespace="com.example.kechengsheji.dao.DeliverinfoDao">
     <resultMap id="deliverinfo" type="com.example.kechengsheji.model.Deliverinfo">
-            <id property="id" column="id"/>
-            <result property="studentId" column="student_id"/>
-            <result property="recruitId" column="recruit_id"/>
-            <result property="deliverStatus" column="deliver_status"/>
-            <result property="createdBy" column="created_by"/>
-            <result property="createDate" column="create_date"/>
-            <result property="lastUpdateBy" column="last_update_by"/>
-            <result property="lastUpdateDate" column="last_update_date"/>
+        <id property="id" column="id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="recruitId" column="recruit_id"/>
+        <result property="deliverStatus" column="deliver_status"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="lastUpdateBy" column="last_update_by"/>
+        <result property="lastUpdateDate" column="last_update_date"/>
+    </resultMap>
+
+    <resultMap id="deliverinfoList" type="com.example.kechengsheji.model.DeliverinfoListParams">
+        <id property="id" column="id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="recruitId" column="recruit_id"/>
+        <result property="deliverStatus" column="deliver_status"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="lastUpdateBy" column="last_update_by"/>
+        <result property="lastUpdateDate" column="last_update_date"/>
+        <result property="recruitinfoType" column="recruit_type"/>
     </resultMap>
 
     <sql id="columns">
-            `id` ,`student_id` ,`recruit_id` ,`deliver_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`account_id` ,`recruit_id` ,`deliver_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -26,8 +38,8 @@
             <if test="id != null">
                 `id`,
             </if>
-            <if test="studentId != null">
-                `student_id`,
+            <if test="accountId != null">
+                `account_id`,
             </if>
             <if test="recruitId != null">
                 `recruit_id`,
@@ -50,28 +62,28 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
-            #{id} ,
+                #{id} ,
             </if>
-            <if test="studentId != null">
-            #{studentId} ,
+            <if test="accountId != null">
+                #{accountId} ,
             </if>
             <if test="recruitId != null">
-            #{recruitId} ,
+                #{recruitId} ,
             </if>
             <if test="deliverStatus != null">
-            #{deliverStatus} ,
+                #{deliverStatus} ,
             </if>
             <if test="createdBy != null">
-            #{createdBy} ,
+                #{createdBy} ,
             </if>
             <if test="createDate != null">
-            #{createDate} ,
+                #{createDate} ,
             </if>
             <if test="lastUpdateBy != null">
-            #{lastUpdateBy} ,
+                #{lastUpdateBy} ,
             </if>
             <if test="lastUpdateDate != null">
-            #{lastUpdateDate} ,
+                #{lastUpdateDate} ,
             </if>
         </trim>
     </insert>
@@ -82,8 +94,8 @@
             <if test="id != null">
                 and `id` = #{id}
             </if>
-            <if test="studentId != null">
-                and `student_id` = #{studentId}
+            <if test="accountId != null">
+                and `account_id` = #{accountId}
             </if>
             <if test="recruitId != null">
                 and `recruit_id` = #{recruitId}
@@ -110,36 +122,30 @@
         delete from `deliverinfo`
         where `id` in
         <foreach collection="ids" open="(" item="id" separator="," close=")">
-        #{id}
+            #{id}
         </foreach>
     </delete>
 
     <update id="update">
         update `deliverinfo`
         <set>
-                <if test="studentId != null">
-                    `student_id` = #{studentId},
-                </if>
-                <if test="recruitId != null">
-                    `recruit_id` = #{recruitId},
-                </if>
-                <if test="deliverStatus != null">
-                    `deliver_status` = #{deliverStatus},
-                </if>
-                <if test="createdBy != null">
-                    `created_by` = #{createdBy},
-                </if>
-                <if test="createDate != null">
-                    `create_date` = #{createDate},
-                </if>
-                <if test="lastUpdateBy != null">
-                    `last_update_by` = #{lastUpdateBy},
-                </if>
-                <if test="lastUpdateDate != null">
-                    `last_update_date` = #{lastUpdateDate},
-                </if>
+            <if test="deliverStatus != null">
+                `deliver_status` = #{deliverStatus},
+            </if>
+            <if test="createdBy != null">
+                `created_by` = #{createdBy},
+            </if>
+            <if test="createDate != null">
+                `create_date` = #{createDate},
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by` = #{lastUpdateBy},
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date` = #{lastUpdateDate},
+            </if>
         </set>
-        where id = #{id}
+        where `account_id` = #{accountId} and `recruit_id` = #{recruitId}
     </update>
 
     <select id="getById" resultMap="deliverinfo">
@@ -149,35 +155,43 @@
         where `id` = #{id}
     </select>
 
-    <select id="list" resultMap="deliverinfo">
-        select
-        <include refid="columns" />
-        from `deliverinfo`
-        <trim prefix="where " prefixOverrides="and ">
-            <if test="id != null">
-                and `id` = #{id}
-            </if>
-            <if test="studentId != null">
-                and `student_id` = #{studentId}
-            </if>
-            <if test="recruitId != null">
-                and `recruit_id` = #{recruitId}
-            </if>
-            <if test="deliverStatus != null">
-                and `deliver_status` = #{deliverStatus}
-            </if>
-            <if test="createdBy != null">
-                and `created_by` = #{createdBy}
-            </if>
-            <if test="createDate != null">
-                and `create_date` = #{createDate}
-            </if>
-            <if test="lastUpdateBy != null">
-                and `last_update_by` = #{lastUpdateBy}
-            </if>
-            <if test="lastUpdateDate != null">
-                and `last_update_date` = #{lastUpdateDate}
-            </if>
-        </trim>
+    <!--<select id="list" resultMap="deliverinfo">-->
+    <!--select-->
+    <!--<include refid="columns" />-->
+    <!--from `deliverinfo`-->
+    <!--<trim prefix="where " prefixOverrides="and ">-->
+    <!--<if test="id != null">-->
+    <!--and `id` = #{id}-->
+    <!--</if>-->
+    <!--<if test="accountId != null">-->
+    <!--and `account_id` = #{accountId}-->
+    <!--</if>-->
+    <!--<if test="recruitId != null">-->
+    <!--and `recruit_id` = #{recruitId}-->
+    <!--</if>-->
+    <!--<if test="deliverStatus != null">-->
+    <!--and `deliver_status` = #{deliverStatus}-->
+    <!--</if>-->
+    <!--<if test="createdBy != null">-->
+    <!--and `created_by` = #{createdBy}-->
+    <!--</if>-->
+    <!--<if test="createDate != null">-->
+    <!--and `create_date` = #{createDate}-->
+    <!--</if>-->
+    <!--<if test="lastUpdateBy != null">-->
+    <!--and `last_update_by` = #{lastUpdateBy}-->
+    <!--</if>-->
+    <!--<if test="lastUpdateDate != null">-->
+    <!--and `last_update_date` = #{lastUpdateDate}-->
+    <!--</if>-->
+    <!--</trim>-->
+    <!--</select>-->
+
+    <select id="list" resultMap="deliverinfoList">
+        select deliverinfo.*,recruitinfo.id as rcruitinfoId,recruitinfo.recruit_type from deliverinfo,recruitinfo
+        where recruitinfo.id = deliverinfo.recruit_id
+        <if test="accountId != null">
+            and deliverinfo.account_id = #{accountId}
+        </if>
     </select>
 </mapper>

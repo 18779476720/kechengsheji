@@ -70,10 +70,8 @@
             </div>
 
         </div>
-        <div align="center">
-            <button class="btn btn-large btn-success" type="button" onclick="save()">投递</button>
-            <button class="btn btn-large" type="button" onclick="javascript:history.back(-1);">取消</button>
-            <br><br><br><br>
+        <div align="center" id="buttonChange">
+
 
         </div>
     </div>
@@ -89,6 +87,8 @@
         loadData();
         welcomeLogin();
     });
+
+
     function loadData() {
         var detailId = '';
         var myurl=GetQueryString("html_url");
@@ -131,6 +131,17 @@
                     html = html.replace(/@createDate/g, formatTime(data.datas.createDate));
                     html = html.replace(/@businessId/g, business.id);
                     $("#spanDetail").append(html);
+                }
+                var flag = GetQueryString("flag");
+                if(flag == "true"){
+                    $("#buttonChange").html("");
+                    var html ='<button class="btn btn-large btn-success" type="button" onclick="save()">投递</button>'+
+                        '<button class="btn btn-large" type="button" onclick="javascript:history.back(-1);">取消</button><br><br><br><br>'
+                    $("#buttonChange").append(html);
+                }else{
+                    $("#buttonChange").html("");
+                    var html = '<button class="btn btn-large" type="button" onclick="javascript:history.back(-1);">返回</button><br><br><br><br>'
+                    $("#buttonChange").append(html);
                 }
             },
         });

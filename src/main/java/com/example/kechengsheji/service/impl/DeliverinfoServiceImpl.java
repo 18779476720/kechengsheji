@@ -3,6 +3,8 @@ package com.example.kechengsheji.service.impl;
 import com.example.kechengsheji.service.DeliverinfoService;
 import com.example.kechengsheji.dao.DeliverinfoDao;
 import com.example.kechengsheji.model.Deliverinfo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -10,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
-* Created by chenglu on 2019-3-25.
-*/
+ * Created by chenglu on 2019-3-25.
+ */
 @Service
 public class DeliverinfoServiceImpl implements DeliverinfoService {
 
@@ -50,8 +52,18 @@ public class DeliverinfoServiceImpl implements DeliverinfoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public List<Deliverinfo> list(Deliverinfo deliverinfo){
+    public List<Deliverinfo> list(Deliverinfo deliverinfo,Integer pageNum,Integer pageSize){
         return deliverinfoDao.list(deliverinfo);
+    }
+
+    //分页查询
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public PageInfo<Deliverinfo> getAll(Deliverinfo deliverinfo, Integer pageNum, Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Deliverinfo> list = deliverinfoDao.list(deliverinfo);
+        PageInfo<Deliverinfo> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 
 }

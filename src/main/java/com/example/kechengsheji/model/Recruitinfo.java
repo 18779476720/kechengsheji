@@ -37,9 +37,9 @@ public class Recruitinfo implements Serializable{
      */
     private String contactNumber;
     /**
-     *已投递学生id
+     *已投递用户id
      */
-    private Integer studentId;
+    private Integer accountId;
     /**
      *城市
      */
@@ -130,12 +130,12 @@ public class Recruitinfo implements Serializable{
         this.contactNumber = contactNumber;
         return this;
     }
-    public Integer getStudentId() {
-        return studentId;
+    public Integer getAccountId() {
+        return accountId;
     }
 
-    public Recruitinfo setStudentId(Integer studentId) {
-        this.studentId = studentId;
+    public Recruitinfo setAccountId(Integer accountId) {
+        this.accountId = accountId;
         return this;
     }
     public String getCity() {

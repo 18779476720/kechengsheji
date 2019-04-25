@@ -13,7 +13,7 @@
         <result property="taskDescription" column="task_description"/>
         <result property="taskPlace" column="task_place"/>
         <result property="contactNumber" column="contact_number"/>
-        <result property="studentId" column="student_id"/>
+        <result property="accountId" column="account_id"/>
         <result property="city" column="city"/>
         <result property="businessId" column="business_id"/>
         <result property="recruitStatus" column="recruit_status"/>
@@ -31,7 +31,7 @@
         <result property="taskDescription" column="task_description"/>
         <result property="taskPlace" column="task_place"/>
         <result property="contactNumber" column="contact_number"/>
-        <result property="studentId" column="student_id"/>
+        <result property="accountId" column="account_id"/>
         <result property="city" column="city"/>
         <result property="businessId" column="business_id"/>
         <result property="recruitStatus" column="recruit_status"/>
@@ -44,7 +44,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`recruit_type` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`student_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`recruit_type` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`account_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -71,8 +71,8 @@
             <if test="contactNumber != null">
                 `contact_number`,
             </if>
-            <if test="studentId != null">
-                `student_id`,
+            <if test="accountId != null">
+                `account_id`,
             </if>
             <if test="city != null">
                 `city`,
@@ -121,8 +121,8 @@
             <if test="contactNumber != null">
                 #{contactNumber} ,
             </if>
-            <if test="studentId != null">
-                #{studentId} ,
+            <if test="accountId != null">
+                #{accountId} ,
             </if>
             <if test="city != null">
                 #{city} ,
@@ -175,8 +175,8 @@
             <if test="contactNumber != null">
                 and `contact_number` = #{contactNumber}
             </if>
-            <if test="studentId != null">
-                and `student_id` = #{studentId}
+            <if test="accountId != null">
+                and `account_id` = #{accountId}
             </if>
             <if test="city != null">
                 and `city` = #{city}
@@ -234,8 +234,8 @@
             <if test="contactNumber != null">
                 `contact_number` = #{contactNumber},
             </if>
-            <if test="studentId != null">
-                `student_id` = #{studentId},
+            <if test="accountId != null">
+                `account_id` = #{accountId},
             </if>
             <if test="city != null">
                 `city` = #{city},
@@ -297,8 +297,8 @@
             <if test="contactNumber != null">
                 and `contact_number` = #{contactNumber}
             </if>
-            <if test="studentId != null">
-                and `student_id` = #{studentId}
+            <if test="accountId != null">
+                and `account_id` = #{accountId}
             </if>
             <if test="city != null">
                 and `city` = #{city}
