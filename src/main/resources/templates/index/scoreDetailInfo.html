@@ -1,0 +1,271 @@
+<!--我的评价界面-->
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+
+<html class="lt-ie9 lt-ie8 lt-ie7" lang="en">
+
+<![endif]-->
+<!--[if IE 7]>
+
+<html class="lt-ie9 lt-ie8" lang="en">
+
+<![endif]-->
+<!--[if IE 8]>
+
+<html class="lt-ie9" lang="en">
+
+<![endif]-->
+<!--[if gt IE 8]>
+<!-->
+
+<html lang="en">
+
+<!--
+<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>
+        我的评价
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <!--<script type="text/javascript" src="../../static/js/jquery.min.js"></script>-->
+
+    <script src="../../static/starJs/vendor/jquery-1.11.2.min.js"></script>
+    <!--<script type="text/javascript" src="../../static/js/jquery-1.9.1.min.js"></script>-->
+    <script type="text/javascript" src="../../static/js/pagination.min.js"></script>
+    <script type="text/javascript" src="../../static/js/toastr.min.js"></script>
+    <link href="../../static/starCss/main.css" rel="stylesheet">
+    <link href="../../static/starCss/examples.css" rel="stylesheet">
+    <link href="../../static/css/jqueryui.css" rel="stylesheet" type="text/css" />
+    <!--<link href="../../static/js/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" />-->
+    <link href="../../static/css/pagination.css" rel="stylesheet">
+    <link href="../../static/icomoon/style.css" rel="stylesheet">
+    <link href="../../static/css/toastr.css" rel="stylesheet" type="text/css"/>
+    <link href="../../static/starCss/main.css" rel="stylesheet">
+    <link href="../../static/starCss/examples.css" rel="stylesheet">
+    <!--[if lte IE 7]>
+    <script src="../../static/css/icomoon-font/lte-ie7.js">
+    </script>
+    <![endif]-->
+    <link href="../../static/css/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet">
+    <link href="../../static/css/wysiwyg/wysiwyg-color.css" rel="stylesheet">
+    <link href="../../static/css/main.css" rel="stylesheet"> <!-- Important. For Theming change primary-color variable in main.css  -->
+    <link href="../../static/css/charts-graphs.css" rel="stylesheet">
+</head>
+<body style="background-image: url(../../static/images/jloginbg04.jpg);">
+<header style="background-image: url(../../static/images/jloginbg04.jpg);background-size:10000px 10000px">
+    <a href="#" class="logo">
+        <img src="../../static/images/jlogosmall.png" width="70" height="90" alt="logo"/>
+        <span class="mini-title" style="display: inline-block;"><a id="mailbox" style="font-size:30px; line-height:70px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎登陆大学生兼职网</a></span>
+    </a>
+    <div class="btn-group" id = "welcomeLogin"></div>
+    <script type="text/javascript" src="../../static/myJs/welcomeLogin.js"></script>
+
+</header>
+<div class="container-fluid">
+    <div class="dashboard-container" id="navigation">
+    </div>
+    <div class="dashboard-wrapper">
+        <div class="left-sidebar" style="width:90%">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title pull-left">
+                                评价列表</div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="mail">
+                                <table class="table table-condensed table-striped table-hover no-margin" >
+                                    <thead>
+                                    <tr>
+                                        <th style="font-size:15px">
+                                            编号
+                                        </th>
+                                        <th style="width:10% text-align:center; font-size:15px">
+                                            投递职位
+                                        </th>
+                                        <th style="width:25% text-align:center; font-size:15px">
+                                            评价分数
+                                        </th>
+                                        <th style="width:15% text-align:center; font-size:15px" class="hidden-phone">
+                                            评价时间
+                                        </th>
+                                        <th style="width:15% text-align:center; font-size:15px" class="hidden-phone">
+                                            操作
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <!--评价信息-->
+                                    <tbody id = "counpBody" style="cursor: pointer;">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pagination" id="pagination" style="float: left">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                </div>
+            </div>
+            <div class="row-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+
+<!--点击投递弹框-->
+<div id="scoreDetailDialogList" style="display: none"></div>
+
+
+
+<script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
+<script type="text/javascript" src="../../static/myJs/scoreDetailDialog.js"></script>
+<script type="text/javascript">
+    //加载导航栏
+    $("#navigation").load("jump?html_url=navigation/studentNavigation");
+    $("#welcomeLogin").load("jump?html_url=index/welcomeLogin");
+    //加载投递信息展示弹框
+    $("#scoreDetailDialogList").load("jump?html_url=dialog/scoreDetailDialog");
+    $(function(){
+        loadData(0, 0, 0);
+        welcomeLogin();
+    });
+
+    //分页初始化
+    $("#pagination").whjPaging({
+        //可选，css设置，可设置值：css-1，css-2，css-3，css-4，css-5，默认css-1，可自定义样式
+        css: 'css-1',
+        //可选，每页条数下拉框，5条/页(默认)、10条/页、15条/页
+        pageSizeOpt: [
+            {value: 5, text: '5条/页', selected: true},
+            {value: 10, text: '10条/页'},
+            {value: 15, text: '15条/页'}
+        ],
+        //可选，总条数
+        totalSize: 10,
+        //可选，总页数
+        totalPage: 2,
+        //可选，展示页码数量，默认5个页码数量
+        showPageNum: 5,
+        //可选，首页按钮展示文本，默认显示文本为首页
+        firstPage: "首页",
+        //可选，上一页按钮展示文本，默认显示文本为上一页
+        previousPage: "上一页",
+        //可选，下一页按钮展示文本，默认显示文本为下一页
+        nextPage: "下一页",
+        //可选，尾页按钮展示文本，默认显示文本为尾页
+        lastPage: "尾页",
+        //可选，跳至展示文本，默认显示文本为跳至
+        skip: "跳至",
+        //可选，确认按钮展示文本，默认显示文本为确认
+        confirm: "确认",
+        //可选，刷新按钮展示文本，默认显示文本为刷新
+        refresh: "刷新",
+        //可选，共{}页展示文本，默认显示文本为共{}页，其中{}会在js具体转化为数字
+        totalPageText: "共{}页",
+        //可选，共{}条记录展示文本，默认显示文本为共{}条记录，其中{}会在js具体转化为数字
+        totalSizeText: "共{}条记录",
+        //可选，是否展示首页与尾页，默认true
+        isShowFL: true,
+        //可选，是否展示每页条数下拉框，默认true，如果设置显示，总条数必须设置
+        isShowPageSizeOpt: false,
+        //可选，是否展示跳到指定页数，默认true
+        isShowSkip: false,
+        //可选，是否展示刷新，默认true
+        isShowRefresh: false,
+        //可选，是否展示共{}页，默认true
+        isShowTotalPage: true,
+        //可选，是否展示共{}条记录，默认true
+        isShowTotalSize: true,
+        //可选，是否需要重新设置当前页码、总页数及总条数，默认false，如果设为true，那么在请求服务器返回数据时，需要调用setPage方法
+        isResetPage: false,
+        //必选，回掉函数，返回参数：第一个参数为页码，第二个参数为每页显示N条
+        callBack: function (currPage, pageSize) {
+            loadData(currPage, pageSize,1);
+        }
+    });
+
+    function loadData(currPage, pageSize, num) {
+        var pageNum = 0;
+        if(num == 0){
+            pageNum = 0;
+            pageSize = 10;
+        }else {
+            pageSize = 10;
+            pageNum = currPage;
+        }
+        //处理数据
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            dataType: "json",
+            url: "http://localhost:8088/scoreinfo/getMyScoreinfo?pageNum="+ pageNum +"&pageSize=" + pageSize,
+            success: function (data){
+                debugger
+                if(data.datas.list.length > 0) {
+                    $("#counpBody").html("");
+                    for (var i = 0; i < data.datas.list.length; i++) {//默认显示第一页10个记录
+                        var id = data.datas.list[i].id == null ? "" : data.datas.list[i].id;
+                        var recruitinfoType = data.datas.list[i].recruitinfoType == null ? "" : data.datas.list[i].recruitinfoType;
+                        var scoreNum = data.datas.list[i].scoreNum == null ? "" : data.datas.list[i].scoreNum;
+                        var createDate = data.datas.list[i].createDate == null ? "" : formatTime(data.datas.list[i].createDate);
+                        var recruitId = data.datas.list[i].recruitId == null ? "" : data.datas.list[i].recruitId;
+                        var accountId = data.datas.list[i].accountId == null ? "" : data.datas.list[i].accountId;
+                        var scoreDescription = data.datas.list[i].scoreDescription == null ? "" : data.datas.list[i].scoreDescription;
+
+                        var html = $("#counpBody").html();
+                        html = '<tr> <td style="font-size:15px">@id</td>' +
+                            '<td style="font-size:15px"><strong style="color: rgb(36, 218, 255); font-size: 17px;" onclick="lookInfo(@recruitId)">@recruitinfoType</strong></td>' +
+                            '<td class="hidden-phone" style="font-size:15px">@scoreNum星</td>' +
+                            '<td class="hidden-phone" style="font-size:15px">@createDate</td>' +
+                            '<td class="hidden-phone" style="font-size:15px"><span class = "scoreInfoClick"'+
+                            'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="scoreInfoClick(@id)">查看详细</span></td></tr>'
+
+                        html = html.replace(/@id/g, id);
+                        html = html.replace(/@recruitinfoType/g, recruitinfoType);
+                        html = html.replace(/@scoreNum/g, scoreNum);
+                        html = html.replace(/@createDate/g, createDate);
+                        html = html.replace(/@recruitId/g, recruitId);
+                        $("#counpBody").append(html);
+                    }
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
+                }else{
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
+                    $("#counpBody").html("");
+                    var html = "<h5 style='text-align: center'>暂时还没有投递！</h5>";
+                    $("#counpBody").append(html);
+                }
+            },
+        });
+    }
+
+    //格式化日期
+    function formatTime(date){
+        var millis = new Date().getTime();
+        var date1 = new Date(date);
+        return date1.getFullYear() + '.' +
+            ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
+            ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
+    };
+    //进入招聘信息详情页
+    function lookInfo(id) {
+        window.location.href="/public/util/jump?html_url=index/recruitDetailInfo&id=" +id + "&flag=false";
+    };
+
+</script>
+
+</body>
+<script type="text/javascript" src="../../static/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+</html>

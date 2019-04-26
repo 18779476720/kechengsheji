@@ -1,12 +1,15 @@
 package com.example.kechengsheji.controller;
 
 
+import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.service.ScoreinfoService;
 import com.example.kechengsheji.model.Scoreinfo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -56,5 +59,13 @@ public class ScoreinfoController{
     @ResponseBody
     public Object deleteScoreinfoByIds(@RequestBody Integer[] ids){
         return scoreinfoService.deleteByIds(ids);
+    }
+
+    @RequestMapping(value="/getMyScoreinfo",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<?> getMyScoreinfo(@RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession httpSession){
+        Scoreinfo scoreinfo = new Scoreinfo();
+        scoreinfo.setAccountId((Integer) httpSession.getAttribute("id"));
+        return ApiResult.buildSuccess(scoreinfoService.getAll(scoreinfo,pageNum,pageSize));
     }
 }

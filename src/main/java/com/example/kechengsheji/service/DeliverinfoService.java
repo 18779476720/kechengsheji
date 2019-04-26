@@ -24,4 +24,10 @@ public interface DeliverinfoService {
 
     //分页参数查询
     PageInfo<Deliverinfo> getAll(Deliverinfo recruitinfo, Integer pageNum, Integer pageSize);
+
+    //查询投递信息表中当前用户要投递的信息的已招聘数量
+    int selectHasDelivery(Integer recruitId);
+
+    //查询该用户是否已经投递该职位
+    int selectIsHasDelivery(Integer accountId,Integer recruitId);
 }

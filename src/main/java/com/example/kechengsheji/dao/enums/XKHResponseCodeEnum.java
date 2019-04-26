@@ -17,7 +17,9 @@ public enum XKHResponseCodeEnum {
     NOUSER("000004", "NOUSER", "该用户不存在"),
     PASS_ERROR("000005", "PASS_ERROR", "密码错误"),
     PARAM_IS_NULL("000006", "PARAM_IS_NULL", "参数不能为空"),
-    ACCOUNT_HAS("000007", "ACCOUNT_HAS", "该用户名已注册");
+    ACCOUNT_HAS("000007", "ACCOUNT_HAS", "该用户名已注册"),
+    JOB_HAS_DONE("000008", "Job_Has_Done", "该职位已招满"),
+    HAS_DELIVERY("000009", "HAS_DELIVERY", "您已投递该职位");
     private String code;
     private String msg;
     private String chineseMessage;

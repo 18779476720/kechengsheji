@@ -1,17 +1,18 @@
-<!--评价保存弹框-->
-<div class="modal fade" id="scoreListModal" tabindex="-1" role="dialog"  data-backdrop="static">
+<!--评价展示详细信息弹框-->
+<div class="modal fade" id="scoreReadonlyDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">立即评价</h4>
+                <h4 class="modal-title" id="myModalLabel">投递详情</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="example-f" class="col-sm-1 control-label"><i class="text-red">&nbsp;</i>评价打分：&nbsp;&nbsp;&nbsp;</label>
+                    <label for="example-f" class="col-sm-1 control-label"><i class="text-red">&nbsp;</i>我的评分：&nbsp;&nbsp;&nbsp;</label>
                     <div class="col-sm-1">
-                        <div class="box-body">
-                            <select id="example-f" name="rating" style="">
+                        <div class="box-body" readonly>
+                            <select id="example-f" name="rating" style="" readonly>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -23,20 +24,23 @@
                     <br><br><br>
                 </div>
                 <div class="form-group">
-                    <label for="scoreDescription" class="col-sm-3 control-label"><i class="text-red">&nbsp;</i>详细描述：&nbsp;&nbsp;&nbsp;</label>
+                    <label for="scoreDescription" class="col-sm-3 control-label"><i class="text-red">&nbsp;</i>评价描述：&nbsp;&nbsp;&nbsp;</label>
                     <div class="col-sm-3 input-block-level">
-                        <textarea class="form-control" name="scoreDescription" id="scoreDescription" rows="6" cols="9" style="width:90%"></textarea>
+                        <textarea class="form-control" name="scoreDescription" id="scoreDescription" rows="6" cols="9" style="width:90%" readonly></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="createDate" class="col-sm-3 control-label"><i class="text-red">&nbsp;</i>评价日期：&nbsp;&nbsp;&nbsp;</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="createDate" id="createDate" style="width:90%" readonly/>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><span
-                        class="glyphicon glyphicon-remove" aria-hidden="true" style="color: rgb(34, 126, 255);" onclick="judgeScore()">确定</span>
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>取消</button>
+                        class="glyphicon glyphicon-remove" aria-hidden="true" style="color: rgb(36, 218, 255); font-size: 13px;">确定</span>
                 </button>
             </div>
-            <input id="accountId" type="hidden" name="accountId" value=""/>
-            <input id="recruitId" type="hidden" name="recruitId" value=""/>
         </div>
     </div>
 </div>

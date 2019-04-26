@@ -155,6 +155,18 @@
         where `id` = #{id}
     </select>
 
+    <!--查询当前用户要投递的职位已经招聘人数-->
+    <select id="selectHasDelivery"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM deliverinfo
+        where recruit_id = #{recruitId} and deliver_status = 2
+    </select>
+
+    <!--查询该用户是否已经投递该职位-->
+    <select id="selectIsHasDelivery"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM deliverinfo
+        where recruit_id = #{recruitId} and account_id = #{accountId}
+    </select>
+
     <!--<select id="list" resultMap="deliverinfo">-->
     <!--select-->
     <!--<include refid="columns" />-->

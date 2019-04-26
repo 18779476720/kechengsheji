@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
-* Created by chenglu on 2019-3-25.
-*/
+ * Created by chenglu on 2019-3-25.
+ */
 @Mapper
 @Component(value="RecruitinfoDao")
 public interface RecruitinfoDao {
@@ -25,4 +25,5 @@ public interface RecruitinfoDao {
     Recruitinfo getById(@Param("id") Integer id);
 
     List<Recruitinfo> list(Recruitinfo recruitinfo);
+
 }
