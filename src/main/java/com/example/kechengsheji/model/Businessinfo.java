@@ -38,6 +38,11 @@ public class Businessinfo implements Serializable {
     /**
      *
      */
+    /**
+     * 邮箱
+     */
+    private String businessEmail;
+
     private Date lastUpdateDate;
 
     public Integer getId() {
@@ -108,5 +113,13 @@ public class Businessinfo implements Serializable {
 
     public void setAccountname(String accountname) {
         this.accountname = accountname;
+    }
+
+    public String getBusinessEmail() {
+        return businessEmail;
+    }
+
+    public void setBusinessEmail(String businessEmail) {
+        this.businessEmail = businessEmail;
     }
 }

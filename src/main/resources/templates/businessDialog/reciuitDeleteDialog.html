@@ -1,0 +1,20 @@
+
+<!--商家删除发布的招聘信息确认弹框-->
+<div class="modal fade" id="reciuitDeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">是否确认删除该条招聘信息 ？</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                        class="glyphicon glyphicon-remove" aria-hidden="true" style="color: rgb(36, 218, 255); font-size: 13px;" onclick="deleteReciuitThis()">确定</span>
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+            <input id="deleteRecuirId" type="hidden" name="deleteRecuirId" value=""/>
+        </div>
+    </div>
+</div>

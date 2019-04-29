@@ -42,6 +42,12 @@ public class Account implements Serializable{
          */
         private Date lastUpdateDate;
 
+        /**
+         * 登录状态
+         * @return
+         */
+        private String accessStatus;
+
         public Integer getId() {
             return id;
         }
@@ -105,5 +111,13 @@ public class Account implements Serializable{
         public Account setLastUpdateDate(Date lastUpdateDate) {
             this.lastUpdateDate = lastUpdateDate;
             return this;
+        }
+
+        public String getAccessStatus() {
+            return accessStatus;
+        }
+
+        public void setAccessStatus(String accessStatus) {
+            this.accessStatus = accessStatus;
         }
 }

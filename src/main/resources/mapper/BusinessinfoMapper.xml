@@ -177,6 +177,15 @@
         where `id` = #{id}
     </select>
 
+    <select id="getByAccountName" resultMap="businessinfo">
+        select
+        <include refid="columns" />
+        from `businessinfo`
+        where `accountname` = #{accountName}
+    </select>
+
+
+
     <select id="list" resultMap="businessinfo">
         select
         <include refid="columns" />

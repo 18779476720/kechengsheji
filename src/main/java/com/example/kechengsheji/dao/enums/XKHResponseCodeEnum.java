@@ -19,6 +19,7 @@ public enum XKHResponseCodeEnum {
     PARAM_IS_NULL("000006", "PARAM_IS_NULL", "参数不能为空"),
     ACCOUNT_HAS("000007", "ACCOUNT_HAS", "该用户名已注册"),
     JOB_HAS_DONE("000008", "Job_Has_Done", "该职位已招满"),
+    JOB_HAS_DELETE("000010","JOB_HAS_DELETE", "该职位不存在"),
     HAS_DELIVERY("000009", "HAS_DELIVERY", "您已投递该职位");
     private String code;
     private String msg;

@@ -1,8 +1,11 @@
 package com.example.kechengsheji.service.impl;
 
+import com.example.kechengsheji.model.Recruitinfo;
 import com.example.kechengsheji.service.BusinessinfoService;
 import com.example.kechengsheji.dao.BusinessinfoDao;
 import com.example.kechengsheji.model.Businessinfo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,6 +49,12 @@ public class BusinessinfoServiceImpl implements BusinessinfoService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Businessinfo getById(Integer id){
         return businessinfoDao.getById(id);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public Businessinfo getByAccountName(String accountName){
+        return businessinfoDao.getByAccountName(accountName);
     }
 
     @Override

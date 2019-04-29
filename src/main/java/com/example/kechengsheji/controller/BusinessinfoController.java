@@ -1,12 +1,19 @@
 package com.example.kechengsheji.controller;
 
 
+import com.example.kechengsheji.model.Recruitinfo;
+import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.service.BusinessinfoService;
 import com.example.kechengsheji.model.Businessinfo;
 import java.util.List;
+
+import com.example.kechengsheji.service.RecruitinfoService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -18,6 +25,12 @@ public class BusinessinfoController{
 
     @Autowired
     BusinessinfoService businessinfoService;
+
+    @Autowired
+    RecruitinfoService recruitinfoService;
+
+    @Autowired
+    AccountService accountService;
 
     @RequestMapping(value="",method = RequestMethod.GET)
     @ResponseBody
@@ -56,5 +69,19 @@ public class BusinessinfoController{
     @ResponseBody
     public Object deleteBusinessinfoByIds(@RequestBody Integer[] ids){
         return businessinfoService.deleteByIds(ids);
+    }
+
+    //查找所有
+    @RequestMapping(value = "businessGetByBusinessId",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<?> getListBusinessInfo(@RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
+        Recruitinfo recruitinfoVo = new Recruitinfo();
+        Object id = session.getAttribute("id");
+        String accountName = accountService.getById((Integer)id).getAccountname();
+        Businessinfo businessinVo = new Businessinfo();
+        businessinVo = businessinfoService.getByAccountName(accountName);
+        recruitinfoVo.setBusinessId(businessinVo.getId());
+        recruitinfoVo.setRecruitType(null);
+        return recruitinfoService.getAll(recruitinfoVo,pageNum,pageSize);
     }
 }

@@ -22,4 +22,7 @@ public interface BusinessinfoService {
 
     //通过用户名修改商家信息
     Businessinfo updateBusinessInfoByAccountName(Businessinfo businessinfo);
+
+    Businessinfo getByAccountName(String accountName);
+
 }

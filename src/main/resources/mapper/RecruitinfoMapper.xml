@@ -277,7 +277,7 @@
         <trim prefix="where " prefixOverrides="and ">
             businessinfo.id = recruitinfo.business_id
             <if test="id != null">
-                and `id` = #{id}
+                and `businessinfo.id` = #{id}
             </if>
             <if test="recruitType != null">
                 and `recruit_type` like concat(concat('%',#{recruitType}),'%')
@@ -310,7 +310,10 @@
                 and `recruit_status` = #{recruitStatus}
             </if>
             <if test="usingStatus != null">
-                and `using_status` = #{usingStatus}
+                and 1 = 1
+            </if>
+            <if test="usingStatus == null">
+                and `using_status` = 2
             </if>
             <if test="createdBy != null">
                 and `created_by` = #{createdBy}
@@ -385,4 +388,12 @@
     <!--</trim>-->
 
     <!--</select>-->
+
+    <select id="selectByBusinessId" resultMap="recruitinfoList">
+        select
+        <include refid="columns" />
+        from `recruitinfo`
+        where `business_id` = #{businessId}
+    </select>
+
 </mapper>

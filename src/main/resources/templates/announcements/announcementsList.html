@@ -128,8 +128,14 @@
 <script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
 <script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
 <script type="text/javascript">
+    var announcementFlag = GetQueryString("announcementFlag");
     //加载导航栏
-    $("#navigation").load("jump?html_url=navigation/studentNavigation");
+    if(announcementFlag == 'student'){
+        $("#navigation").load("jump?html_url=navigation/studentNavigation");
+    }else if(announcementFlag == 'business'){
+        $("#navigation").load("jump?html_url=navigation/businessNavigation");
+    }
+
     $("#welcomeLogin").load("jump?html_url=index/welcomeLogin");
     $("#couponList").load("jump?html_url=dialog/announcementDialog");
     <!--$("#welcomeLogin").load("../../templates/index/welcomeLogin.html")-->
@@ -249,7 +255,14 @@
         return date1.getFullYear() + '.' +
             ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
             ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
-    }
+    };
+    //获取url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+        if(r!=null)return  unescape(r[2]); return null;
+    };
 
 
 </script>

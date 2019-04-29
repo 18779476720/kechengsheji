@@ -79,8 +79,12 @@
 <!--投递弹框-->
 <div id="deliveryDetailList" style="display: none"></div>
 <div id="bussinessDetailList" style="display: none"></div>
+<!--点击删除弹框-->
+<div id="reciuitDeleteList" style="display: none"></div>
+
 <script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
 <script type="text/javascript" src="../../static/myJs/deliveryDialog.js"></script>
+<script type="text/javascript" src="../../static/businessDialog/reciuitDeleteDialog.js"></script>
 <script type="text/javascript">
 
     $("#welcomeLogin").load("jump?html_url=index/welcomeLogin")
@@ -88,6 +92,8 @@
     $("#bussinessDetailList").load("jump?html_url=dialog/bussinessDetail");
     //加载投递弹框
     $("#deliveryDetailList").load("jump?html_url=dialog/deliveryDialog");
+    //加载删除确认提示弹框
+    $("#reciuitDeleteList").load("jump?html_url=businessDialog/reciuitDeleteDialog");
     $(function(){
         loadData();
         welcomeLogin();
@@ -141,6 +147,11 @@
                 if(flag == "true"){
                     $("#buttonChange").html("");
                     var html ='<button class="btn btn-large btn-success" type="button" onclick="deliverJob(@deliveryId)">投递</button>&nbsp;&nbsp;'+
+                        '<button class="btn btn-large" type="button" onclick="javascript:history.back(-1);">返回</button><br><br><br><br>'
+                    html = html.replace(/@deliveryId/g, data.datas.id);
+                    $("#buttonChange").append(html);
+                }else if(flag == "deleteRecruit"){
+                    var html ='<button class="btn btn-large btn-success" type="button" onclick="deleteReciuitJob(@deliveryId)">删除</button>&nbsp;&nbsp;'+
                         '<button class="btn btn-large" type="button" onclick="javascript:history.back(-1);">返回</button><br><br><br><br>'
                     html = html.replace(/@deliveryId/g, data.datas.id);
                     $("#buttonChange").append(html);

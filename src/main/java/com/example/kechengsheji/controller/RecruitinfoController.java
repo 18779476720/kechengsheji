@@ -3,8 +3,11 @@ package com.example.kechengsheji.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.kechengsheji.dao.dto.ApiResult;
+import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
+import com.example.kechengsheji.model.Account;
 import com.example.kechengsheji.model.Businessinfo;
 import com.example.kechengsheji.model.RecruitinfoParams;
+import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.service.BusinessinfoService;
 import com.example.kechengsheji.service.RecruitinfoService;
 import com.example.kechengsheji.model.Recruitinfo;
@@ -13,6 +16,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by chenglu on 2019-3-25.
@@ -26,6 +31,9 @@ public class RecruitinfoController{
 
     @Autowired
     BusinessinfoService businessinfoService;
+
+    @Autowired
+    AccountService accountService;
 
     @RequestMapping(value="",method = RequestMethod.GET)
     @ResponseBody
@@ -61,10 +69,16 @@ public class RecruitinfoController{
     }
 
 
-    @RequestMapping(value="/selective",method = RequestMethod.DELETE)
+    //根据商家id删除某条信息
+    @RequestMapping(value="/deleteRecruitinfo",method = RequestMethod.GET)
     @ResponseBody
-    public Object deleteRecruitinfo(@RequestBody Recruitinfo recruitinfo){
-        return recruitinfoService.delete(recruitinfo);
+    public ApiResult<?> deleteRecruitinfo(@RequestParam("recruitId")Integer recruitId){
+        if(recruitinfoService.getById(recruitId) == null){
+            return ApiResult.buildSuccess(XKHResponseCodeEnum.JOB_HAS_DELETE);
+        }
+        Recruitinfo recruitinfo = new Recruitinfo();
+        recruitinfo.setId(recruitId);
+        return ApiResult.buildSuccess(recruitinfoService.delete(recruitinfo));
     }
 
     @RequestMapping(value="",method = RequestMethod.DELETE)
@@ -76,12 +90,21 @@ public class RecruitinfoController{
     //查找所有
     @RequestMapping(value = "getall",method = RequestMethod.GET)
     @ResponseBody
-    public PageInfo<?> getRecruitinfo(@RequestParam("recruitinfo") String recruitinfo, @RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize){
+    public PageInfo<?> getRecruitinfo(@RequestParam("recruitinfo") String recruitinfo, @RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
         Recruitinfo recruitinfoVo = new Recruitinfo();
-        if("".equals(recruitinfo)){
+        if("true".equals(recruitinfo)){
             recruitinfoVo.setRecruitType(null);
         }else{
             recruitinfoVo.setRecruitType(recruitinfo);
+        }
+        Object id = session.getAttribute("id");
+        Account account = new Account();
+        account = accountService.getById((Integer)id);
+        if("2".equals(account.getRole())){
+            recruitinfoVo.setUsingStatus("1");
+        }
+        if("1".equals(account.getRole())){
+            recruitinfoVo.setUsingStatus(null);
         }
         return recruitinfoService.getAll(recruitinfoVo,pageNum,pageSize);
     }
