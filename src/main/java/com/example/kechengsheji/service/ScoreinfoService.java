@@ -21,6 +21,7 @@ public interface ScoreinfoService {
     Scoreinfo getById(Integer id);
 
     List<Scoreinfo> list(Scoreinfo scoreinfo);
+    List<Scoreinfo> list1(Scoreinfo scoreinfo);
 
     //分页参数查询
     PageInfo<Scoreinfo> getAll(Scoreinfo recruitinfo, Integer pageNum, Integer pageSize);

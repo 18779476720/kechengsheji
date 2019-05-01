@@ -18,6 +18,8 @@ public interface DeliverinfoService {
 
     int update(Deliverinfo deliverinfo);
 
+    int updateStatus(Deliverinfo deliverinfo);
+
     Deliverinfo getById(Integer id);
 
     List<Deliverinfo> list(Deliverinfo deliverinfo,Integer pageNum,Integer pageSize);
@@ -30,4 +32,7 @@ public interface DeliverinfoService {
 
     //查询该用户是否已经投递该职位
     int selectIsHasDelivery(Integer accountId,Integer recruitId);
+
+    //查询当前投递信息所有投递人
+    List<Deliverinfo> selectHasDeliveryPerson(Integer recruitId);
 }

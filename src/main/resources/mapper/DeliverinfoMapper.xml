@@ -206,4 +206,37 @@
             and deliverinfo.account_id = #{accountId}
         </if>
     </select>
+
+    <!--查询当前投递信息所有投递人-->
+    <select id="selectHasDeliveryPerson" resultMap="deliverinfo">
+        select * from deliverinfo
+        where 1 = 1
+        <if test="recruitId != null">
+            and recruit_id = #{recruitId}
+        </if>
+    </select>
+
+    <!--//修改状态-->
+    <update id="updateStatus">
+        update `deliverinfo`
+        <set>
+            <if test="deliverStatus != null">
+                `deliver_status` = #{deliverStatus},
+            </if>
+            <if test="createdBy != null">
+                `created_by` = #{createdBy},
+            </if>
+            <if test="createDate != null">
+                `create_date` = #{createDate},
+            </if>
+            <if test="lastUpdateBy != null">
+                `last_update_by` = #{lastUpdateBy},
+            </if>
+            <if test="lastUpdateDate != null">
+                `last_update_date` = #{lastUpdateDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

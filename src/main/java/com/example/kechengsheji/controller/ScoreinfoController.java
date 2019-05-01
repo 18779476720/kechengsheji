@@ -4,7 +4,12 @@ package com.example.kechengsheji.controller;
 import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.service.ScoreinfoService;
 import com.example.kechengsheji.model.Scoreinfo;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -67,5 +72,17 @@ public class ScoreinfoController{
         Scoreinfo scoreinfo = new Scoreinfo();
         scoreinfo.setAccountId((Integer) httpSession.getAttribute("id"));
         return ApiResult.buildSuccess(scoreinfoService.getAll(scoreinfo,pageNum,pageSize));
+    }
+
+    //查询某条招聘信息的所有评价
+    @RequestMapping(value="/getScoreByRecruit",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<?> getScoreByRecruit(@RequestParam("recruitId") Integer recruitId ,@RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        Scoreinfo scoreinfo = new Scoreinfo();
+        scoreinfo.setRecruitId(recruitId);
+        List<Scoreinfo> list = scoreinfoService.list1(scoreinfo);
+        PageInfo<Scoreinfo> pageInfo = new PageInfo<Scoreinfo>(list);
+        return ApiResult.buildSuccess(pageInfo);
     }
 }

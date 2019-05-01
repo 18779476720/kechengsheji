@@ -85,6 +85,12 @@ public class ScoreinfoServiceImpl implements ScoreinfoService {
         return scoreinfoDao.list(scoreinfo);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public List<Scoreinfo> list1(Scoreinfo scoreinfo){
+        return scoreinfoDao.list1(scoreinfo);
+    }
+
 
     //分页查询
     @Override

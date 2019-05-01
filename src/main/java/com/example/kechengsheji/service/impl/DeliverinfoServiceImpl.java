@@ -46,6 +46,13 @@ public class DeliverinfoServiceImpl implements DeliverinfoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public int updateStatus(Deliverinfo deliverinfo){
+        return deliverinfoDao.updateStatus(deliverinfo);
+    }
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int selectHasDelivery(Integer recruitId){
         return deliverinfoDao.selectHasDelivery(recruitId);
     }
@@ -60,6 +67,11 @@ public class DeliverinfoServiceImpl implements DeliverinfoService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public List<Deliverinfo> list(Deliverinfo deliverinfo,Integer pageNum,Integer pageSize){
         return deliverinfoDao.list(deliverinfo);
+    }
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public List<Deliverinfo> selectHasDeliveryPerson(Integer recruitId){
+        return deliverinfoDao.selectHasDeliveryPerson(recruitId);
     }
 
     //查询该用户是否已经投递该职位

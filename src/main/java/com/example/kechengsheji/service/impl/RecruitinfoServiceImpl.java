@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +28,17 @@ public class RecruitinfoServiceImpl implements RecruitinfoService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public int insert(Recruitinfo recruitinfo){
+
+        //投递日期取当前时间
+        Date date = new Date();
+        Timestamp timeStamep = new Timestamp(date.getTime());
+        String format1 = "yyyy-MM-dd";
+        try {
+            date = new SimpleDateFormat(format1).parse(String.valueOf(timeStamep));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        recruitinfo.setCreateDate(date);
         return recruitinfoDao.insert(recruitinfo);
     }
 

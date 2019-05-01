@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        我发布的
+        投递详情
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -66,22 +66,39 @@
     </div>
     <div class="dashboard-wrapper">
 
-        <div class="left-sidebar">
+        <div class="left-sidebar" style="width:90%">
             <div class="row-fluid">
                 <div class="span12">
                     <div class="widget">
+                        <div style="float:right;">
+                            <button class="btn btn-primary btn-success" type="button" onclick="cancel()">返回</button></div>
                         <div class="widget-header">
                             <div class="title pull-left">
-                                发布列表</div>
+                                公告列表</div>
                         </div>
                         <div class="widget-body">
                             <div class="mail">
-                                <table class="table table-striped table-hover table-condensed" contenteditable="true">
-                                    <!--<table class="table table-condensed table-striped table-hover no-margin">-->
+                                <table class="table table-condensed table-striped table-hover no-margin" >
                                     <thead>
-                                    <tr></tr>
+                                    <tr>
+                                        <th style="font-size:16px">
+                                            编号
+                                        </th>
+                                        <th style="width:10% text-align:center; font-size:16px">
+                                            投递人姓名
+                                        </th>
+                                        <th style="width:10% text-align:center; font-size:16px">
+                                            投递状态
+                                        </th>
+                                        <th style="width:25% text-align:center; font-size:16px">
+                                            投递时间
+                                        </th>
+                                        <th style="width:15% text-align:center; font-size:16px" class="hidden-phone">
+                                            操作
+                                        </th>
+                                    </tr>
                                     </thead>
-                                    <!--我发布的信息-->
+                                    <!--公告信息-->
                                     <tbody id = "counpBody" style="cursor: pointer;">
                                     </tbody>
                                 </table>
@@ -100,64 +117,25 @@
             <div class="row-fluid">
             </div>
         </div>
-        <div class="right-sidebar">
-            <div class="wrapper">
-            </div>
-            <div class="wrapper">
-                <div id="scrollbar">
-                    <div class="scrollbar">
-                        <div class="track">
-                            <div class="thumb">
-                                <div class="end">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="viewport" style="height: 550px;">
-                        <div class="overview">
-                            <div class="featured-articles-container">
-                                <h5 class="heading" onclick="announcementsList()">
-                                    公告信息
-                                </h5>
-                                <div class="articles" style="height: 500px" id="articles">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 </div>
 </div>
 <!--点击某条公告弹框-->
 <div id="couponList" style="display: none"></div>
-<!--点击企业弹框-->
-<div id="bussinessDetailList" style="display: none"></div>
+</div>
 
-<!--点击删除弹框-->
-<div id="reciuitDeleteList" style="display: none"></div>
 
+</div>
 <script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
 <script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
-<script type="text/javascript" src="../../static/businessDialog/reciuitDeleteDialog.js"></script>
 <script type="text/javascript">
-    //加载导航栏
-    $("#navigation").load("jump?html_url=navigation/businessNavigation");
-    //加载欢迎框
     $("#welcomeLogin").load("jump?html_url=index/welcomeLogin");
-    //加载公告框
     $("#couponList").load("jump?html_url=dialog/announcementDialog");
-    //加载企业信息弹框
-    $("#bussinessDetailList").load("jump?html_url=dialog/bussinessDetail");
-    //加载删除确认提示弹框
-    $("#reciuitDeleteList").load("jump?html_url=businessDialog/reciuitDeleteDialog");
-
+    <!--$("#welcomeLogin").load("../../templates/index/welcomeLogin.html")-->
     $(function(){
-        loadData(0, 10, 0);
+        loadData(0, 0, 0);
         welcomeLogin();
-        loadAnnouncement();
     });
 
     //分页初始化
@@ -201,7 +179,7 @@
         //可选，是否展示跳到指定页数，默认true
         isShowSkip: false,
         //可选，是否展示刷新，默认true
-        isShowRefresh: false,
+        isShowRefresh: true,
         //可选，是否展示共{}页，默认true
         isShowTotalPage: true,
         //可选，是否展示共{}条记录，默认true
@@ -214,14 +192,14 @@
         }
     });
 
-    function loadData(currPage, pageSize, flag) {
-        var searchJonType = $("#searchJonType").val();
+    function loadData(currPage, pageSize, num) {
+        var reciuitId = GetQueryString("id");
         var pageNum = 0;
-        if(flag == 0){
+        if(num == 0){
             pageNum = 0;
-            pageSize = 5;
+            pageSize = 10;
         }else {
-            pageSize = 5;
+            pageSize = 10;
             pageNum = currPage;
         }
         //处理数据
@@ -229,107 +207,46 @@
             type: "GET",
             contentType: 'application/json',
             dataType: "json",
-            url: 'http://localhost:8088/recruitinfo/getall?recruitinfo=true&pageNum='+ pageNum +'&pageSize=' + pageSize,
+            url: "http://localhost:8088/deliverinfo/getDeliveryMe?reciuitId=" + reciuitId + "&pageNum="+ pageNum +"&pageSize=" + pageSize,
             success: function (data){
                 debugger
-                if(data.list.length > 0) {
+                if(data.datas.list.length > 0) {
+
                     $("#counpBody").html("");
-                    for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
-                        var id = data.list[i].id == null ? "" : data.list[i].id;
-                        var recruitType = data.list[i].recruitType == null ? "" : data.list[i].recruitType;
-                        var salaryDescription = data.list[i].salaryDescription == null ? "" : data.list[i].salaryDescription;
-                        var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
-                        var businessName = data.list[i].businessName == null ? "" : data.list[i].businessName;
-                        var businessId = data.list[i].businessId == null ? "" : data.list[i].businessId;
-                        var classStyle = (i + 1) % 4;
-                        var classValue = '';
-                        if(classStyle == 0){
-                            var status = '';
-                            status = 'error';
-                            classValue = status;
-                        }else if(classStyle == 1){
-                            var status = '';
-                            status = 'warning';
-                            classValue = status;
-                        }else if(classStyle == 2){
-                            var status = '';
-                            status = 'info';
-                            classValue = status;
-                        }else if(classStyle == 3){
-                            var status = '';
-                            status = 'success';
-                            classValue = status;
-                        }
+                    for (var i = 0; i < data.datas.list.length; i++) {//默认显示第一页10个记录
+                        var schoolInfoObj = JSON.parse(data.datas.list[i].schoolInfo);
+                        var studentInfoObj = JSON.parse(data.datas.list[i].studentInfo);
+                        var id = data.datas.list[i].id == null ? "" : data.datas.list[i].id;
+                        var recruitId = data.datas.list[i].recruitId == null ? "" : data.datas.list[i].recruitId;
+                        var studentName = studentInfoObj.studentName == null ? "" : studentInfoObj.studentName;
+                        var accountId = data.datas.list[i].accountId == null ? "" : data.datas.list[i].accountId;
+                        var deliverStatus = data.datas.list[i].deliverStatus == null ? "" : data.datas.list[i].deliverStatus;
+                        var createDate = data.datas.list[i].createDate == null ? "" : formatTime(data.datas.list[i].createDate);
                         var html = $("#counpBody").html();
-                        html = '<tr class = "@classValue">'+
-                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitType</strong></p>'+
-                            '<p>&nbsp;</p><p style="font-size: 15px;">@salaryDescription</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
-                            '<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>'+
-                            '<p style="font-size:13px;">@createDate</p></td><td><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp;<button type="button" class="btn" onclick="deleteReciuitJob(@id)">删除</button> </p>'+
-                            '</td></tr>';
-                        html = html.replace(/@classValue/g, classValue);
+                        html = '<tr> <td style="font-size:15px">@id</td>' +
+                            '<td style="font-size:15px">@studentName</td>' +
+                            '<td class="hidden-phone" style="font-size:15px">@deliverStatus</td>' +
+                            '<td class="hidden-phone" style="font-size:15px">@createDate</td>' +
+                            '<td class="hidden-phone" style="font-size:15px"><span class = "lookInfo"'+
+                            'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="lookDeliveryMeDialog(@recruitId,@accountId)">查看详细</span></td></tr>'
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@recruitType/g, recruitType);
-                        html = html.replace(/@businessId/g, businessId);
-                        html = html.replace(/@salaryDescription/g, salaryDescription);
+                        html = html.replace(/@studentName/g, studentName);
+                        html = html.replace(/@deliverStatus/g, deliverStatus);
                         html = html.replace(/@createDate/g, createDate);
-                        html = html.replace(/@businessName/g, businessName);
+                        html = html.replace(/@accountId/g, accountId);
+                        html = html.replace(/@recruitId/g, recruitId);
                         $("#counpBody").append(html);
                     }
-                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
                 }else{
-                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
                     $("#counpBody").html("");
-                    var html = "<h5 style='text-align: center'>没有更多数据了！</h5>";
+                    var html = "<h5 style='text-align: center'>当前还没有人投递该条信息！</h5>";
                     $("#counpBody").append(html);
                 }
             },
         });
     }
-
-    //进入公告信息页面
-    function announcementsList(){
-        window.location.href="/public/util/jump?html_url=announcements/announcementsList";
-    }
-
-    // 加载公告信息
-    function loadAnnouncement(){
-        //处理数据
-        $.ajax({
-            type: "GET",
-            contentType: 'application/json',
-            dataType: "json",
-            url: "http://localhost:8088/announcementinfo/getall?flag=true&pageNum=0&pageSize=15",
-            success: function (data){
-                debugger
-                if(data.list.length > 0) {
-                    $("#articles").html("");
-                    for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
-                        var id = data.list[i].id == null ? "" : data.list[i].id;
-                        var announcementName = data.list[i].announcementName == null ? "" : data.list[i].announcementName;
-                        var html = $("#articles").html();
-                        html = '<a onclick="announceInfoClick(@id)">'+
-                            '<span class="label-bullet">&nbsp;</span>@announcementName'+
-                            '</a>'
-                        html = html.replace(/@id/g, id);
-                        html = html.replace(/@announcementName/g, announcementName);
-                        $("#articles").append(html);
-                    }
-                }else{
-                    $("#articles").html("");
-                    var html = "<h5 style='text-align: center'>当前没有公告！</h5>";
-                    $("#articles").append(html);
-                }
-            },
-        });
-    };
-
-    //进入招聘信息详情页
-    function lookInfo(id) {
-        window.location.href="/public/util/jump?html_url=index/recruitDetailInfo&id=" +id + "&flag=deleteRecruit";
-    };
-
-
 
     //格式化日期
     function formatTime(date){
@@ -338,6 +255,22 @@
         return date1.getFullYear() + '.' +
             ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
             ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
+    };
+    //获取url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+        if(r!=null)return  unescape(r[2]); return null;
+    };
+
+    //跳转查看
+    function  lookDeliveryMeDialog(id,accountId) {
+        window.location.href="/public/util/jump?html_url=businessDialog/lookDeliveryMeDialog&lookId=" + id + "&lookAccountId=" + accountId;
+    }
+    //返回
+    function  cancel() {
+        window.location.href="/public/util/jump?html_url=businessIndex/deliveryMeIndex";
     }
 
 

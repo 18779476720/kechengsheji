@@ -29,6 +29,19 @@
         <result property="lastUpdateDate" column="last_update_date"/>
         <result property="recruitinfoType" column="recruit_type"/>
     </resultMap>
+    <resultMap id="scoreinfoList1" type="com.example.kechengsheji.model.ScoreinfoList">
+        <id property="id" column="id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="recruitId" column="recruit_id"/>
+        <result property="scoreNum" column="score_num"/>
+        <result property="scoreDescription" column="score_description"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="lastUpdateBy" column="last_update_by"/>
+        <result property="lastUpdateDate" column="last_update_date"/>
+        <result property="studentName" column="student_name"/>
+        <result property="accountname" column="accountname"/>
+    </resultMap>
 
 
     <sql id="columns">
@@ -216,6 +229,22 @@
         where recruitinfo.id = scoreinfo.recruit_id
         <if test="accountId != null">
             and scoreinfo.account_id = #{accountId}
+        </if>
+    </select>
+    <!--查询某个招聘信息所有的评价信息-->
+    <select id="list1" resultMap="scoreinfoList1">
+        SELECT
+        scoreinfo.*, account.accountname,
+        studentinfo.student_name
+        FROM
+        scoreinfo,
+        account,
+        studentinfo
+        WHERE
+        studentinfo.accountname = account.accountname
+        AND scoreinfo.account_id = account.id
+        <if test="recruitId != null">
+            and scoreinfo.recruit_id = #{recruitId}
         </if>
     </select>
 </mapper>

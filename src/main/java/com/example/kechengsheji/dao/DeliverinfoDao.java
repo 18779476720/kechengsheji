@@ -22,6 +22,8 @@ public interface DeliverinfoDao {
 
     int update(Deliverinfo deliverinfo);
 
+    int updateStatus(Deliverinfo deliverinfo);
+
     Deliverinfo getById(@Param("id") Integer id);
 
     List<Deliverinfo> list(Deliverinfo deliverinfo);
@@ -31,4 +33,7 @@ public interface DeliverinfoDao {
 
     //查询该用户是否已经投递该职位
     int selectIsHasDelivery(@Param("accountId")Integer accountId,@Param("recruitId")Integer recruitId);
+
+    //查询当前投递信息所有投递人
+    List<Deliverinfo> selectHasDeliveryPerson(@Param("recruitId")Integer recruitId);
 }

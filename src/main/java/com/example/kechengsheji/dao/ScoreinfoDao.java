@@ -25,4 +25,6 @@ public interface ScoreinfoDao {
     Scoreinfo getById(@Param("id") Integer id);
 
     List<Scoreinfo> list(Scoreinfo scoreinfo);
+
+    List<Scoreinfo> list1(Scoreinfo scoreinfo);
 }

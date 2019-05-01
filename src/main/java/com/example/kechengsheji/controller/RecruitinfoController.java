@@ -55,10 +55,14 @@ public class RecruitinfoController{
         return ApiResult.buildSuccess(params);
     }
 
-    @RequestMapping(value="",method = RequestMethod.POST)
+    @RequestMapping(value="insertRecruitinfo",method = RequestMethod.POST)
     @ResponseBody
-    public Object insertRecruitinfo(@RequestBody Recruitinfo recruitinfo){
-        return recruitinfoService.insert(recruitinfo);
+    public ApiResult<?> insertRecruitinfo(@RequestBody Recruitinfo recruitinfo, HttpSession session){
+        Object id = session.getAttribute("id");
+        Account account = accountService.getById((Integer)id);
+        Integer businessID = businessinfoService.getByAccountName(account.getAccountname()).getId();
+        recruitinfo.setBusinessId(businessID);
+        return ApiResult.buildSuccess(recruitinfoService.insert(recruitinfo));
     }
 
 

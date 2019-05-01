@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        我发布的
+        投递我的
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -72,7 +72,7 @@
                     <div class="widget">
                         <div class="widget-header">
                             <div class="title pull-left">
-                                发布列表</div>
+                                投递列表</div>
                         </div>
                         <div class="widget-body">
                             <div class="mail">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="viewport" style="height: 550px;">
+                    <div class="viewport" style="height: 470px;">
                         <div class="overview">
                             <div class="featured-articles-container">
                                 <h5 class="heading" onclick="announcementsList()">
@@ -136,12 +136,9 @@
 <!--点击企业弹框-->
 <div id="bussinessDetailList" style="display: none"></div>
 
-<!--点击删除弹框-->
-<div id="reciuitDeleteList" style="display: none"></div>
 
 <script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
 <script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
-<script type="text/javascript" src="../../static/businessDialog/reciuitDeleteDialog.js"></script>
 <script type="text/javascript">
     //加载导航栏
     $("#navigation").load("jump?html_url=navigation/businessNavigation");
@@ -151,9 +148,6 @@
     $("#couponList").load("jump?html_url=dialog/announcementDialog");
     //加载企业信息弹框
     $("#bussinessDetailList").load("jump?html_url=dialog/bussinessDetail");
-    //加载删除确认提示弹框
-    $("#reciuitDeleteList").load("jump?html_url=businessDialog/reciuitDeleteDialog");
-
     $(function(){
         loadData(0, 10, 0);
         welcomeLogin();
@@ -265,7 +259,7 @@
                             '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitType</strong></p>'+
                             '<p>&nbsp;</p><p style="font-size: 15px;">@salaryDescription</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
                             '<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>'+
-                            '<p style="font-size:13px;">@createDate</p></td><td><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp;<button type="button" class="btn" onclick="deleteReciuitJob(@id)">删除</button> </p>'+
+                            '<p style="font-size:13px;">@createDate</p></td><td><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp;<button type="button" class="btn" onclick="lookDeliveryMe(@id)">查看投递</button> </p>'+
                             '</td></tr>';
                         html = html.replace(/@classValue/g, classValue);
                         html = html.replace(/@id/g, id);
@@ -329,6 +323,11 @@
         window.location.href="/public/util/jump?html_url=index/recruitDetailInfo&id=" +id + "&flag=deleteRecruit";
     };
 
+    //进入投递我的详细界面
+    function  lookDeliveryMe(id) {
+        window.location.href="/public/util/jump?html_url=businessIndex/deliveryMeDetail&id=" +id;
+    }
+
 
 
     //格式化日期
@@ -338,7 +337,8 @@
         return date1.getFullYear() + '.' +
             ( ( date1.getMonth() + 1 ) < 10 ? '0' + ( date1.getMonth() + 1 ) : ( date1.getMonth() + 1 ) ) + '.' +
             ( date1.getDate() < 10 ? '0' + date1.getDate() : date1.getDate() );
-    }
+    };
+
 
 
 </script>

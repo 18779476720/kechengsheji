@@ -1,18 +1,21 @@
 package com.example.kechengsheji.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
-import com.example.kechengsheji.service.DeliverinfoService;
-import com.example.kechengsheji.model.Deliverinfo;
+import com.example.kechengsheji.model.*;
+import com.example.kechengsheji.service.*;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.example.kechengsheji.service.RecruitinfoService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +32,14 @@ public class DeliverinfoController{
 
     @Autowired
     DeliverinfoService deliverinfoService;
+
+
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    StudentinfoService studentinfoService;
+    @Autowired
+    SchoolinfoService schoolinfoService;
 
     @Autowired
     RecruitinfoService recruitinfoService;
@@ -72,10 +83,11 @@ public class DeliverinfoController{
     }
 
 
-    @RequestMapping(value="/update",method = RequestMethod.PUT)
+    //修改投递状态
+    @RequestMapping(value="/update",method = RequestMethod.POST)
     @ResponseBody
     public Object updateDeliverinfo(@RequestBody Deliverinfo deliverinfo){
-        return deliverinfoService.update(deliverinfo);
+        return deliverinfoService.updateStatus(deliverinfo);
     }
 
 
@@ -98,4 +110,70 @@ public class DeliverinfoController{
         deliverinfo.setAccountId((Integer) httpSession.getAttribute("id"));
         return ApiResult.buildSuccess(deliverinfoService.getAll(deliverinfo,pageNum,pageSize));
     }
+
+    //查看投递当前信息的人
+    @RequestMapping(value="/getDeliveryMe",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<?> getDeliverMe(@RequestParam("reciuitId") Integer reciuitId, @RequestParam("pageNum") Integer pageNum ,@RequestParam("pageSize") Integer pageSize){
+
+        PageHelper.startPage(pageNum,pageSize);
+        List<Deliverinfo> list = deliverinfoService.selectHasDeliveryPerson(reciuitId);
+//        List<Deliverinfo> list =
+        List<DeliveryDetailParams> detailList = new ArrayList<>();
+        if(list.size() > 0){
+            for(int i = 0; i < list.size(); i ++){
+                Deliverinfo delivervo = list.get(i);
+                DeliveryDetailParams params = new DeliveryDetailParams();
+                params.setAccountId(delivervo.getAccountId());
+                params.setId(delivervo.getId());
+                params.setRecruitId(delivervo.getRecruitId());
+                params.setDeliverStatus(delivervo.getDeliverStatus());
+                params.setCreateDate(delivervo.getCreateDate());
+                Account account = accountService.getById(delivervo.getAccountId());
+                Studentinfo studentinfo = studentinfoService.getByName(account.getAccountname());
+                Schoolinfo schoolinfo = schoolinfoService.getById(studentinfo.getSchoolId());
+                JSONObject json = (JSONObject) JSONObject.toJSON(schoolinfo);
+                params.setSchoolInfo(json.toJSONString());
+                json = (JSONObject) JSONObject.toJSON(studentinfo);
+                params.setStudentInfo(json.toJSONString());
+                detailList.add(params);
+            }
+        }
+        PageInfo<DeliveryDetailParams> pageInfo = new PageInfo<DeliveryDetailParams>(detailList);
+
+        return ApiResult.buildSuccess(pageInfo);
+    }
+
+    //当前投递信息   当前投递人
+    //查看投递当前信息的人
+    @RequestMapping(value="/getNowDeliveryMe",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult<?> getNowDeliveryMe(@RequestParam("accountId") Integer accountId, @RequestParam("reciuitId") Integer reciuitId){
+
+        List<Deliverinfo> list = deliverinfoService.selectHasDeliveryPerson(reciuitId);
+        List<DeliveryDetailParams> detailList = new ArrayList<>();
+        DeliveryDetailParams params = new DeliveryDetailParams();
+        if(list.size() > 0){
+            for(int i = 0; i < list.size(); i ++){
+                Deliverinfo delivervo = list.get(i);
+                if(delivervo.getAccountId() == accountId){
+                    params.setAccountId(delivervo.getAccountId());
+                    params.setId(delivervo.getId());
+                    params.setRecruitId(delivervo.getRecruitId());
+                    params.setDeliverStatus(delivervo.getDeliverStatus());
+                    params.setCreateDate(delivervo.getCreateDate());
+                    Account account = accountService.getById(delivervo.getAccountId());
+                    Studentinfo studentinfo = studentinfoService.getByName(account.getAccountname());
+                    Schoolinfo schoolinfo = schoolinfoService.getById(studentinfo.getSchoolId());
+                    JSONObject json = (JSONObject) JSONObject.toJSON(schoolinfo);
+                    params.setSchoolInfo(json.toJSONString());
+                    json = (JSONObject) JSONObject.toJSON(studentinfo);
+                    params.setStudentInfo(json.toJSONString());
+                }
+            }
+        }
+
+        return ApiResult.buildSuccess(params);
+    }
+
 }
