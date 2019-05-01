@@ -66,7 +66,7 @@ public class RecruitinfoController{
     }
 
 
-    @RequestMapping(value="/update",method = RequestMethod.PUT)
+    @RequestMapping(value="/update",method = RequestMethod.POST)
     @ResponseBody
     public Object updateRecruitinfo(@RequestBody Recruitinfo recruitinfo){
         return recruitinfoService.update(recruitinfo);
@@ -111,5 +111,22 @@ public class RecruitinfoController{
             recruitinfoVo.setUsingStatus(null);
         }
         return recruitinfoService.getAll(recruitinfoVo,pageNum,pageSize);
+    }
+
+    //管理员查找所有
+    @RequestMapping(value = "getAccountAll",method = RequestMethod.GET)
+    @ResponseBody
+    public PageInfo<?> getAccountAll(@RequestParam("recruitinfo") String recruitinfo,@RequestParam("usingStatus") String usingStatus, @RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
+        Recruitinfo recruitinfoVo = new Recruitinfo();
+        if("true".equals(recruitinfo)){
+            recruitinfoVo.setRecruitType(null);
+        }else{
+            recruitinfoVo.setRecruitType(recruitinfo);
+        }
+        if(!"true".equals(usingStatus)){
+            recruitinfoVo.setUsingStatus(usingStatus);
+        }
+
+        return recruitinfoService.getAccountAll(recruitinfoVo,pageNum,pageSize);
     }
 }

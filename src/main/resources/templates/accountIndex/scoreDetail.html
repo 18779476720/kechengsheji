@@ -24,7 +24,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-        公告信息
+        投递详情
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -41,7 +41,8 @@
     <link href="../../static/css/pagination.css" rel="stylesheet">
     <link href="../../static/icomoon/style.css" rel="stylesheet">
     <link href="../../static/css/toastr.css" rel="stylesheet" type="text/css"/>
-
+    <link href="../../static/starCss/main.css" rel="stylesheet">
+    <link href="../../static/starCss/examples.css" rel="stylesheet">
     <!--[if lte IE 7]>
     <script src="../../static/css/icomoon-font/lte-ie7.js">
     </script>
@@ -70,6 +71,8 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="widget">
+                        <div style="float:right;">
+                            <button class="btn btn-primary btn-success" type="button" onclick="cancel()">返回</button></div>
                         <div class="widget-header">
                             <div class="title pull-left">
                                 公告列表</div>
@@ -83,13 +86,13 @@
                                             编号
                                         </th>
                                         <th style="width:10% text-align:center; font-size:16px">
-                                            公告标题
+                                            评价人姓名
                                         </th>
-                                        <th style="width:20% text-align:center; font-size:16px" class="hidden-phone">
-                                            发布人
+                                        <th style="width:10% text-align:center; font-size:16px">
+                                            评价等级
                                         </th>
                                         <th style="width:25% text-align:center; font-size:16px">
-                                            发布时间
+                                            评价日期
                                         </th>
                                         <th style="width:15% text-align:center; font-size:16px" class="hidden-phone">
                                             操作
@@ -125,21 +128,16 @@
 
 
 </div>
+<!--点击投递弹框-->
+<div id="scoreMeDetailDialogList" style="display: none"></div>
+
+<script type="text/javascript" src="../../static/businessDialog/scoreMeDialog.js"></script>
 <script type="text/javascript" src="../../static/myJs/announcementDialog.js"></script>
 <script type="text/javascript" src="../../static/myJs/bussinessDetail.js"></script>
 <script type="text/javascript">
-    var announcementFlag = GetQueryString("announcementFlag");
-    //加载导航栏
-    if(announcementFlag == 'student'){
-        $("#navigation").load("jump?html_url=navigation/studentNavigation");
-    }else if(announcementFlag == 'business'){
-        $("#navigation").load("jump?html_url=navigation/businessNavigation");
-    }else if(announcementFlag == 'account'){
-        $("#navigation").load("jump?html_url=navigation/accountNavigation");
-    }
-
     $("#welcomeLogin").load("jump?html_url=index/welcomeLogin");
     $("#couponList").load("jump?html_url=dialog/announcementDialog");
+    $("#scoreMeDetailDialogList").load("jump?html_url=businessDialog/scoreMeDialog");
     <!--$("#welcomeLogin").load("../../templates/index/welcomeLogin.html")-->
     $(function(){
         loadData(0, 0, 0);
@@ -201,14 +199,7 @@
     });
 
     function loadData(currPage, pageSize, num) {
-        debugger
-        var announce = '';
-        var myurl=GetQueryString("html_url");
-        if(myurl !=null && myurl.toString().length>1){
-            announce = GetQueryString("announce");
-        }
-        var flag = (announce == "me") ? false : true;
-
+        var recruitId = GetQueryString("recruitId");
         var pageNum = 0;
         if(num == 0){
             pageNum = 0;
@@ -222,36 +213,37 @@
             type: "GET",
             contentType: 'application/json',
             dataType: "json",
-            url: "http://localhost:8088/announcementinfo/getall?flag=" + flag + "&pageNum="+ pageNum +"&pageSize=" + pageSize,
+            url: "http://localhost:8088/scoreinfo/getScoreByRecruit?recruitId=" + recruitId + "&pageNum="+ pageNum +"&pageSize=" + pageSize,
             success: function (data){
                 debugger
-                if(data.list.length > 0) {
+                if(data.datas.list.length > 0) {
+
                     $("#counpBody").html("");
-                    for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
-                        var id = data.list[i].id == null ? "" : data.list[i].id;
-                        var announcementName = data.list[i].announcementName == null ? "" : data.list[i].announcementName;
-                        var announcementInfo = data.list[i].announcementInfo == null ? "" : data.list[i].announcementInfo;
-                        var createdBy = data.list[i].createdBy == null ? "" : data.list[i].createdBy;
-                        var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
+                    for (var i = 0; i < data.datas.list.length; i++) {//默认显示第一页10个记录
+                        var id = data.datas.list[i].id == null ? "" : data.datas.list[i].id;
+                        var accountname = data.datas.list[i].accountname == null ? "" : data.datas.list[i].accountname;
+                        var scoreNum = data.datas.list[i].scoreNum == null ? "" : data.datas.list[i].scoreNum;
+                        var recruitId = data.datas.list[i].recruitId == null ? "" : data.datas.list[i].recruitId;
+                        var createDate = data.datas.list[i].createDate == null ? "" : formatTime(data.datas.list[i].createDate);
                         var html = $("#counpBody").html();
                         html = '<tr> <td style="font-size:15px">@id</td>' +
-                            '<td style="font-size:15px">@announcementName</td>' +
-                            '<td class="hidden-phone" style="font-size:15px">@createdBy</td>' +
+                            '<td style="font-size:15px">@accountname</td>' +
+                            '<td class="hidden-phone" style="font-size:15px">@scoreNum星</td>' +
                             '<td class="hidden-phone" style="font-size:15px">@createDate</td>' +
                             '<td class="hidden-phone" style="font-size:15px"><span class = "lookInfo"'+
-                            'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="announceInfoClick(@id)">查看详细</span></td></tr>'
+                            'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="lookScoreMeDialog(@recruitId)">查看详细</span></td></tr>'
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@announcementName/g, announcementName);
-                        html = html.replace(/@announcementInfo/g, announcementInfo);
+                        html = html.replace(/@accountname/g, accountname);
+                        html = html.replace(/@scoreNum/g, scoreNum);
                         html = html.replace(/@createDate/g, createDate);
-                        html = html.replace(/@createdBy/g, createdBy);
+                        html = html.replace(/@recruitId/g, recruitId);
                         $("#counpBody").append(html);
                     }
-                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
                 }else{
-                    $("#pagination").whjPaging("setPage", {currPage: data.pageNum, totalPage: data.pages, totalSize: data.total});
+                    $("#pagination").whjPaging("setPage", {currPage: data.datas.pageNum, totalPage: data.datas.pages, totalSize: data.datas.total});
                     $("#counpBody").html("");
-                    var html = "<h5 style='text-align: center'>没有更多数据了！</h5>";
+                    var html = "<h5 style='text-align: center'>当前暂无评价！</h5>";
                     $("#counpBody").append(html);
                 }
             },
@@ -273,6 +265,11 @@
         var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
         if(r!=null)return  unescape(r[2]); return null;
     };
+
+    //返回
+    function  cancel() {
+        window.location.href="/public/util/jump?html_url=accountIndex/allScores";
+    }
 
 
 </script>

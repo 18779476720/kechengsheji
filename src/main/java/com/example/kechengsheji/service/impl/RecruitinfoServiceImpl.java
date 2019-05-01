@@ -81,4 +81,16 @@ public class RecruitinfoServiceImpl implements RecruitinfoService {
         PageInfo<Recruitinfo> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+
+
+    //分页查询
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public PageInfo<Recruitinfo> getAccountAll(Recruitinfo recruitinfo, Integer pageNum, Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Recruitinfo> list = recruitinfoDao.list1(recruitinfo);
+        PageInfo<Recruitinfo> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
 }

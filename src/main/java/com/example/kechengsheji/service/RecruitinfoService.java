@@ -23,4 +23,7 @@ public interface RecruitinfoService {
     List<Recruitinfo> list(Recruitinfo recruitinfo);
     //分页参数查询
     PageInfo<Recruitinfo> getAll(Recruitinfo recruitinfo, Integer pageNum, Integer pageSize);
+
+    //分页参数查询
+    PageInfo<Recruitinfo> getAccountAll(Recruitinfo recruitinfo, Integer pageNum, Integer pageSize);
 }

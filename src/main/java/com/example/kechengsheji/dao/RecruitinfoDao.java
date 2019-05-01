@@ -26,4 +26,6 @@ public interface RecruitinfoDao {
 
     List<Recruitinfo> list(Recruitinfo recruitinfo);
 
+    List<Recruitinfo> list1(Recruitinfo recruitinfo);
+
 }

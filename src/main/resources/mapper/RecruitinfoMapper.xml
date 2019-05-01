@@ -332,6 +332,67 @@
     </select>
 
 
+    <!--管理员查询-->
+    <select id="list1" resultMap="recruitinfoList">
+        select recruitinfo.*, businessinfo.id, businessinfo.business_name from `recruitinfo`,`businessinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            businessinfo.id = recruitinfo.business_id
+            <if test="id != null">
+                and `businessinfo.id` = #{id}
+            </if>
+            <if test="recruitType != null">
+                and `recruit_type` like concat(concat('%',#{recruitType}),'%')
+            </if>
+            <if test="recruitNum != null">
+                and `recruit_num` = #{recruitNum}
+            </if>
+            <if test="salaryDescription != null">
+                and `salary_description` = #{salaryDescription}
+            </if>
+            <if test="taskDescription != null">
+                and `task_description` = #{taskDescription}
+            </if>
+            <if test="taskPlace != null">
+                and `task_place` = #{taskPlace}
+            </if>
+            <if test="contactNumber != null">
+                and `contact_number` = #{contactNumber}
+            </if>
+            <if test="accountId != null">
+                and `account_id` = #{accountId}
+            </if>
+            <if test="city != null">
+                and `city` = #{city}
+            </if>
+            <if test="businessId != null">
+                and `business_id` = #{businessId}
+            </if>
+            <if test="recruitStatus != null">
+                and `recruit_status` = #{recruitStatus}
+            </if>
+            <if test="usingStatus != null">
+                and `using_status` = #{usingStatus}
+            </if>
+            <if test="usingStatus == null">
+                and 1 = 1
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+
+    </select>
+
+
     <!--<select id="list" resultMap="recruitinfoList">-->
     <!--select-->
     <!--<include refid="columns" />-->

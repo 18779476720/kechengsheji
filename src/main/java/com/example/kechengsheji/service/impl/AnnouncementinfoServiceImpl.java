@@ -66,12 +66,12 @@ public class AnnouncementinfoServiceImpl implements AnnouncementinfoService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public PageInfo<Announcementinfo> getAll(Integer id,Integer pageNum, Integer pageSize){
-        PageHelper.startPage(pageNum,pageSize);
         Announcementinfo announcementinfo = new Announcementinfo();
         if(id != null){
             Account account = accountService.getById(id);
             announcementinfo.setCreatedBy(account.getAccountname());
         }
+        PageHelper.startPage(pageNum,pageSize);
         List<Announcementinfo> list = announcementinfoDao.list(announcementinfo);
         PageInfo<Announcementinfo> pageInfo = new PageInfo<>(list);
         return pageInfo;
