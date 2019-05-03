@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--
+* Created by chenglu on 2019-3-9.
+-->
+<mapper namespace="com.example.kechengsheji.dao.HistoryDao">
+    <resultMap id="history" type="com.example.kechengsheji.model.History">
+        <id property="id" column="id"/>
+        <result property="userId" column="userId"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <sql id="columns">
+            `id` ,`userId` ,`content`
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into `history`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                `id`,
+            </if>
+            <if test="userId != null">
+                `userId`,
+            </if>
+            <if test="content != null">
+                `content`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id} ,
+            </if>
+            <!--</if>-->
+            <if test="userId != null">
+                #{userId} ,
+            </if>
+            <if test="content != null">
+                #{content} ,
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from `history`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="userId != null">
+                and `userId` = #{userId}
+            </if>
+            <if test="content != null">
+                and `content` = #{content}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from `history`
+        where `id` in
+        <foreach collection="ids" open="(" item="id" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update `history`
+        <set>
+            <if test="userId != null">
+                `userId` = #{userId},
+            </if>
+            <if test="content != null">
+                `content` = #{content},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultMap="history">
+        select
+        <include refid="columns" />
+        from `history`
+        where `id` = #{id}
+    </select>
+
+    <select id="list" resultMap="history">
+        select
+        <include refid="columns" />
+        from `history`
+        <trim prefix="where " prefixOverrides="and ">
+            <if test="id != null">
+                and `id` = #{id}
+            </if>
+            <if test="userId != null">
+                and `userId` = #{userId}
+            </if>
+            <if test="content != null">
+                and `content` = #{content}
+            </if>
+        </trim>
+    </select>
+</mapper>

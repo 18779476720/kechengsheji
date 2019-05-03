@@ -113,13 +113,15 @@ public class AccountServiceImpl implements AccountService {
                 studentVo.setHopeJob1(studentInfo.getString("hopeJob1"));
                 String dateTimeString = studentInfo.getString("dateTime");
                 String format1 = "yyyy-MM-dd";
-                Date date = null;
-                try {
-                    date = new SimpleDateFormat(format1).parse(dateTimeString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if(dateTimeString != null){
+                    Date date = null;
+                    try {
+                        date = new SimpleDateFormat(format1).parse(dateTimeString);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    studentVo.setDateTime(date);
                 }
-                studentVo.setDateTime(date);
                 studentVo.setMajorName(studentInfo.getString("majorName"));
                 studentVo.setSex(studentInfo.getString("sex"));
                 studentVo.setStudentName(studentInfo.getString("studentName"));

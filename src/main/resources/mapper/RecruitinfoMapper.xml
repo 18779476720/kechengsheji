@@ -10,6 +10,7 @@
         <result property="recruitName" column="recruitName"/>
         <result property="recruitType" column="recruit_type"/>
         <result property="recruitType1" column="recruit_type1"/>
+        <result property="needSex" column="needSex"/>
         <result property="beginTime" column="beginTime"/>
         <result property="overTime" column="overTime"/>
         <result property="recruitNum" column="recruit_num"/>
@@ -32,6 +33,7 @@
         <result property="recruitName" column="recruitName"/>
         <result property="recruitType" column="recruit_type"/>
         <result property="recruitType1" column="recruit_type1"/>
+        <result property="needSex" column="needSex"/>
         <result property="beginTime" column="beginTime"/>
         <result property="overTime" column="overTime"/>
         <result property="recruitNum" column="recruit_num"/>
@@ -52,7 +54,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`recruitName` ,`recruit_type` ,`recruit_type1` ,`beginTime` ,`overTime` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`account_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`recruitName` ,`recruit_type` ,`recruit_type1` ,`needSex` ,`beginTime` ,`overTime` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`account_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -69,6 +71,9 @@
             </if>
             <if test="recruitType1 != null">
                 `recruit_type1`,
+            </if>
+            <if test="needSex != null">
+                `needSex`,
             </if>
             <if test="beginTime != null">
                 `beginTime`,
@@ -131,6 +136,9 @@
             </if>
             <if test="recruitType1 != null">
                 #{recruitType1} ,
+            </if>
+            <if test="needSex != null">
+                #{needSex} ,
             </if>
             <if test="beginTime != null">
                 #{beginTime} ,
@@ -197,6 +205,9 @@
             </if>
             <if test="recruitType != null">
                 and `recruit_type1` = #{recruitType1}
+            </if>
+            <if test="needSex != null">
+                and `needSex` = #{needSex}
             </if>
             <if test="beginTime != null">
                 and `beginTime` = #{beginTime}
@@ -268,6 +279,9 @@
             </if>
             <if test="recruitType1 != null">
                 `recruit_type1` = #{recruitType1},
+            </if>
+            <if test="needSex != null">
+                `needSex` = #{needSex},
             </if>
             <if test="beginTime != null">
                 `beginTime` = #{beginTime},
@@ -344,6 +358,9 @@
             <if test="recruitType1 != null">
                 and `recruit_type1` = #{recruitType1}
             </if>
+            <if test="needSex != null">
+                and `needSex` = #{needSex}
+            </if>
             <if test="beginTime != null">
                 and `beginTime` = #{beginTime}
             </if>
@@ -416,6 +433,9 @@
             </if>
             <if test="recruitType1 != null">
                 and `recruit_type1` = #{recruitType1}
+            </if>
+            <if test="needSex != null">
+                and `needSex` = #{needSex}
             </if>
             <if test="beginTime != null">
                 and `beginTime` = #{beginTime}

@@ -1,6 +1,4 @@
 package com.example.kechengsheji.controller;
-import com.example.kechengsheji.dao.AccountDao;
-import com.example.kechengsheji.dao.StudentinfoDao;
 import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
 import com.example.kechengsheji.model.*;

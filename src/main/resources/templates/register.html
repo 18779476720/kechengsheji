@@ -54,11 +54,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="sex" class="col-sm-3 control-label">性别：</label>
+							<label for="sex1" class="col-sm-3 control-label">性别：</label>
 							<div class="col-sm-6">
-								<input type="radio" name="sex" value = "2" id="sex" checked>
+								<input type="radio" name="sex" value = "女" id="nv"checked>
 								女
-								<input type="radio" name="sex" id="sex" value = "1">
+								<input type="radio" name="sex" id="nan" value = "男">
 								男
 							</div>
 						</div>
@@ -256,6 +256,12 @@
 						 $("#password").val(data.datas.password);
                         $("#conpassword").val(data.datas.password);
                         $("#sex").val(studentInfoObj.sex);
+                        if(studentInfoObj.sex == '男'){
+                            $("#nan").prop('checked',true);
+						}else{
+                            $("#nv").prop('checked',true);
+						}
+
                         $("#phone").val(studentInfoObj.phone);
                         $("#email").val(studentInfoObj.email);
                         //开始时间段
@@ -454,12 +460,11 @@
 	    var accountname = $("#accountname").val();
 	    var conpassword = $("#conpassword").val();
 	    var password = $("#password").val();
-	    var sex = $("#sex").val();
+	    var sex = $('input[name="sex"]:checked').val();
 	    var phone = $("#phone").val();
         var email = $("#email").val();
         var studentName = $("#studentName").val();
         var enrollmentYear = $("#enrollmentYear").val();
-        var dateTime = $("#dateTime").val();
         var schoolName = $("#schoolName").val();
         var schoolAddress = $("#schoolAddress").val();
         var majorName = $("#majorName").val();
@@ -524,20 +529,37 @@
             role = GetQueryString("registerType");
         }
 
-        //学生信息
-        var student = {
-            phone: phone,
-            email: email,
-			hopeJob: hopeJob,
-            startTime: startTime,
-            endTime: endTime,
-            hopeJob1: hopeJob1,
-            majorName: majorName,
-            sex: sex,
-            studentName: studentName,
-            enrollmentYear: enrollmentYear,
-            dateTime: dateTime
-        }
+        if($("#dateTime").val() == ""){
+            //学生信息
+            var student = {
+                phone: phone,
+                email: email,
+                hopeJob: hopeJob,
+                startTime: startTime,
+                endTime: endTime,
+                hopeJob1: hopeJob1,
+                majorName: majorName,
+                sex: sex,
+                studentName: studentName,
+                enrollmentYear: enrollmentYear,
+            }
+		}else{
+            //学生信息
+            var student = {
+                phone: phone,
+                email: email,
+                hopeJob: hopeJob,
+                startTime: startTime,
+                endTime: endTime,
+                hopeJob1: hopeJob1,
+                majorName: majorName,
+                sex: sex,
+                studentName: studentName,
+                enrollmentYear: enrollmentYear,
+                dateTime: dateTime
+            }
+		}
+
         var studentInfo = JSON.stringify(student);
 
         var params = {

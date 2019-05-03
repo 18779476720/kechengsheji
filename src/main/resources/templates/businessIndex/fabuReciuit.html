@@ -116,6 +116,17 @@
 
                     </div>
                     <div class="form-group">
+                        <label for="needSex1" class="col-sm-3 control-label">性别：</label>
+                        <div class="col-sm-6">
+                            <input type="radio" name="needSex" value = "1"  checked>
+                            不限
+                            <input type="radio" name="needSex"  value = "2">
+                            男
+                            <input type="radio" name="needSex"  value = "3">
+                            女
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="recruitNum" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>招聘人数：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control input-lg" name="recruitNum" id="recruitNum"
@@ -374,6 +385,8 @@
         var taskDescription = $("#taskDescription").val();
         var taskPlace = $("#taskPlace").val();
         var contactNumber = $("#contactNumber").val();
+        debugger
+        var needSex = $('input[name="needSex"]:checked').val();
         var city = $("#city").val();
 
         if(recruitName == "" || recruitName == undefined){
@@ -409,6 +422,7 @@
             recruitName:recruitName,
             recruitType: recruitType,
             recruitType1: recruitType1,
+            needSex: needSex,
             beginTime: beginTime,
             overTime: overTime,
             recruitNum: recruitNum,

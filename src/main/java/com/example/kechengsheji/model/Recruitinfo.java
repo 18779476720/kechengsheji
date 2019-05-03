@@ -29,6 +29,10 @@ public class Recruitinfo implements Serializable{
      */
     private String taskDescription;
     /**
+     * 性别
+     */
+    private String needSex;
+    /**
      *工作地点
      */
     private String taskPlace;
@@ -241,5 +245,13 @@ public class Recruitinfo implements Serializable{
 
     public void setOverTime(Integer overTime) {
         this.overTime = overTime;
+    }
+
+    public String getNeedSex() {
+        return needSex;
+    }
+
+    public void setNeedSex(String needSex) {
+        this.needSex = needSex;
     }
 }

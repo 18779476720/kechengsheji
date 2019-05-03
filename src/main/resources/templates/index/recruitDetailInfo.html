@@ -124,7 +124,7 @@
                     var html = $("#spanDetail").html();
                     html = '<dl><dt><strong style="font-size:18px">兼职名称</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@recruitName</dd></br>'+
                         '<dt><strong style="font-size:18px">兼职类型</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@recruitType1</dd></br>'+
-                        '<dt><strong style="font-size:18px">兼职时间</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@beginTime点至@overTime点</dd></br>'+
+                        '<dt><strong style="font-size:18px">要求性别</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@needSex</dd></br>'+
                         '<dt><strong style="font-size:18px">招聘人数</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@recruitNum</dd></br>'+
                         '<dt><strong style="font-size:18px">薪资描述</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@salaryDescription</dd></br>'+
                         '<dt><strong style="font-size:18px">工作描述</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@taskDescription</dd></br>'+
@@ -142,6 +142,7 @@
                     }
                     html = html.replace(/@beginTime/g, data.datas.beginTime);
                     html = html.replace(/@overTime/g, data.datas.overTime);
+                    html = html.replace(/@needSex/g, data.datas.needSex);
                     html = html.replace(/@recruitNum/g, data.datas.recruitNum);
                     html = html.replace(/@salaryDescription/g, data.datas.salaryDescription);
                     html = html.replace(/@taskDescription/g, data.datas.taskDescription);
