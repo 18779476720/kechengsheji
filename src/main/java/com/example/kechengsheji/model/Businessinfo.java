@@ -23,6 +23,8 @@ public class Businessinfo implements Serializable {
      * 商家信息描述
      */
     private String businessDescription;
+
+    private String businessEmail;
     /**
      *
      */
@@ -41,7 +43,6 @@ public class Businessinfo implements Serializable {
     /**
      * 邮箱
      */
-    private String businessEmail;
 
     private Date lastUpdateDate;
 

@@ -1,5 +1,7 @@
 package com.example.kechengsheji.controller;
 
+import com.example.kechengsheji.model.Account;
+import com.example.kechengsheji.service.AccountService;
 import com.example.kechengsheji.service.AnnouncementinfoService;
 import com.example.kechengsheji.model.Announcementinfo;
 import com.github.pagehelper.PageInfo;
@@ -8,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -17,6 +23,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/announcementinfo")
 public class AnnouncementinfoController{
 
+    @Autowired
+    AccountService accountService;
     @Autowired
     AnnouncementinfoService announcementinfoService;
 
@@ -35,7 +43,19 @@ public class AnnouncementinfoController{
 
     @RequestMapping(value="/insertAnnouncementinfo",method = RequestMethod.POST)
     @ResponseBody
-    public Object insertAnnouncementinfo(@RequestBody Announcementinfo announcementinfo){
+    public Object insertAnnouncementinfo(@RequestBody Announcementinfo announcementinfo,HttpSession session){
+        Object id = session.getAttribute("id");
+        Account account = accountService.getById((Integer) id);
+        announcementinfo.setCreatedBy(account.getAccountname());
+        Date date = new Date();
+        Timestamp timeStamep = new Timestamp(date.getTime());
+        String format1 = "yyyy-MM-dd";
+        try {
+            date = new SimpleDateFormat(format1).parse(String.valueOf(timeStamep));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        announcementinfo.setCreateDate(date);
         return announcementinfoService.insert(announcementinfo);
     }
 

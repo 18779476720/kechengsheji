@@ -3,11 +3,9 @@ import com.example.kechengsheji.dao.AccountDao;
 import com.example.kechengsheji.dao.StudentinfoDao;
 import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
-import com.example.kechengsheji.model.AccountParams;
-import com.example.kechengsheji.model.Schoolinfo;
-import com.example.kechengsheji.model.Studentinfo;
+import com.example.kechengsheji.model.*;
 import com.example.kechengsheji.service.AccountService;
-import com.example.kechengsheji.model.Account;
+import com.example.kechengsheji.service.BusinessinfoService;
 import com.example.kechengsheji.service.SchoolinfoService;
 import com.example.kechengsheji.service.StudentinfoService;
 import com.github.pagehelper.PageInfo;
@@ -35,6 +33,8 @@ public class AccountController{
     @Autowired
     SchoolinfoService schoolinfoService;
 
+    @Autowired
+    BusinessinfoService businessinfoService;
     @RequestMapping(value="",method = RequestMethod.GET)
     @ResponseBody
     private Object listAccount(){
@@ -103,6 +103,24 @@ public class AccountController{
         params.setStudentInfo(json.toJSONString());
         return ApiResult.buildSuccess(params);
     }
+
+    //加载商家个人信息
+    @RequestMapping(value = "/loadBusinessInfo")
+    @ResponseBody
+    public ApiResult<?> loadBusinessInfo(HttpSession httpSession){
+        //查询该用户名是否存在
+        Object a = httpSession.getAttribute("id");
+        Account account = accountService.getById((Integer) a);
+        AccountParams params = new AccountParams();
+        params.setId(account.getId());
+        params.setPassword(account.getPassword());
+        //对象转化为json字符串
+        Businessinfo businessVo = businessinfoService.getByAccountName(account.getAccountname());
+        JSONObject json = (JSONObject) JSONObject.toJSON(businessVo);
+        params.setBusinessInfo(json.toJSONString());
+        return ApiResult.buildSuccess(params);
+    }
+
 
     //用户登录欢迎
     @RequestMapping(value = "/welcomeLogin", method = RequestMethod.GET)

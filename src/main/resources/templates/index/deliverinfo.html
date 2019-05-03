@@ -216,7 +216,7 @@
                     $("#counpBody").html("");
                     for (var i = 0; i < data.datas.list.length; i++) {//默认显示第一页10个记录
                         var id = data.datas.list[i].id == null ? "" : data.datas.list[i].id;
-                        var recruitinfoType = data.datas.list[i].recruitinfoType == null ? "" : data.datas.list[i].recruitinfoType;
+                        var recruitName = data.datas.list[i].recruitName == null ? "" : data.datas.list[i].recruitName;
                         var deliverStatus = data.datas.list[i].deliverStatus == null ? "" : data.datas.list[i].deliverStatus;
                         var createDate = data.datas.list[i].createDate == null ? "" : formatTime(data.datas.list[i].createDate);
                         var recruitId = data.datas.list[i].recruitId == null ? "" : data.datas.list[i].recruitId;
@@ -236,13 +236,13 @@
 
                         var html = $("#counpBody").html();
                         html = '<tr> <td style="font-size:15px">@id</td>' +
-                            '<td style="font-size:15px"><strong style="color: rgb(36, 218, 255); font-size: 17px;" onclick="lookInfo(@recruitId)">@recruitinfoType</strong></td>' +
+                            '<td style="font-size:15px"><strong style="color: rgb(36, 218, 255); font-size: 17px;" onclick="lookInfo(@recruitId)">@recruitName</strong></td>' +
                             '<td class="hidden-phone" style="font-size:15px"><span class="label @deliverStatusLabel">@deliverStatus</span></td>' +
                             '<td class="hidden-phone" style="font-size:15px">@createDate</td>'
 
                         html = html + html2;
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@recruitinfoType/g, recruitinfoType);
+                        html = html.replace(/@recruitName/g, recruitName);
                         html = html.replace(/@deliverStatusLabel/g, deliverStatusLabel);
                         html = html.replace(/@deliverStatus/g, deliverStatus);
                         html = html.replace(/@createDate/g, createDate);

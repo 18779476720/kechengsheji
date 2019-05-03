@@ -73,6 +73,14 @@ public class Recruitinfo implements Serializable{
      */
     private Date lastUpdateDate;
 
+    private String recruitName;
+
+    private String recruitType1;
+
+    private  Integer beginTime;
+
+    private  Integer overTime;
+
     public Integer getId() {
         return id;
     }
@@ -201,5 +209,37 @@ public class Recruitinfo implements Serializable{
     public Recruitinfo setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
         return this;
+    }
+
+    public String getRecruitName() {
+        return recruitName;
+    }
+
+    public void setRecruitName(String recruitName) {
+        this.recruitName = recruitName;
+    }
+
+    public String getRecruitType1() {
+        return recruitType1;
+    }
+
+    public void setRecruitType1(String recruitType1) {
+        this.recruitType1 = recruitType1;
+    }
+
+    public Integer getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(Integer beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public Integer getOverTime() {
+        return overTime;
+    }
+
+    public void setOverTime(Integer overTime) {
+        this.overTime = overTime;
     }
 }

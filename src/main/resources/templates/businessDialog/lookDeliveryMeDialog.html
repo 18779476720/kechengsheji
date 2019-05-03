@@ -118,7 +118,8 @@
                     html = '<dl><dt><strong style="font-size:18px">学生姓名</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@studentName</dd></br>'+
                         '<dt><strong style="font-size:18px">联系电话</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@phone</dd></br>'+
                         '<dt><strong style="font-size:18px">邮箱</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@email</dd></br>'+
-                        '<dt><strong style="font-size:18px">期望工作</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@hopeJob</dd></br>'+
+                        '<dt><strong style="font-size:18px">期望兼职类型</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@hopeJob</dd></br>'+
+                        '<dt><strong style="font-size:18px">可兼职时间段</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@startTime点至@endTime点</dd></br>'+
                         '<dt><strong style="font-size:18px">出生年月</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@dateTime</dd></br>'+
                         '<dt><strong style="font-size:18px">学校</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@schoolName</dd></br>'+
                         '<dt><strong style="font-size:18px">专业</strong></dt><dd style="font-size:15px">&nbsp;&nbsp;@majorName</dd></br>'+
@@ -129,7 +130,9 @@
                     html = html.replace(/@phone/g, studentInfo.phone);
                     html = html.replace(/@email/g, studentInfo.email);
                     html = html.replace(/@hopeJob/g, studentInfo.hopeJob);
-                    html = html.replace(/@dateTime/g, formatTime(studentInfo.dateTime));
+                    html = html.replace(/@startTime/g, studentInfo.startTime);
+                    html = html.replace(/@endTime/g, studentInfo.endTime);
+                    html = html.replace(/@dateTime/g, studentInfo.dateTime == null ? "" :formatTime(studentInfo.dateTime));
                     html = html.replace(/@schoolName/g, schoolInfo.schoolName);
                     html = html.replace(/@majorName/g, studentInfo.majorName);
                     html = html.replace(/@schoolAddress/g, schoolInfo.schoolAddress);

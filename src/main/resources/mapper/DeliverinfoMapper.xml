@@ -25,7 +25,7 @@
         <result property="createDate" column="create_date"/>
         <result property="lastUpdateBy" column="last_update_by"/>
         <result property="lastUpdateDate" column="last_update_date"/>
-        <result property="recruitinfoType" column="recruit_type"/>
+        <result property="recruitName" column="recruitName"/>
     </resultMap>
 
     <sql id="columns">
@@ -200,7 +200,7 @@
     <!--</select>-->
 
     <select id="list" resultMap="deliverinfoList">
-        select deliverinfo.*,recruitinfo.id as rcruitinfoId,recruitinfo.recruit_type from deliverinfo,recruitinfo
+        select deliverinfo.*,recruitinfo.id as rcruitinfoId,recruitinfo.recruitName from deliverinfo,recruitinfo
         where recruitinfo.id = deliverinfo.recruit_id
         <if test="accountId != null">
             and deliverinfo.account_id = #{accountId}

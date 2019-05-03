@@ -82,7 +82,7 @@
                                                     <!--<label for="searchJonType" class="col-sm-3 control-label" style="display: inline-block;font-size:15px">&nbsp;&nbsp;&nbsp;兼职类型：</label>-->
                                                     <div class="col-sm-6" style="display: inline-block">
                                                         <input type="text" class="input-medium search-query" name="searchJonType" id="searchJonType"
-                                                               placeholder="请输入兼职类型">&nbsp;&nbsp;&nbsp;
+                                                               placeholder="请输入兼职岗位查找">&nbsp;&nbsp;&nbsp;
                                                     </div>
 
                                                     <div class="col-sm-6" style="display: inline-block">
@@ -128,33 +128,6 @@
             <div class="row-fluid">
             </div>
         </div>
-        <!--<div class="right-sidebar">-->
-            <!--<div class="wrapper">-->
-            <!--</div>-->
-            <!--<div class="wrapper">-->
-                <!--<div id="scrollbar">-->
-                    <!--<div class="scrollbar">-->
-                        <!--<div class="track">-->
-                            <!--<div class="thumb">-->
-                                <!--<div class="end">-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="viewport" style="height: 470px;">-->
-                        <!--<div class="overview">-->
-                            <!--<div class="featured-articles-container">-->
-                                <!--<h5 class="heading" onclick="announcementsList()">-->
-                                    <!--公告信息-->
-                                <!--</h5>-->
-                                <!--<div class="articles" style="height: 500px" id="articles">-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 </div>
 </div>
@@ -260,19 +233,22 @@
             type: "GET",
             contentType: 'application/json',
             dataType: "json",
-            url: "http://localhost:8088/recruitinfo/getAccountAll?recruitinfo=" + searchJonType + "&usingStatus=" + searchUsingStatus + "&pageNum="+ pageNum +"&pageSize=" + pageSize,
+            url: "http://localhost:8088/recruitinfo/getAccountAll?recruitName=" + searchJonType + "&usingStatus=" + searchUsingStatus + "&pageNum="+ pageNum +"&pageSize=" + pageSize,
             success: function (data){
                 debugger
                 if(data.list.length > 0) {
                     $("#counpBody").html("");
                     for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
                         var id = data.list[i].id == null ? "" : data.list[i].id;
+                        var recruitName = data.list[i].recruitName == null ? "" : data.list[i].recruitName;
                         var recruitType = data.list[i].recruitType == null ? "" : data.list[i].recruitType;
-                        var salaryDescription = data.list[i].salaryDescription == null ? "" : data.list[i].salaryDescription;
+                        var recruitType1 = data.list[i].recruitType1 == null ? "" : data.list[i].recruitType1;
+                        if(recruitType == '不限')
+                            recruitType1 = '不限';
                         var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
                         var businessName = data.list[i].businessName == null ? "" : data.list[i].businessName;
-                        var businessId = data.list[i].businessId == null ? "" : data.list[i].businessId;
                         var usingStatus = data.list[i].usingStatus == null ? "" : data.list[i].usingStatus;
+                        var businessId = data.list[i].businessId == null ? "" : data.list[i].businessId;
                         var classStyle = (i + 1) % 4;
                         var classValue = '';
                         if(classStyle == 0){
@@ -294,8 +270,8 @@
                         }
                         var html = $("#counpBody").html();
                         html = '<tr class = "@classValue">'+
-                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitType</strong></p>'+
-                            '<p>&nbsp;</p><p style="font-size: 15px;">@salaryDescription</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
+                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitName</strong></p>'+
+                            '<p>&nbsp;</p><p style="font-size: 15px;">@recruitType1</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
                             '<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>'+
                             '<p style="font-size:13px;">@createDate</p></td><td><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp;'
                         var html1 = '';
@@ -307,9 +283,9 @@
                         html = html + html1;
                         html = html.replace(/@classValue/g, classValue);
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@recruitType/g, recruitType);
+                        html = html.replace(/@recruitName/g, recruitName);
+                        html = html.replace(/@recruitType1/g, recruitType1);
                         html = html.replace(/@businessId/g, businessId);
-                        html = html.replace(/@salaryDescription/g, salaryDescription);
                         html = html.replace(/@createDate/g, createDate);
                         html = html.replace(/@businessName/g, businessName);
                         $("#counpBody").append(html);

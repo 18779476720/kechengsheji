@@ -33,11 +33,87 @@
                 <form class="form-horizontal" role="form" action="user/register"
                       method="post" id="myForm">
                     <div class="form-group">
-                        <label for="recruitType" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>兼职类型：</label>
+                        <label for="recruitName" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>兼职名称：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control input-lg" name="recruitType" id="recruitType"
-                                   placeholder="请输入兼职类型">
+                            <input type="text" class="form-control input-lg" name="recruitName" id="recruitName"
+                                   placeholder="请输入兼职名称">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectChange" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>期望兼职：</label>
+                        <select class="selectpicker" onchange="selectApar()" id="selectChange">
+                            <option value="不限">不限</option>
+                            <option value="计算机/网络">计算机/网络</option>
+                            <option value="语言/文字/文职">语言/文字/文职</option>
+                            <option value="商业/销售/促销">商业/销售/促销</option>
+                            <option value="礼仪/演艺">礼仪/演艺</option>
+                            <option value="图形/影像/设计">图形/影像/设计</option>
+                            <option value="客服/场调查">客服/场调查</option>
+                            <option value="餐饮/服务/旅游">餐饮/服务/旅游</option>
+                            <option value="财务/法律/咨询">财务/法律/咨询</option>
+                            <option value="教育/培训/教练">教育/培训/教练</option>
+                        </select>
+                        <span id="selectSpan">
+							</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="startTime" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>工作时间段：</label>
+                        <select id='hour_start_select'>
+                            <option value=''>请选择</option>
+                            <option value='0'>0时</option>
+                            <option value='1'>1时</option>
+                            <option value='2'>2时</option>
+                            <option value='3'>3时</option>
+                            <option value='4'>4时</option>
+                            <option value='5'>5时</option>
+                            <option value='6'>6时</option>
+                            <option value='7'>7时</option>
+                            <option value='8'>8时</option>
+                            <option value='9'>9时</option>
+                            <option value='10'>10时</option>
+                            <option value='11'>11时</option>
+                            <option value='12'>12时</option>
+                            <option value='13'>13时</option>
+                            <option value='14'>14时</option>
+                            <option value='15'>15时</option>
+                            <option value='16'>16时</option>
+                            <option value='17'>17时</option>
+                            <option value='18'>18时</option>
+                            <option value='19'>19时</option>
+                            <option value='20'>20时</option>
+                            <option value='21'>21时</option>
+                            <option value='22'>22时</option>
+                            <option value='23'>23时</option>
+                        </select>
+                        至
+                        <select id="hour_end_select">
+                            <option value=''>请选择</option>
+                            <option value='1'>1时</option>
+                            <option value='2'>2时</option>
+                            <option value='3'>3时</option>
+                            <option value='4'>4时</option>
+                            <option value='5'>5时</option>
+                            <option value='6'>6时</option>
+                            <option value='7'>7时</option>
+                            <option value='8'>8时</option>
+                            <option value='9'>9时</option>
+                            <option value='10'>10时</option>
+                            <option value='11'>11时</option>
+                            <option value='12'>12时</option>
+                            <option value='13'>13时</option>
+                            <option value='14'>14时</option>
+                            <option value='15'>15时</option>
+                            <option value='16'>16时</option>
+                            <option value='17'>17时</option>
+                            <option value='18'>18时</option>
+                            <option value='19'>19时</option>
+                            <option value='20'>20时</option>
+                            <option value='21'>21时</option>
+                            <option value='22'>22时</option>
+                            <option value='23'>23时</option>
+                            <option value='24'>24时</option>
+                        </select>
+
                     </div>
                     <div class="form-group">
                         <label for="recruitNum" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>招聘人数：</label>
@@ -98,6 +174,7 @@
 <script type="text/javascript">
 
     $(function(){
+        timeControl();
         $('.form_date').datetimepicker({
             language:  'fr',
             weekStart: 1,
@@ -117,6 +194,163 @@
         var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
         if(r!=null)return  unescape(r[2]); return null;
     };
+
+    //控制时间段
+    function  timeControl() {
+        var jq_hour_start_select = $('#hour_start_select');
+        var jq_hour_end_select = $('#hour_end_select');
+        jq_hour_start_select.bind('change',function(){
+            //记录先前hour_end_select值
+            var  hour_end_select_val = jq_hour_end_select.val();
+            //    先清空，再添加符合条件的
+            if(''!=jq_hour_start_select.val()){
+                jq_hour_end_select.empty();
+                jq_hour_end_select.append($('<option value="">请选择</option>'));
+                for(var i=parseInt(jq_hour_start_select.val())+1;i<25;i++ ){
+                    jq_hour_end_select.append($('<option value='+i+'>'+i+'时</option>'));
+                }
+            }
+            //赋予先前选中的值
+            jq_hour_end_select.val([hour_end_select_val]);
+        });
+        jq_hour_end_select.bind('change',function(){
+            //记录先前hour_start_select值
+            var  hour_start_select_val = jq_hour_start_select.val();
+            //    先清空，再添加符合条件的
+            if(''!=jq_hour_end_select.val()){
+                jq_hour_start_select.empty();
+                jq_hour_start_select.append($('<option value="">请选择</option>'));
+                for(var i=0;i < parseInt(jq_hour_end_select.val());i++ ){
+                    jq_hour_start_select.append($('<option value='+i+'>'+i+'时</option>'));
+                }
+            }
+            //赋予先前选中的值
+            jq_hour_start_select.val([hour_start_select_val]);
+        });
+    }
+
+    //勾选框变化事件
+    function selectApar(){
+        var selectChangeVal = $("#selectChange").val();
+        if(selectChangeVal == ""){
+            $("#selectSpan").html("");
+        }else if(selectChangeVal == "计算机/网络"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption"><option value="不限">不限</option><option value="网页设计/制作/美工">网页设计/制作/美工</option><option value="建站服务">建站服务</option>'+
+                '<option value="动画/多媒体制作">动画/多媒体制作</option><option value="程序员">程序员</option><option value="网站推广/营销">网站推广/营销</option><option value="网络录入/发帖员">网络录入/发帖员</option>'+
+                '<option value="游戏测试/试玩/代练">游戏测试/试玩/代练</option><option value="网站管理员/站长/版主">网站管理员/站长/版主</option><option value="软件界面设计">软件界面设计</option>'+
+                '<option value="日薪技术员工">日薪技术员工</option><option value="seo优化">seo优化</option><option value="友情链接员">友情链接员</option></select> '
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "语言/文字/文职"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">' +
+                '<option value="不限">不限</option>' +
+                '<option value="外文翻译">外文翻译</option>' +
+                '<option value="现场口译">现场口译</option>' +
+                '<option value="作家/撰稿人">作家/撰稿人</option>' +
+                '<option value="编辑/记者">编辑/记者</option>' +
+                '<option value="校队/排版">校队/排版</option>' +
+                '<option value="口语陪练">口语陪练</option>' +
+                '<option value="字幕翻译">字幕翻译</option>' +
+                '<option value="数据整理/资料录入">数据整理/资料录入</option>' +
+                '<option value="新闻(博客)写手">新闻(博客)写手</option>' +
+                '<option value="解说员">解说员</option>' +
+                '<option value="行政/文员">行政/文员</option>' +
+                '<option value="打字员">打字员</option>' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "商业/销售/促销"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="销售/业务员">销售/业务员</option>\n' +
+                '    <option value="校园代理">校园代理</option>\n' +
+                '    <option value="商务公关/文秘">商务公关/文秘</option>\n' +
+                '    <option value="发单员/派发员">发单员/派发员</option>\n' +
+                '    <option value="电话销售">电话销售</option>\n' +
+                '    <option value="保险代理">保险代理</option>\n' +
+                '    <option value="招生/招商代理">招生/招商代理</option>\n' +
+                '    <option value="促销员/导购员">促销员/导购员</option>\n' +
+                '    <option value="营业员超/便利店小时工">营业员超/便利店小时工</option>\n' +
+                '    <option value="网络销售">网络销售</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "礼仪/演艺"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="门童/迎宾">门童/迎宾</option>\n' +
+                '    <option value="群众/临时演员">群众/临时演员</option>\n' +
+                '    <option value="歌手">歌手</option>\n' +
+                '    <option value="商演/路演">商演/路演</option>\n' +
+                '    <option value="主持">主持</option>\n' +
+                '    <option value="婚庆司仪/宴会司仪">婚庆司仪/宴会司仪</option>\n' +
+                '    <option value="DJ/酒吧驻唱/领舞">DJ/酒吧驻唱/领舞</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "图形/影像/设计"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="图像处理">图像处理</option>\n' +
+                '    <option value="影像处理/影视处理">影像处理/影视处理</option>\n' +
+                '    <option value="摄影摄像">摄影摄像</option>\n' +
+                '    <option value="平面设计/logo设计/vi设计">平面设计/logo设计/vi设计</option>\n' +
+                '    <option value="建筑装潢设计">建筑装潢设计</option>\n' +
+                '    <option value="CAD设计">CAD设计</option>\n' +
+                '    <option value="插图漫画">插图漫画</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "客服/场调查"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="电话访问/回访">电话访问/回访</option>\n' +
+                '    <option value="客户咨询热线">客户咨询热线</option>\n' +
+                '    <option value="呼叫中心人员">呼叫中心人员</option>\n' +
+                '    <option value="客服/电话客服">客服/电话客服</option>\n' +
+                '    <option value="售后服务">售后服务</option>\n' +
+                '    <option value="场调查员">场调查员</option>\n' +
+                '    <option value="问卷调查">问卷调查</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "餐饮/服务/旅游"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="餐厅工作">餐厅工作</option>\n' +
+                '    <option value="酒吧ktv">酒吧ktv</option>\n' +
+                '    <option value="递送/快递员">递送/快递员</option>\n' +
+                '    <option value="送餐小时工">送餐小时工</option>\n' +
+                '    <option value="家政保洁">家政保洁</option>\n' +
+                '    <option value="钟点工">钟点工</option>\n' +
+                '    <option value="导游">导游</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "财务/法律/咨询"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="会计/审计">会计/审计</option>\n' +
+                '    <option value="财务咨询">财务咨询</option>\n' +
+                '    <option value="法律工作/资讯">法律工作/资讯</option>\n' +
+                '    <option value="咨询员">咨询员</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }else if(selectChangeVal == "教育/培训/教练"){
+            $("#selectSpan").html("");
+            var html = '<select class="selectpicker" id="selectOption">\n' +
+                '    <option value="不限">不限</option>\n' +
+                '    <option value="家教">家教</option>\n' +
+                '    <option value="教师">教师</option>\n' +
+                '    <option value="健身/舞蹈教练">健身/舞蹈教练</option>\n' +
+                '    <option value="汽车陪练">汽车陪练</option>\n' +
+                '    <option value="客户协调">客户协调</option>\n' +
+                '    <option value="运动教练">运动教练</option>\n' +
+                '</select>'
+            $("#selectSpan").append(html);
+        }
+    };
     //格式化日期
     function formatTime(date){
         var millis = new Date().getTime();
@@ -127,8 +361,14 @@
     };
 
     function save() {
-        debugger
-        var recruitType = $("#recruitType").val();
+        var recruitType1 = $("#selectChange").val();
+        var recruitType = $("#selectOption").val();
+        if(recruitType1 == '不限'){
+            recruitType = '不限';
+        }
+        var beginTime = $("#hour_start_select").val();
+        var overTime = $("#hour_end_select").val();
+        var recruitName = $("#recruitName").val();
         var recruitNum = $("#recruitNum").val();
         var salaryDescription = $("#salaryDescription").val();
         var taskDescription = $("#taskDescription").val();
@@ -136,10 +376,16 @@
         var contactNumber = $("#contactNumber").val();
         var city = $("#city").val();
 
-        if(recruitType == "" || recruitType == undefined){
-            toastr.error('兼职类型不能为空');
+        if(recruitName == "" || recruitName == undefined){
+            toastr.error('兼职名称不能为空');
             return false;
-        }else if(recruitNum == "" || recruitNum == undefined){
+        }else if(beginTime == "" || beginTime == undefined){
+            toastr.error('请选择兼职时间段开始时间');
+            return false;
+        }else if(overTime == "" || overTime == undefined){
+            toastr.error('请选择兼职时间段结束时间');
+            return false;
+        } else if(recruitNum == "" || recruitNum == undefined){
             toastr.error('招聘人数不能为空');
             return false;
         }else if(salaryDescription == "" || salaryDescription == undefined){
@@ -160,7 +406,11 @@
             return false;
         }
         var recruit = {
+            recruitName:recruitName,
             recruitType: recruitType,
+            recruitType1: recruitType1,
+            beginTime: beginTime,
+            overTime: overTime,
             recruitNum: recruitNum,
             salaryDescription: salaryDescription,
             taskDescription: taskDescription,

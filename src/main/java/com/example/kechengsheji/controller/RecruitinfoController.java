@@ -94,12 +94,12 @@ public class RecruitinfoController{
     //查找所有
     @RequestMapping(value = "getall",method = RequestMethod.GET)
     @ResponseBody
-    public PageInfo<?> getRecruitinfo(@RequestParam("recruitinfo") String recruitinfo, @RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
+    public PageInfo<?> getRecruitinfo(@RequestParam("recruitName") String recruitName, @RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
         Recruitinfo recruitinfoVo = new Recruitinfo();
-        if("true".equals(recruitinfo)){
-            recruitinfoVo.setRecruitType(null);
+        if("true".equals(recruitName)){
+            recruitinfoVo.setRecruitName(null);
         }else{
-            recruitinfoVo.setRecruitType(recruitinfo);
+            recruitinfoVo.setRecruitName(recruitName);
         }
         Object id = session.getAttribute("id");
         Account account = new Account();
@@ -116,12 +116,12 @@ public class RecruitinfoController{
     //管理员查找所有
     @RequestMapping(value = "getAccountAll",method = RequestMethod.GET)
     @ResponseBody
-    public PageInfo<?> getAccountAll(@RequestParam("recruitinfo") String recruitinfo,@RequestParam("usingStatus") String usingStatus, @RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
+    public PageInfo<?> getAccountAll(@RequestParam("recruitName") String recruitName,@RequestParam("usingStatus") String usingStatus, @RequestParam("pageNum") Integer pageNum , @RequestParam("pageSize") Integer pageSize, HttpSession session){
         Recruitinfo recruitinfoVo = new Recruitinfo();
-        if("true".equals(recruitinfo)){
-            recruitinfoVo.setRecruitType(null);
+        if("true".equals(recruitName)){
+            recruitinfoVo.setRecruitName(null);
         }else{
-            recruitinfoVo.setRecruitType(recruitinfo);
+            recruitinfoVo.setRecruitName(recruitName);
         }
         if(!"true".equals(usingStatus)){
             recruitinfoVo.setUsingStatus(usingStatus);

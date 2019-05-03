@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>User</title>
+<title>商家信息</title>
 	<script type="text/javascript" src="../../static/js/jquery.min.js"></script>
 	<script type="text/javascript" src="../../static/js/public.js"></script>
 	<script type="text/javascript" src="../../static/js/checkbox.js"></script>
@@ -60,12 +60,23 @@
 									placeholder="请输入商家名称">
 							</div>
 						</div>
+
 						<div class="form-group">
-							<label for="businessDescription" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>简介：</label>
+							<label for="businessEmail" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>企业邮箱：</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control input-lg" name="businessEmail" id="businessEmail"
+									   placeholder="请输入企业邮箱">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="businessDescription" class="col-sm-3 control-label"><i class="text-red" style="color: red">*&nbsp;</i>企业简介：</label>
 							<div class="col-sm-6">
 								<textarea class="form-control" name="businessDescription" id="businessDescription" rows="10" cols="" placeholder="请输入简介，1000字以内，一个汉字一个标点均算一个字；"></textarea>
 							</div>
 						</div>
+
+
 
 						<div class="form-group">
 							<label for="id" class="col-sm-3 control-label"></label>
@@ -77,7 +88,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" onclick="javascript:history.back(-1);">取消</button>
-					<button type="button" class="btn btn-primary" onclick="save()">注册</button>
+					<button type="button" class="btn btn-primary" onclick="save()">保存</button>
 				</div>
 			</div>
 		</div>
@@ -86,11 +97,53 @@
 </body>
 
 <script type="text/javascript">
+    //全局变量
+
+	var FLAG = false;
+
+    //获取url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
+        if(r!=null)return  unescape(r[2]); return null;
+    };
+
+
+    $(function(){
+        var loadDataurl=GetQueryString("loadData");
+        if(loadDataurl != null){
+            //修改个人信息
+            //处理数据
+            $.ajax({
+                type: "GET",
+                contentType: 'application/json',
+                dataType: "json",
+                url: "http://localhost:8088/account/loadBusinessInfo",
+                success: function (data){
+                    FLAG = true;
+                    if(data.datas != null) {
+                        var businessInfoObj = JSON.parse(data.datas.businessInfo);
+                        $("#id").val(data.datas.id);
+                        $("#accountname").val(businessInfoObj.accountname);
+                        $("#password").val(data.datas.password);
+                        $("#conpassword").val(data.datas.password);
+                        $("#businessName").val(businessInfoObj.businessName);
+                        $("#businessEmail").val(businessInfoObj.businessEmail);
+                        $("#businessDescription").val(businessInfoObj.businessDescription);
+                    }
+                },
+            });
+        }
+    });
+
 	function save() {
+	    var id = $("#id").val();
 	    var accountname = $("#accountname").val();
 	    var conpassword = $("#conpassword").val();
 	    var password = $("#password").val();
 	    var businessName = $("#businessName").val();
+        var businessEmail = $("#businessEmail").val();
 	    var businessDescription = $("#businessDescription").val();
         if(accountname == "" || accountname == undefined){
             toastr.error('用户名不能为空');
@@ -109,6 +162,9 @@
 		}else if(businessName == "" || businessName == undefined){
             toastr.error('商家名称不能为空');
             return false;
+        }else if(businessEmail == "" || businessEmail == undefined){
+            toastr.error('企业邮箱不能为空');
+            return false;
         }
         else if(businessDescription == "" || businessDescription == undefined){
             toastr.error('简介不能为空');
@@ -120,6 +176,7 @@
         var business = {
             accountname: accountname,
             businessName: businessName,
+            businessEmail: businessEmail,
             businessDescription: businessDescription
 		}
 		var businessInfo = JSON.stringify(business);
@@ -131,7 +188,7 @@
         }
 
         var params = {
-            id: null,
+            id: id,
             accountname: accountname,
             password: password,
             role: role,
@@ -154,20 +211,20 @@
                     toastr.error(data.message);
                     return false;
                 }
-                toastr.success("注册成功,界面即将跳转！");
-                setTimeout(function () {
-                    window.location.href = "/welcome";
-				}, 3000);
-
+                if(FLAG == true){
+                    toastr.success("保存成功,请重新登录！");
+                    setTimeout(function () {
+                        window.location.href = "/welcome";
+                    }, 3000);
+                }else{
+                    toastr.success("注册成功,界面即将跳转！");
+                    setTimeout(function () {
+                        window.location.href = "/welcome";
+                    }, 3000);
+                }
+                FLAG = false;
             },
         });
-        //获取url参数
-        function GetQueryString(name)
-        {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
-            if(r!=null)return  unescape(r[2]); return null;
-        }
 
 	}
 </script>

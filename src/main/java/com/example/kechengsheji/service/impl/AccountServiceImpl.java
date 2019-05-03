@@ -110,6 +110,7 @@ public class AccountServiceImpl implements AccountService {
                 studentVo.setPhone(studentInfo.getString("phone"));
                 studentVo.setEmail(studentInfo.getString("email"));
                 studentVo.setHopeJob(studentInfo.getString("hopeJob"));
+                studentVo.setHopeJob1(studentInfo.getString("hopeJob1"));
                 String dateTimeString = studentInfo.getString("dateTime");
                 String format1 = "yyyy-MM-dd";
                 Date date = null;
@@ -130,6 +131,9 @@ public class AccountServiceImpl implements AccountService {
                     e.printStackTrace();
                 }
                 studentVo.setEnrollmentYear(date1);
+                studentVo.setStartTime(studentInfo.getInteger("startTime"));
+                studentVo.setEndTime(studentInfo.getInteger("endTime"));
+                studentVo.setStudentName(studentInfo.getString("studentName"));
             }
             JSONObject schoolInfo = JSONObject.parseObject(params.getSchoolInfo());
             Schoolinfo schoolVo = new Schoolinfo();
@@ -138,23 +142,23 @@ public class AccountServiceImpl implements AccountService {
                 schoolVo.setSchoolCode(null);
                 schoolVo.setSchoolName(schoolInfo.getString("schoolName"));
             }
-            //判断新增还是更新
-            Account account = accountDao.getByAccountname(params.getAccountname());
-            //新增
-            if(account == null){
+            if(params.getId() == null){
                 accountDao.insert(accountVo);
                 schoolinfoDao.insert(schoolVo);
                 studentVo.setSchoolId(schoolVo.getId());
                 studentinfoDao.insert(studentVo);
             }
             //修改
-            if(account != null){
+            if(params.getId() != null){
+                Account accountEditVo = accountDao.getById(params.getId());
+                accountVo.setId(params.getId());
                 accountDao.update(accountVo);
-                Studentinfo newStudentVo = studentinfoDao.getByName(accountVo.getAccountname());
+                Studentinfo newStudentVo = studentinfoDao.getByName(accountEditVo.getAccountname());
                 schoolVo.setId(newStudentVo.getSchoolId());
                 schoolinfoDao.update(schoolVo);
                 studentVo.setSchoolId(schoolVo.getId());
-                studentinfoDao.updateByAccountName(studentVo);
+                studentVo.setId(newStudentVo.getId());
+                studentinfoDao.update(studentVo);
             }
         }else if("2".equals(accountVo.getRole())){
             JSONObject businessInfo = JSONObject.parseObject(params.getBusinessInfo());
@@ -163,18 +167,25 @@ public class AccountServiceImpl implements AccountService {
                 businessVo.setBusinessName(businessInfo.getString("businessName"));
                 businessVo.setBusinessDescription(businessInfo.getString("businessDescription"));
                 businessVo.setAccountname(params.getAccountname());
+                businessVo.setBusinessEmail(businessInfo.getString("businessEmail"));
             }
-            //判断新增还是更新
-            Account account = accountDao.getByAccountname(params.getAccountname());
             //新增
-            if(account == null){
+            if(params.getId() == null){
                 accountDao.insert(accountVo);
                 businessinfoDao.insert(businessVo);
             }
             //修改
-            if(account != null){
+            if(params.getId() != null){
+                Account accountEditVo = accountDao.getById(params.getId());
+                accountVo.setId(params.getId());
                 accountDao.update(accountVo);
-                businessinfoDao.updateBusinessInfoByAccountName(businessVo);
+                Businessinfo businessinfo1 = businessinfoDao.getByAccountName(accountEditVo.getAccountname());
+//                businessinfoDao.updateBusinessInfoByAccountName(businessVo);
+                businessinfo1.setAccountname(params.getAccountname());
+                businessinfo1.setBusinessName(businessInfo.getString("businessName"));
+                businessinfo1.setBusinessDescription(businessInfo.getString("businessDescription"));
+                businessinfo1.setBusinessEmail(businessInfo.getString("businessEmail"));
+                businessinfoDao.update(businessinfo1);
             }
         }
         return true;

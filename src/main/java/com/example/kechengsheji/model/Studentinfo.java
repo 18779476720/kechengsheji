@@ -69,6 +69,12 @@ public class Studentinfo implements Serializable {
      */
     private Date lastUpdateDate;
 
+    private String hopeJob1;
+
+    private  Integer startTime;
+
+    private Integer endTime;
+
     public Integer getId() {
         return id;
     }
@@ -201,5 +207,29 @@ public class Studentinfo implements Serializable {
 
     public void setHopeJob(String hopeJob) {
         this.hopeJob = hopeJob;
+    }
+
+    public String getHopeJob1() {
+        return hopeJob1;
+    }
+
+    public void setHopeJob1(String hopeJob1) {
+        this.hopeJob1 = hopeJob1;
+    }
+
+    public Integer getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Integer startTime) {
+        this.startTime = startTime;
+    }
+
+    public Integer getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Integer endTime) {
+        this.endTime = endTime;
     }
 }

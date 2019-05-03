@@ -209,7 +209,6 @@
     });
 
     function loadData(currPage, pageSize, flag) {
-        var searchJonType = $("#searchJonType").val();
         var pageNum = 0;
         if(flag == 0){
             pageNum = 0;
@@ -223,7 +222,7 @@
             type: "GET",
             contentType: 'application/json',
             dataType: "json",
-            url: 'http://localhost:8088/recruitinfo/getall?recruitinfo=true&pageNum='+ pageNum +'&pageSize=' + pageSize,
+            url: 'http://localhost:8088/recruitinfo/getall?recruitName=true&pageNum='+ pageNum +'&pageSize=' + pageSize,
             success: function (data){
                 debugger
                 if(data.list.length > 0) {
@@ -231,6 +230,10 @@
                     for (var i = 0; i < data.list.length; i++) {//默认显示第一页10个记录
                         var id = data.list[i].id == null ? "" : data.list[i].id;
                         var recruitType = data.list[i].recruitType == null ? "" : data.list[i].recruitType;
+                        var recruitType1 = data.list[i].recruitType1 == null ? "" : data.list[i].recruitType1;
+                        if(recruitType == '不限')
+                            recruitType1 = '不限';
+                        var recruitName = data.list[i].recruitName == null ? "" : data.list[i].recruitName;
                         var salaryDescription = data.list[i].salaryDescription == null ? "" : data.list[i].salaryDescription;
                         var createDate = data.list[i].createDate == null ? "" : formatTime(data.list[i].createDate);
                         var businessName = data.list[i].businessName == null ? "" : data.list[i].businessName;
@@ -256,14 +259,15 @@
                         }
                         var html = $("#counpBody").html();
                         html = '<tr class = "@classValue">'+
-                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitType</strong></p>'+
-                            '<p>&nbsp;</p><p style="font-size: 15px;">@salaryDescription</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
+                            '<td style="display:none">@id</td><td>&nbsp;</td><td><p><strong style="color: rgb(36, 218, 255); font-size: 20px;" onclick="lookInfo(@id)">@recruitName</strong></p>'+
+                            '<p>&nbsp;</p><p style="font-size: 15px;">@recruitType1</p></td><td><p><strong style="font-size: 18px;color: rgb(255, 96, 60);" onclick="businessDetailInfo(@businessId)">@businessName</strong></p>'+
                             '<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>'+
                             '<p style="font-size:13px;">@createDate</p></td><td><p>&nbsp;</p><p>&nbsp; &nbsp; &nbsp; &nbsp;<button type="button" class="btn" onclick="lookScoreMe(@id)">查看评价</button> </p>'+
                             '</td></tr>';
                         html = html.replace(/@classValue/g, classValue);
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@recruitType/g, recruitType);
+                        html = html.replace(/@recruitName/g, recruitName);
+                        html = html.replace(/@recruitType1/g, recruitType1);
                         html = html.replace(/@businessId/g, businessId);
                         html = html.replace(/@salaryDescription/g, salaryDescription);
                         html = html.replace(/@createDate/g, createDate);

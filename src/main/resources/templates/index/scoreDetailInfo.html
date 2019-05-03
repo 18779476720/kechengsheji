@@ -217,23 +217,21 @@
                     $("#counpBody").html("");
                     for (var i = 0; i < data.datas.list.length; i++) {//默认显示第一页10个记录
                         var id = data.datas.list[i].id == null ? "" : data.datas.list[i].id;
-                        var recruitinfoType = data.datas.list[i].recruitinfoType == null ? "" : data.datas.list[i].recruitinfoType;
+                        var recruitName = data.datas.list[i].recruitName == null ? "" : data.datas.list[i].recruitName;
                         var scoreNum = data.datas.list[i].scoreNum == null ? "" : data.datas.list[i].scoreNum;
                         var createDate = data.datas.list[i].createDate == null ? "" : formatTime(data.datas.list[i].createDate);
                         var recruitId = data.datas.list[i].recruitId == null ? "" : data.datas.list[i].recruitId;
-                        var accountId = data.datas.list[i].accountId == null ? "" : data.datas.list[i].accountId;
-                        var scoreDescription = data.datas.list[i].scoreDescription == null ? "" : data.datas.list[i].scoreDescription;
 
                         var html = $("#counpBody").html();
                         html = '<tr> <td style="font-size:15px">@id</td>' +
-                            '<td style="font-size:15px"><strong style="color: rgb(36, 218, 255); font-size: 17px;" onclick="lookInfo(@recruitId)">@recruitinfoType</strong></td>' +
+                            '<td style="font-size:15px"><strong style="color: rgb(36, 218, 255); font-size: 17px;" onclick="lookInfo(@recruitId)">@recruitName</strong></td>' +
                             '<td class="hidden-phone" style="font-size:15px">@scoreNum星</td>' +
                             '<td class="hidden-phone" style="font-size:15px">@createDate</td>' +
                             '<td class="hidden-phone" style="font-size:15px"><span class = "scoreInfoClick"'+
                             'style = "color:#00F;text-decoration:underline;cursor:pointer" onclick="scoreInfoClick(@id)">查看详细</span></td></tr>'
 
                         html = html.replace(/@id/g, id);
-                        html = html.replace(/@recruitinfoType/g, recruitinfoType);
+                        html = html.replace(/@recruitName/g, recruitName);
                         html = html.replace(/@scoreNum/g, scoreNum);
                         html = html.replace(/@createDate/g, createDate);
                         html = html.replace(/@recruitId/g, recruitId);

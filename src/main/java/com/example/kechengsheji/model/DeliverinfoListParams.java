@@ -2,14 +2,13 @@ package com.example.kechengsheji.model;
 
 public class DeliverinfoListParams extends Deliverinfo {
 
-    private  String recruitinfoType;
+    private  String recruitName;
 
-
-    public String getRecruitinfoType() {
-        return recruitinfoType;
+    public String getRecruitName() {
+        return recruitName;
     }
 
-    public void setRecruitinfoType(String recruitinfoType) {
-        this.recruitinfoType = recruitinfoType;
+    public void setRecruitName(String recruitName) {
+        this.recruitName = recruitName;
     }
 }

@@ -9,6 +9,7 @@
             <id property="id" column="id"/>
             <result property="accountname" column="accountname"/>
             <result property="businessName" column="business_name"/>
+            <result property="businessEmail" column="business_email"/>
             <result property="businessDescription" column="business_description"/>
             <result property="createdBy" column="created_by"/>
             <result property="createDate" column="create_date"/>
@@ -17,7 +18,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`accountname` , `business_name` ,`business_description` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`accountname` , `business_name` ,`business_description` , `business_email` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -31,6 +32,9 @@
             </if>
             <if test="businessName != null">
                 `business_name`,
+            </if>
+            <if test="businessEmail != null">
+                `business_email`,
             </if>
             <if test="businessDescription != null">
                 `business_description`,
@@ -57,6 +61,9 @@
             </if>
             <if test="businessName != null">
                 #{businessName} ,
+            </if>
+            <if test="businessEmail != null">
+                #{businessEmail} ,
             </if>
             <if test="businessDescription != null">
             #{businessDescription} ,
@@ -126,6 +133,9 @@
                 <if test="businessDescription != null">
                     `business_description` = #{businessDescription},
                 </if>
+            <if test="businessEmail != null">
+                `business_email` = #{businessEmail},
+            </if>
                 <if test="createdBy != null">
                     `created_by` = #{createdBy},
                 </if>
@@ -153,6 +163,9 @@
             </if>
             <if test="businessDescription != null">
                 `business_description` = #{businessDescription},
+            </if>
+            <if test="businessEmail != null">
+                `business_email` = #{businessEmail},
             </if>
             <if test="createdBy != null">
                 `created_by` = #{createdBy},
@@ -202,6 +215,9 @@
             </if>
             <if test="businessDescription != null">
                 and `business_description` = #{businessDescription}
+            </if>
+            <if test="businessEmail != null">
+                and `business_email` = #{businessEmail}
             </if>
             <if test="createdBy != null">
                 and `created_by` = #{createdBy}

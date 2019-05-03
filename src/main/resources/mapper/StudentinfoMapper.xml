@@ -12,10 +12,13 @@
             <result property="email" column="email"/>
             <result property="schoolId" column="school_id"/>
             <result property="hopeJob" column="hope_job"/>
+            <result property="hopeJob1" column="hope_job1"/>
             <result property="majorName" column="major_name"/>
             <result property="sex" column="sex"/>
             <result property="studentName" column="student_name"/>
             <result property="enrollmentYear" column="enrollment_year"/>
+            <result property="startTime" column="startTime"/>
+            <result property="endTime" column="endTime"/>
             <result property="dateTime" column="date_time"/>
             <result property="createdBy" column="created_by"/>
             <result property="createDate" column="create_date"/>
@@ -24,7 +27,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`hope_job` ,`major_name` ,`sex` ,`student_name` ,`enrollment_year` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`accountname` ,`phone` ,`email` ,`school_id` ,`hope_job` ,`hope_job1` ,`major_name` ,`sex` ,`student_name` ,`enrollment_year` ,`startTime` ,`endTime` ,`date_time` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -48,6 +51,9 @@
             <if test="hopeJob != null">
                 `hope_job`,
             </if>
+            <if test="hopeJob1 != null">
+                `hope_job1`,
+            </if>
             <if test="majorName != null">
                 `major_name`,
             </if>
@@ -59,6 +65,12 @@
             </if>
             <if test="enrollmentYear != null">
                 `enrollment_year`,
+            </if>
+            <if test="startTime != null">
+                `startTime`,
+            </if>
+            <if test="endTime != null">
+                `endTime`,
             </if>
             <if test="dateTime != null">
                 `date_time`,
@@ -95,6 +107,9 @@
             <if test="hopeJob != null">
                 #{hopeJob} ,
             </if>
+            <if test="hopeJob1 != null">
+                #{hopeJob1} ,
+            </if>
             <if test="majorName != null">
             #{majorName} ,
             </if>
@@ -106,6 +121,12 @@
             </if>
             <if test="enrollmentYear != null">
             #{enrollmentYear} ,
+            </if>
+            <if test="startTime != null">
+                #{startTime} ,
+            </if>
+            <if test="endTime != null">
+                #{endTime} ,
             </if>
             <if test="dateTime != null">
             #{dateTime} ,
@@ -146,6 +167,9 @@
             <if test="hopeJob != null">
                 and `hope_job` = #{hopeJob}
             </if>
+            <if test="hopeJob1 != null">
+                and `hope_job1` = #{hopeJob1}
+            </if>
             <if test="majorName != null">
                 and `major_name` = #{majorName}
             </if>
@@ -157,6 +181,12 @@
             </if>
             <if test="enrollmentYear != null">
                 and `enrollment_year` = #{enrollmentYear}
+            </if>
+            <if test="startTime != null">
+                and `startTime` = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and `endTime` = #{endTime}
             </if>
             <if test="dateTime != null">
                 and `date_time` = #{dateTime}
@@ -199,8 +229,11 @@
                 <if test="schoolId != null">
                     `school_id` = #{schoolId},
                 </if>
-            <if test="hopeJob != null">
-                `hope_job` = #{hopeJob},
+                <if test="hopeJob != null">
+                    `hope_job` = #{hopeJob},
+                </if>
+            <if test="hopeJob1 != null">
+                `hope_job1` = #{hopeJob1},
             </if>
                 <if test="majorName != null">
                     `major_name` = #{majorName},
@@ -214,6 +247,12 @@
                 <if test="enrollmentYear != null">
                     `enrollment_year` = #{enrollmentYear},
                 </if>
+            <if test="startTime != null">
+                `startTime` = #{startTime},
+            </if>
+            <if test="endTime != null">
+                `endTime` = #{endTime},
+            </if>
                 <if test="dateTime != null">
                     `date_time` = #{dateTime},
                 </if>
@@ -251,6 +290,9 @@
             <if test="hopeJob != null">
                 `hope_job` = #{hopeJob},
             </if>
+            <if test="hopeJob1 != null">
+                `hope_job1` = #{hopeJob1},
+            </if>
             <if test="majorName != null">
                 `major_name` = #{majorName},
             </if>
@@ -262,6 +304,12 @@
             </if>
             <if test="enrollmentYear != null">
                 `enrollment_year` = #{enrollmentYear},
+            </if>
+            <if test="startTime != null">
+                `startTime` = #{startTime},
+            </if>
+            <if test="endTime != null">
+                `endTime` = #{endTime},
             </if>
             <if test="dateTime != null">
                 `date_time` = #{dateTime},
@@ -312,6 +360,9 @@
             <if test="hopeJob != null">
                 and `hope_job` = #{hopeJob}
             </if>
+            <if test="hopeJob1 != null">
+                and `hope_job1` = #{hopeJob1}
+            </if>
             <if test="majorName != null">
                 and `major_name` = #{majorName}
             </if>
@@ -323,6 +374,12 @@
             </if>
             <if test="enrollmentYear != null">
                 and `enrollment_year` = #{enrollmentYear}
+            </if>
+            <if test="startTime != null">
+                and `startTime` = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and `endTime` = #{endTime}
             </if>
             <if test="dateTime != null">
                 and `date_time` = #{dateTime}

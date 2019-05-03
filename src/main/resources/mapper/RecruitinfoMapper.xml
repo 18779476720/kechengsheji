@@ -7,7 +7,11 @@
 <mapper namespace="com.example.kechengsheji.dao.RecruitinfoDao">
     <resultMap id="recruitinfo" type="com.example.kechengsheji.model.Recruitinfo">
         <id property="id" column="id"/>
+        <result property="recruitName" column="recruitName"/>
         <result property="recruitType" column="recruit_type"/>
+        <result property="recruitType1" column="recruit_type1"/>
+        <result property="beginTime" column="beginTime"/>
+        <result property="overTime" column="overTime"/>
         <result property="recruitNum" column="recruit_num"/>
         <result property="salaryDescription" column="salary_description"/>
         <result property="taskDescription" column="task_description"/>
@@ -25,7 +29,11 @@
     </resultMap>
     <resultMap id="recruitinfoList" type="com.example.kechengsheji.model.RecruitinfoListParams">
         <id property="id" column="id"/>
+        <result property="recruitName" column="recruitName"/>
         <result property="recruitType" column="recruit_type"/>
+        <result property="recruitType1" column="recruit_type1"/>
+        <result property="beginTime" column="beginTime"/>
+        <result property="overTime" column="overTime"/>
         <result property="recruitNum" column="recruit_num"/>
         <result property="salaryDescription" column="salary_description"/>
         <result property="taskDescription" column="task_description"/>
@@ -44,7 +52,7 @@
     </resultMap>
 
     <sql id="columns">
-            `id` ,`recruit_type` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`account_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
+            `id` ,`recruitName` ,`recruit_type` ,`recruit_type1` ,`beginTime` ,`overTime` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`account_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
 
     <insert id="insert">
@@ -53,8 +61,20 @@
             <if test="id != null">
                 `id`,
             </if>
+            <if test="recruitName != null">
+                `recruitName`,
+            </if>
             <if test="recruitType != null">
                 `recruit_type`,
+            </if>
+            <if test="recruitType1 != null">
+                `recruit_type1`,
+            </if>
+            <if test="beginTime != null">
+                `beginTime`,
+            </if>
+            <if test="overTime != null">
+                `overTime`,
             </if>
             <if test="recruitNum != null">
                 `recruit_num`,
@@ -103,8 +123,20 @@
             <if test="id != null">
                 #{id} ,
             </if>
+            <if test="recruitName != null">
+                #{recruitName} ,
+            </if>
             <if test="recruitType != null">
                 #{recruitType} ,
+            </if>
+            <if test="recruitType1 != null">
+                #{recruitType1} ,
+            </if>
+            <if test="beginTime != null">
+                #{beginTime} ,
+            </if>
+            <if test="overTime != null">
+                #{overTime} ,
             </if>
             <if test="recruitNum != null">
                 #{recruitNum} ,
@@ -157,8 +189,20 @@
             <if test="id != null">
                 and `id` = #{id}
             </if>
+            <if test="recruitName != null">
+                and `recruitName` = #{recruitName}
+            </if>
             <if test="recruitType != null">
                 and `recruit_type` = #{recruitType}
+            </if>
+            <if test="recruitType != null">
+                and `recruit_type1` = #{recruitType1}
+            </if>
+            <if test="beginTime != null">
+                and `beginTime` = #{beginTime}
+            </if>
+            <if test="overTime != null">
+                and `overTime` = #{overTime}
             </if>
             <if test="recruitNum != null">
                 and `recruit_num` = #{recruitNum}
@@ -216,8 +260,20 @@
     <update id="update">
         update `recruitinfo`
         <set>
+            <if test="recruitName != null">
+                `recruitName` = #{recruitName}
+            </if>
             <if test="recruitType != null">
                 `recruit_type` = #{recruitType},
+            </if>
+            <if test="recruitType1 != null">
+                `recruit_type1` = #{recruitType1},
+            </if>
+            <if test="beginTime != null">
+                `beginTime` = #{beginTime},
+            </if>
+            <if test="overTime != null">
+                `overTime` = #{overTime},
             </if>
             <if test="recruitNum != null">
                 `recruit_num` = #{recruitNum},
@@ -279,8 +335,20 @@
             <if test="id != null">
                 and `businessinfo.id` = #{id}
             </if>
+            <if test="recruitName != null">
+                and `recruitName` like concat(concat('%',#{recruitName}),'%')
+            </if>
             <if test="recruitType != null">
-                and `recruit_type` like concat(concat('%',#{recruitType}),'%')
+                and `recruit_type` = #{recruitType}
+            </if>
+            <if test="recruitType1 != null">
+                and `recruit_type1` = #{recruitType1}
+            </if>
+            <if test="beginTime != null">
+                and `beginTime` = #{beginTime}
+            </if>
+            <if test="overTime != null">
+                and `overTime` = #{overTime}
             </if>
             <if test="recruitNum != null">
                 and `recruit_num` = #{recruitNum}
@@ -340,8 +408,20 @@
             <if test="id != null">
                 and `businessinfo.id` = #{id}
             </if>
+            <if test="recruitName != null">
+                and `recruitName` like concat(concat('%',#{recruitName}),'%')
+            </if>
             <if test="recruitType != null">
-                and `recruit_type` like concat(concat('%',#{recruitType}),'%')
+                and `recruit_type` = #{recruitType}
+            </if>
+            <if test="recruitType1 != null">
+                and `recruit_type1` = #{recruitType1}
+            </if>
+            <if test="beginTime != null">
+                and `beginTime` = #{beginTime}
+            </if>
+            <if test="overTime != null">
+                and `overTime` = #{overTime}
             </if>
             <if test="recruitNum != null">
                 and `recruit_num` = #{recruitNum}
