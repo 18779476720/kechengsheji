@@ -43,6 +43,11 @@
         <result property="accountname" column="accountname"/>
     </resultMap>
 
+    <resultMap id="scoreinfoList2" type="com.example.kechengsheji.model.AvgScore">
+        <result property="recruitId" column="recruitId"/>
+        <result property="scoreNum" column="scoreNum"/>
+    </resultMap>
+
 
     <sql id="columns">
             `id` ,`account_id` ,`recruit_id` ,`score_num` ,`score_description` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
@@ -147,8 +152,8 @@
         delete from `scoreinfo`
         where `id` in
         <foreach collection="ids" open="(" item="id" separator="," close=")">
-            #{id}
-        </foreach>
+        #{id}
+    </foreach>
     </delete>
 
     <update id="update">
@@ -189,40 +194,14 @@
         where `id` = #{id}
     </select>
 
-    <!--<select id="list" resultMap="scoreinfo">-->
-    <!--select-->
-    <!--<include refid="columns" />-->
-    <!--from `scoreinfo`-->
-    <!--<trim prefix="where " prefixOverrides="and ">-->
-    <!--<if test="id != null">-->
-    <!--and `id` = #{id}-->
-    <!--</if>-->
-    <!--<if test="accountId != null">-->
-    <!--and `account_id` = #{accountId}-->
-    <!--</if>-->
-    <!--<if test="recruitId != null">-->
-    <!--and `recruit_id` = #{recruitId}-->
-    <!--</if>-->
-    <!--<if test="scoreNum != null">-->
-    <!--and `score_num` = #{scoreNum}-->
-    <!--</if>-->
-    <!--<if test="scoreDescription != null">-->
-    <!--and `score_description` = #{scoreDescription}-->
-    <!--</if>-->
-    <!--<if test="createdBy != null">-->
-    <!--and `created_by` = #{createdBy}-->
-    <!--</if>-->
-    <!--<if test="createDate != null">-->
-    <!--and `create_date` = #{createDate}-->
-    <!--</if>-->
-    <!--<if test="lastUpdateBy != null">-->
-    <!--and `last_update_by` = #{lastUpdateBy}-->
-    <!--</if>-->
-    <!--<if test="lastUpdateDate != null">-->
-    <!--and `last_update_date` = #{lastUpdateDate}-->
-    <!--</if>-->
-    <!--</trim>-->
-    <!--</select>-->
+    <!--按照顺序查询平均分-->
+    <select id="selectAvgScore" resultMap="scoreinfoList2">
+        SELECT recruitId,scoreNum FROM(SELECT recruit_id as recruitId,avg(score_num) as scoreNum FROM scoreinfo WHERE recruit_id in
+        <foreach collection="recruitIds" open="(" item="recruitId" separator="," close=")">
+            #{recruitId}
+        </foreach>
+        GROUP BY recruit_id)a order by a.scoreNum DESC
+    </select>
 
     <select id="list" resultMap="scoreinfoList">
         select scoreinfo.*,recruitinfo.id as rcruitinfoId,recruitinfo.recruitName from scoreinfo,recruitinfo

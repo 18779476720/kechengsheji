@@ -1,5 +1,6 @@
 package com.example.kechengsheji.dao;
 
+import com.example.kechengsheji.model.AvgScore;
 import com.example.kechengsheji.model.Scoreinfo;
 import java.util.List;
 
@@ -27,4 +28,7 @@ public interface ScoreinfoDao {
     List<Scoreinfo> list(Scoreinfo scoreinfo);
 
     List<Scoreinfo> list1(Scoreinfo scoreinfo);
+
+    //查询平均分
+    List<AvgScore> selectAvgScore(@Param("recruitIds") Integer[] recruitIds);
 }

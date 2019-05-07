@@ -2,6 +2,7 @@ package com.example.kechengsheji.controller;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.kechengsheji.dao.HistoryDao;
 import com.example.kechengsheji.dao.dto.ApiResult;
 import com.example.kechengsheji.dao.enums.XKHResponseCodeEnum;
 import com.example.kechengsheji.model.Account;
@@ -34,6 +35,9 @@ public class RecruitinfoController{
 
     @Autowired
     AccountService accountService;
+
+    @Autowired
+    HistoryDao historyDao;
 
     @RequestMapping(value="",method = RequestMethod.GET)
     @ResponseBody
@@ -104,10 +108,15 @@ public class RecruitinfoController{
         Object id = session.getAttribute("id");
         Account account = new Account();
         account = accountService.getById((Integer)id);
-        if("2".equals(account.getRole())){
-            recruitinfoVo.setUsingStatus("1");
-        }
         if("1".equals(account.getRole())){
+            recruitinfoVo.setUsingStatus("2");
+        }
+        if("2".equals(account.getRole())){
+            Businessinfo businessinfo = businessinfoService.getByAccountName(account.getAccountname());
+            recruitinfoVo.setBusinessId(businessinfo.getId());
+            recruitinfoVo.setUsingStatus(null);
+        }
+        if("3".equals(account.getRole())){
             recruitinfoVo.setUsingStatus(null);
         }
         return recruitinfoService.getAll(recruitinfoVo,pageNum,pageSize);

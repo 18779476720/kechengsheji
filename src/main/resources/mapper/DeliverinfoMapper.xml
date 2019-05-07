@@ -167,37 +167,37 @@
         where recruit_id = #{recruitId} and account_id = #{accountId}
     </select>
 
-    <!--<select id="list" resultMap="deliverinfo">-->
-    <!--select-->
-    <!--<include refid="columns" />-->
-    <!--from `deliverinfo`-->
-    <!--<trim prefix="where " prefixOverrides="and ">-->
-    <!--<if test="id != null">-->
-    <!--and `id` = #{id}-->
-    <!--</if>-->
-    <!--<if test="accountId != null">-->
-    <!--and `account_id` = #{accountId}-->
-    <!--</if>-->
-    <!--<if test="recruitId != null">-->
-    <!--and `recruit_id` = #{recruitId}-->
-    <!--</if>-->
-    <!--<if test="deliverStatus != null">-->
-    <!--and `deliver_status` = #{deliverStatus}-->
-    <!--</if>-->
-    <!--<if test="createdBy != null">-->
-    <!--and `created_by` = #{createdBy}-->
-    <!--</if>-->
-    <!--<if test="createDate != null">-->
-    <!--and `create_date` = #{createDate}-->
-    <!--</if>-->
-    <!--<if test="lastUpdateBy != null">-->
-    <!--and `last_update_by` = #{lastUpdateBy}-->
-    <!--</if>-->
-    <!--<if test="lastUpdateDate != null">-->
-    <!--and `last_update_date` = #{lastUpdateDate}-->
-    <!--</if>-->
-    <!--</trim>-->
-    <!--</select>-->
+    <select id="listAll" resultMap="deliverinfo">
+    select
+    <include refid="columns" />
+    from `deliverinfo`
+    <trim prefix="where " prefixOverrides="and ">
+    <if test="id != null">
+    and `id` = #{id}
+    </if>
+    <if test="accountId != null">
+    and `account_id` = #{accountId}
+    </if>
+    <if test="recruitId != null">
+    and `recruit_id` = #{recruitId}
+    </if>
+    <if test="deliverStatus == null">
+    and  `deliver_status` = '已评价'
+    </if>
+    <if test="createdBy != null">
+    and `created_by` = #{createdBy}
+    </if>
+    <if test="createDate != null">
+    and `create_date` = #{createDate}
+    </if>
+    <if test="lastUpdateBy != null">
+    and `last_update_by` = #{lastUpdateBy}
+    </if>
+    <if test="lastUpdateDate != null">
+    and `last_update_date` = #{lastUpdateDate}
+    </if>
+    </trim>
+    </select>
 
     <select id="list" resultMap="deliverinfoList">
         select deliverinfo.*,recruitinfo.id as rcruitinfoId,recruitinfo.recruitName from deliverinfo,recruitinfo

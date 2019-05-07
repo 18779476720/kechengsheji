@@ -36,4 +36,7 @@ public interface DeliverinfoDao {
 
     //查询当前投递信息所有投递人
     List<Deliverinfo> selectHasDeliveryPerson(@Param("recruitId")Integer recruitId);
+
+    //查询所有通过和未通过的记录
+    List<Deliverinfo> listAll();
 }

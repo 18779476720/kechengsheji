@@ -22,6 +22,7 @@ public interface DeliverinfoService {
 
     Deliverinfo getById(Integer id);
 
+
     List<Deliverinfo> list(Deliverinfo deliverinfo,Integer pageNum,Integer pageSize);
 
     //分页参数查询

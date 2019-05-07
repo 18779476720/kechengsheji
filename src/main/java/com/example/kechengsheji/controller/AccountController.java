@@ -30,7 +30,6 @@ public class AccountController{
     StudentinfoService studentinfoService;
     @Autowired
     SchoolinfoService schoolinfoService;
-
     @Autowired
     BusinessinfoService businessinfoService;
     @RequestMapping(value="",method = RequestMethod.GET)

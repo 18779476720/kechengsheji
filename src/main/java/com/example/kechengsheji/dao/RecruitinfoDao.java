@@ -1,5 +1,6 @@
 package com.example.kechengsheji.dao;
 
+import com.example.kechengsheji.model.RecruitScoreBusiness;
 import com.example.kechengsheji.model.Recruitinfo;
 import java.util.List;
 
@@ -28,4 +29,8 @@ public interface RecruitinfoDao {
 
     List<Recruitinfo> list1(Recruitinfo recruitinfo);
 
+    List<RecruitScoreBusiness> list2(RecruitScoreBusiness recruitScoreBusiness);
+
+    //根据ids查询
+    List<Recruitinfo> selectByIds(@Param("recruitIds") Integer[] recruitIds);
 }

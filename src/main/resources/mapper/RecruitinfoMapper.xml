@@ -53,6 +53,33 @@
         <result property="businessName" column="business_name"/>
     </resultMap>
 
+    <resultMap id="recruitinfoList2" type="com.example.kechengsheji.model.RecruitScoreBusiness">
+        <id property="id" column="id"/>
+        <result property="recruitName" column="recruitName"/>
+        <result property="recruitType" column="recruit_type"/>
+        <result property="recruitType1" column="recruit_type1"/>
+        <result property="needSex" column="needSex"/>
+        <result property="beginTime" column="beginTime"/>
+        <result property="overTime" column="overTime"/>
+        <result property="recruitNum" column="recruit_num"/>
+        <result property="salaryDescription" column="salary_description"/>
+        <result property="taskDescription" column="task_description"/>
+        <result property="taskPlace" column="task_place"/>
+        <result property="contactNumber" column="contact_number"/>
+        <result property="accountId" column="account_id"/>
+        <result property="city" column="city"/>
+        <result property="businessId" column="business_id"/>
+        <result property="scoreNum" column="score_num"/>
+        <result property="recruitStatus" column="recruit_status"/>
+        <result property="usingStatus" column="using_status"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createDate" column="create_date"/>
+        <result property="lastUpdateBy" column="last_update_by"/>
+        <result property="lastUpdateDate" column="last_update_date"/>
+        <result property="businessName" column="business_name"/>
+    </resultMap>
+
+
     <sql id="columns">
             `id` ,`recruitName` ,`recruit_type` ,`recruit_type1` ,`needSex` ,`beginTime` ,`overTime` ,`recruit_num` ,`salary_description` ,`task_description` ,`task_place` ,`contact_number` ,`account_id` ,`city` ,`business_id` ,`recruit_status` ,`using_status` ,`created_by` ,`create_date` ,`last_update_by` ,`last_update_date`
     </sql>
@@ -343,11 +370,11 @@
     </select>
 
     <select id="list" resultMap="recruitinfoList">
-        select recruitinfo.*, businessinfo.id, businessinfo.business_name from `recruitinfo`,`businessinfo`
+        select recruitinfo.*, businessinfo.id as businessId, businessinfo.business_name from `recruitinfo`,`businessinfo`
         <trim prefix="where " prefixOverrides="and ">
             businessinfo.id = recruitinfo.business_id
             <if test="id != null">
-                and `businessinfo.id` = #{id}
+                and `recruitinfo.id` = #{id}
             </if>
             <if test="recruitName != null">
                 and `recruitName` like concat(concat('%',#{recruitName}),'%')
@@ -358,14 +385,17 @@
             <if test="recruitType1 != null">
                 and `recruit_type1` = #{recruitType1}
             </if>
-            <if test="needSex != null">
-                and `needSex` = #{needSex}
+            <if test="needSex != null and needSex != '不限'">
+                and (`needSex` = #{needSex} or `needSex` = '不限')
+            </if>
+            <if test="needSex != null and needSex == '不限'">
+                and needSex = '不限'
             </if>
             <if test="beginTime != null">
-                and `beginTime` = #{beginTime}
+                and `beginTime` &lt;= #{beginTime}
             </if>
             <if test="overTime != null">
-                and `overTime` = #{overTime}
+                and `overTime` &gt;= #{overTime}
             </if>
             <if test="recruitNum != null">
                 and `recruit_num` = #{recruitNum}
@@ -423,7 +453,7 @@
         <trim prefix="where " prefixOverrides="and ">
             businessinfo.id = recruitinfo.business_id
             <if test="id != null">
-                and `businessinfo.id` = #{id}
+                and `recruitinfo.id` = #{id}
             </if>
             <if test="recruitName != null">
                 and `recruitName` like concat(concat('%',#{recruitName}),'%')
@@ -556,5 +586,99 @@
         from `recruitinfo`
         where `business_id` = #{businessId}
     </select>
+
+    <!--推荐算法时查找符合条件的加入评分-->
+    <select id="list2" resultMap="recruitinfoList2">
+        select distinct recruitinfo.*, businessinfo.id as businessId, businessinfo.business_name from `recruitinfo`,`businessinfo`,`scoreinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            businessinfo.id = recruitinfo.business_id and recruitinfo.id = scoreinfo.recruit_id
+            <if test="recruitName != null">
+                and `recruitName` like concat(concat('%',#{recruitName}),'%')
+            </if>
+            <if test="recruitType != null">
+                and `recruit_type` = #{recruitType}
+            </if>
+            <if test="recruitType1 != null">
+                and `recruit_type1` = #{recruitType1}
+            </if>
+            <if test="needSex != null and needSex != '不限'">
+                and (`needSex` = #{needSex} or `needSex` = '不限')
+            </if>
+            <if test="needSex != null and needSex == '不限'">
+                and needSex = '不限'
+            </if>
+            <if test="beginTime != null">
+                and `beginTime` &lt;= #{beginTime}
+            </if>
+            <if test="overTime != null">
+                and `overTime` &gt;= #{overTime}
+            </if>
+            <if test="recruitNum != null">
+                and `recruit_num` = #{recruitNum}
+            </if>
+            <if test="salaryDescription != null">
+                and `salary_description` = #{salaryDescription}
+            </if>
+            <if test="taskDescription != null">
+                and `task_description` = #{taskDescription}
+            </if>
+            <if test="taskPlace != null">
+                and `task_place` = #{taskPlace}
+            </if>
+            <if test="contactNumber != null">
+                and `contact_number` = #{contactNumber}
+            </if>
+            <if test="accountId != null">
+                and `account_id` = #{accountId}
+            </if>
+            <if test="city != null">
+                and `city` = #{city}
+            </if>
+            <if test="businessId != null">
+                and `business_id` = #{businessId}
+            </if>
+            <if test="recruitStatus != null">
+                and `recruit_status` = #{recruitStatus}
+            </if>
+            <if test="usingStatus != null">
+                and 1 = 1
+            </if>
+            <if test="usingStatus == null">
+                and `using_status` = 2
+            </if>
+            <if test="createdBy != null">
+                and `created_by` = #{createdBy}
+            </if>
+            <if test="scoreNum != null and scoreNum == 4">
+                and `score_num` &gt;= #{scoreNum}
+            </if>
+            <if test="scoreNum != null and scoreNum == 3">
+                and `score_num` = #{scoreNum}
+            </if>
+            <if test="createDate != null">
+                and `create_date` = #{createDate}
+            </if>
+            <if test="lastUpdateBy != null">
+                and `last_update_by` = #{lastUpdateBy}
+            </if>
+            <if test="lastUpdateDate != null">
+                and `last_update_date` = #{lastUpdateDate}
+            </if>
+        </trim>
+
+    </select>
+
+
+    <!--通过ids查询集合-->
+    <select id="selectByIds" resultMap="recruitinfoList">
+        select recruitinfo.*, businessinfo.id as businessId, businessinfo.business_name from `recruitinfo`,`businessinfo`
+        <trim prefix="where " prefixOverrides="and ">
+            businessinfo.id = recruitinfo.business_id and recruitinfo.id in
+            <foreach collection="recruitIds" open="(" item="id" separator="," close=")">
+                #{id}
+            </foreach>
+        </trim>
+    </select>
+
 
 </mapper>

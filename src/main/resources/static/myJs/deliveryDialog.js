@@ -28,7 +28,11 @@ function deliveryThis(){
                 toastr.error(data.message);
                 return false;
             }
+            debugger
             toastr.success("投递成功！");
+            setTimeout(function () {
+                window.location.reload();
+            }, 800);
         }
     });
 }
